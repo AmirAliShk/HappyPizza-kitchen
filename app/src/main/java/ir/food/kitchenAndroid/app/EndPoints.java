@@ -19,17 +19,17 @@ public class EndPoints {
     public static final String HAKWEYE_IP = (BuildConfig.DEBUG)
 //          ? "http://192.168.1.145"
             ? "http://192.168.1.127"
-            : "http://192.168.1.127";//todo 192.168.1.127:3019/
+            : "http://192.168.1.127";//todo
 //          : "http://192.168.1.145";
 
 
-    public static final String APIPort = (BuildConfig.DEBUG) ? "3000" : "1881";
+    public static final String APIPort = (BuildConfig.DEBUG) ? "3010" : "1881";
 
-    public static final String HAWKEYE_APIPort = (BuildConfig.DEBUG) ? "3000" : "1890";
+    public static final String HAWKEYE_APIPort = (BuildConfig.DEBUG) ? "3010" : "1890";
 
     public static final String ACRA_PATH = "http://turbotaxi.ir:6061/api/v1/crashReport";
 
-    public static final String WEBSERVICE_PATH = IP + ":" + APIPort + "/api/user/v1/";
+    public static final String WEBSERVICE_PATH = IP + ":" + APIPort + "/api/kitchen/v1/";
 
     public static final String HAWKEYE_PATH = HAKWEYE_IP + ":" + HAWKEYE_APIPort + "/api/user/v1/";
     public static final String HAWKEYE_LOGIN_PATH = HAKWEYE_IP + ":" + HAWKEYE_APIPort + "/api/user/v1/login/phone/";
