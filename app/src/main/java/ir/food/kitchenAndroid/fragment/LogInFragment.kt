@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.activity.MainActivity
@@ -35,10 +37,13 @@ class LogInFragment : Fragment() {
             val window = this.activity?.window
             window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            window?.statusBarColor = this.resources.getColor(R.color.white)
-            window?.navigationBarColor = this.resources.getColor(R.color.white)
+            window?.statusBarColor = ContextCompat.getColor(MyApplication.context, R.color.white)
+            window?.navigationBarColor = ContextCompat.getColor(MyApplication.context, R.color.white)
+            window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
         }
         TypefaceUtil.overrideFonts(binding.root)
+
+
 
         return binding.root
     }

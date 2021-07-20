@@ -12,14 +12,14 @@ public class EndPoints {
 
     public static final String IP = (BuildConfig.DEBUG)
 //            ? "http://192.168.1.145"
-            ? "http://www.crm-x.ir"
-            : "http://www.crm-x.ir";//todo
+            ? "http://192.168.1.127"
+            : "http://192.168.1.127";//todo
 //            : "http://192.168.1.145";
 
     public static final String HAKWEYE_IP = (BuildConfig.DEBUG)
 //          ? "http://192.168.1.145"
-            ? "http://www.crm-x.ir"
-            : "http://www.crm-x.ir";//todo
+            ? "http://192.168.1.127"
+            : "http://192.168.1.127";//todo 192.168.1.127:3019/
 //          : "http://192.168.1.145";
 
 
