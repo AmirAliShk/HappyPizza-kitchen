@@ -7,7 +7,7 @@ import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.app.MyApplication.context
 import ir.food.kitchenAndroid.dialog.GeneralDialog
-import ir.food.kitchenAndroid.fragment.LogInFragment
+import ir.food.kitchenAndroid.fragment.VerificationFragment
 import ir.food.kitchenAndroid.helper.AppVersionHelper
 import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.okHttp.RequestHelper
@@ -20,7 +20,7 @@ class GetAppInfo {
         try {
             if (MyApplication.prefManager.refreshToken == "") {
                 FragmentHelper
-                    .toFragment(MyApplication.currentActivity, LogInFragment())
+                    .toFragment(MyApplication.currentActivity, VerificationFragment())
                     .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
                     .setAddToBackStack(false)
                     .add()
