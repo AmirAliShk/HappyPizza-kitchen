@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 import ir.food.kitchenAndroid.R;
 import ir.food.kitchenAndroid.app.EndPoints;
 import ir.food.kitchenAndroid.app.MyApplication;
-import ir.food.kitchenAndroid.fragment.LogInFragment;
+import ir.food.kitchenAndroid.fragment.VerificationFragment;
 import ir.food.kitchenAndroid.helper.FragmentHelper;
 import ir.food.kitchenAndroid.helper.StringHelper;
 import okhttp3.Call;
@@ -484,7 +484,7 @@ public class RequestHelper implements okhttp3.Callback {
     private void logout() {
         MyApplication.handler.post(() -> {
             FragmentHelper
-                    .toFragment(MyApplication.currentActivity, new LogInFragment())
+                    .toFragment(MyApplication.currentActivity, new VerificationFragment())
                     .setStatusBarColor(MyApplication.currentActivity.getResources().getColor(R.color.white))
                     .setAddToBackStack(false)
                     .replace();
