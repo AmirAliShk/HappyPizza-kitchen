@@ -5,5 +5,9 @@
 
     <string name="name_family">نام و نام خانوادگی</string>
     <string name="mobile">موبایل</string>
+    <string name="orders">سفارشات</string>
+    <string name="not_ready">آماده نشده ها</string>
+    <string name="description">توضیحات</string>
+    <string name="ready">آماده سازی</string>
 
 </resources>

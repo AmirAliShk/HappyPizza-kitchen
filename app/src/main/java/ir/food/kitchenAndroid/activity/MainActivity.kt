@@ -11,6 +11,7 @@ import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ActivityMainBinding
+import ir.food.kitchenAndroid.fragment.OrdersFragment
 import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.KeyBoardHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
@@ -39,40 +40,14 @@ class MainActivity : AppCompatActivity() {
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
 
-
-    }
-
-
-    private fun getProducts() {
-//        RequestHelper.builder(EndPoints.PRODUCT)
-//            .listener(productCallBack)
-//            .get()
-    }
-
-    private val productCallBack: RequestHelper.Callback =
-        object : RequestHelper.Callback() {
-            override fun onResponse(reCall: Runnable?, vararg args: Any?) {
-                MyApplication.handler.post {
-                    try {
-                        val response = JSONObject(args[0].toString())
-                        val success = response.getBoolean("success")
-                        val message = response.getString("message")
-
-                        if (success) {
-                            MyApplication.prefManager.products =
-                                response.getJSONArray("data").toString()
-                        }
-                    } catch (e: JSONException) {
-                        e.printStackTrace()
-                    }
-                }
-
-            }
-
-            override fun onFailure(reCall: Runnable?, e: Exception?) {
-                super.onFailure(reCall, e)
-            }
+        binding.btnOrders.setOnClickListener {
+            FragmentHelper.toFragment(
+                MyApplication.currentActivity,
+                OrdersFragment()
+            )
         }
+
+    }
 
     override fun onBackPressed() {
         try {

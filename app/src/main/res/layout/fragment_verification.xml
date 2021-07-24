@@ -43,6 +43,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+
+            <EditText
+                android:id="@+id/edtCode"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
             <ViewFlipper
                 android:id="@+id/vfSendCode"
                 android:layout_width="0dp"
@@ -66,12 +73,6 @@
                     app:indicatorColor="@color/white" />
 
             </ViewFlipper>
-
-            <EditText
-                android:id="@+id/edtCode"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
 
         </LinearLayout>
 
