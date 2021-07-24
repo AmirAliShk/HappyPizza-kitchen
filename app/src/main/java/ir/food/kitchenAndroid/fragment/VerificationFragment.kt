@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
-import ir.food.kitchenAndroid.databinding.FragmentLoginBinding
+import ir.food.kitchenAndroid.databinding.FragmentVerificationBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.okHttp.RequestHelper
@@ -21,14 +21,14 @@ import org.json.JSONObject
 
 class VerificationFragment : Fragment() {
 
-    lateinit var binding: FragmentLoginBinding
+    lateinit var binding: FragmentVerificationBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        binding = FragmentLoginBinding.inflate(layoutInflater)
+        binding = FragmentVerificationBinding.inflate(layoutInflater)
 
         if (Build.VERSION.SDK_INT >= 21) {
             val window = this.activity?.window

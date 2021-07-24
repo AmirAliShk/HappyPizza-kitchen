@@ -4,7 +4,6 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.view.Gravity
 import android.view.WindowManager
 import android.widget.Toast
 import ir.food.kitchenAndroid.R
