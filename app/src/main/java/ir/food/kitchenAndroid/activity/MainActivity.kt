@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
@@ -34,9 +35,9 @@ class MainActivity : AppCompatActivity() {
             val window = this.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            window.statusBarColor = this.resources.getColor(R.color.white)
-            window.navigationBarColor = this.resources.getColor(R.color.white)
-            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            window?.statusBarColor = ContextCompat.getColor(MyApplication.context, R.color.darkGray)
+            window?.navigationBarColor =
+                ContextCompat.getColor(MyApplication.context, R.color.darkGray)
         }
 
         binding.btnOrders.setOnClickListener {

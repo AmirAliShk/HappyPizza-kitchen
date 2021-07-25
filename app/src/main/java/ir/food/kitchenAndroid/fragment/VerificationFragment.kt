@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ir.food.kitchenAndroid.R
@@ -34,15 +35,35 @@ class VerificationFragment : Fragment() {
             val window = this.activity?.window
             window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            window?.statusBarColor = ContextCompat.getColor(MyApplication.context, R.color.white)
+            window?.statusBarColor = ContextCompat.getColor(MyApplication.context, R.color.darkGray)
             window?.navigationBarColor =
-                ContextCompat.getColor(MyApplication.context, R.color.white)
+                ContextCompat.getColor(MyApplication.context, R.color.darkGray)
         }
+
         TypefaceUtil.overrideFonts(binding.root)
 
-        binding.btnSendCode.setOnClickListener { sendCode() }
+        binding.edtCode.isEnabled = false
+        binding.btnLogin.isEnabled = false
 
-        binding.btnLogin.setOnClickListener { login() }
+        binding.btnSendCode.setOnClickListener {
+            if (binding.edtNameFamily.toString().isEmpty() || binding.edtMobile.toString()
+                    .isEmpty()
+            ) {
+                MyApplication.Toast("لطفا تمام موارد را کامل کنید", Toast.LENGTH_SHORT)
+            } else {
+                sendCode()
+            }
+        }
+
+        binding.btnLogin.setOnClickListener {
+            if (binding.edtNameFamily.toString().isEmpty() || binding.edtMobile.toString()
+                    .isEmpty() || binding.edtCode.toString().isEmpty()
+            ) {
+                MyApplication.Toast("لطفا تمام موارد را کامل کنید", Toast.LENGTH_SHORT)
+            } else {
+                login()
+            }
+        }
 
         return binding.root
     }
@@ -59,22 +80,38 @@ class VerificationFragment : Fragment() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
                 try {
-                     binding.vfSendCode.displayedChild = 0
+                    binding.vfSendCode.displayedChild = 0
+                    binding.edtCode.isEnabled = true
+                    binding.btnLogin.isEnabled = true
                     val response = JSONObject(args[0].toString())
                     val success = response.getBoolean("success")
                     val message = response.getString("message")
 
-                    if (success){
+                    if (success) {
                         //todo
                     }
 
                 } catch (e: JSONException) {
+                    binding.vfSendCode.displayedChild = 0
+                    GeneralDialog()
+                        .message("خطایی پیش آمده دوباره امتحان کنید.")
+                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .secondButton("تلاش مجدد") { login() }
+                        .show()
                     e.printStackTrace()
                 }
             }
         }
 
         override fun onFailure(reCall: Runnable?, e: java.lang.Exception?) {
+            MyApplication.handler.post {
+                binding.vfSendCode.displayedChild = 0
+                GeneralDialog()
+                    .message("خطایی پیش آمده دوباره امتحان کنید.")
+                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .secondButton("تلاش مجدد") { login() }
+                    .show()
+            }
             super.onFailure(reCall, e)
         }
 
@@ -114,6 +151,7 @@ class VerificationFragment : Fragment() {
                                 .show()
                         }
                     } catch (e: JSONException) {
+                        binding.vfSubmit.displayedChild = 0
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
                             .firstButton("باشه") { GeneralDialog().dismiss() }

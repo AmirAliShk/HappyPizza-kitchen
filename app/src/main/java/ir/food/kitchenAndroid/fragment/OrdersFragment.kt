@@ -9,20 +9,24 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ir.food.kitchenAndroid.R
+import ir.food.kitchenAndroid.adapter.OrdersAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentOrdersBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.TypefaceUtil
+import ir.food.kitchenAndroid.model.OrdersModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import org.json.JSONException
 import org.json.JSONObject
-import java.lang.Exception
+import java.util.*
 
 class OrdersFragment : Fragment() {
 
-    lateinit var binding: FragmentOrdersBinding
-
+    private lateinit var binding: FragmentOrdersBinding
+    lateinit var ordersModel: OrdersModel
+    lateinit var ordersModels: ArrayList<OrdersModel>
+    lateinit var adapter: OrdersAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,12 +40,14 @@ class OrdersFragment : Fragment() {
             val window = this.activity?.window
             window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            window?.statusBarColor = ContextCompat.getColor(MyApplication.context, R.color.white)
+            window?.statusBarColor = ContextCompat.getColor(MyApplication.context, R.color.darkGray)
             window?.navigationBarColor =
-                ContextCompat.getColor(MyApplication.context, R.color.white)
-            window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                ContextCompat.getColor(MyApplication.context, R.color.darkGray)
         }
+
         TypefaceUtil.overrideFonts(binding.root)
+
+        getOrders()
 
         return binding.root
     }
@@ -61,45 +67,59 @@ class OrdersFragment : Fragment() {
             override fun onResponse(reCall: Runnable?, vararg args: Any?) {
                 MyApplication.handler.post {
                     try {
-//                        ordersModel = ArrayList()
+                        ordersModels = ArrayList()
                         val response = JSONObject(args[0].toString())
                         val success = response.getBoolean("success")
                         val message = response.getString("message")
+//                        active: [{
+//                            id: "60b72a70e353f0385c2fe5af",
+//                            products: [{
+//                            name: "لاته",
+//                            quantity: 2,
+//                        }],
+//                            customer: {
+//                            _id: "7465148754878",
+//                            family: "مصطفایی",
+//                            mobile: "09152631225",
+//                        },
+//                            createdAt: "2021-06-01T06:54:01.691Z",
+//                            address: "معلم 43"
+//                        }]
+                        if (success) {
+                            val dataObject = response.getJSONObject("data")
+                            val active = dataObject.getJSONArray("active")
+                            for (i in 0 until active.length()) {
+                                val dataObj: JSONObject = active.getJSONObject(i)
+                                val customer = active.getJSONObject(i)
 
-//                        if (success) {
-//                            val dataObject = response.getJSONArray("data")
-//                            for (i in 0 until dataObject.length()) {
-//                                val dataObj: JSONObject = dataObject.getJSONObject(i);
-//                                var model = OrdersModel(
-//                                    dataObj.getString("active")
-//                                )
-////                                "active":true,
-////                                "_id":"60d7291c519b311c905f9567",
-////                                "name":"لاته",
-////                                "sellingPrice":"17000",
-////                                "user":"60d72865519b311c905f9566",
-////                                "updatedAt":"2021-06-27T10:49:51.916Z",
-////                                "createdAt":"2021-06-26T13:18:20.104Z",
-////                                "v":0,
-////                                "description":"شیر قهوه"
-//                                ordersModel.add(model)
-//                            }
+                                var model = OrdersModel(
+                                    dataObj.getString("id"),
+                                    dataObj.getJSONArray("products"),
+                                    customer.getString("_id"),
+                                    customer.getString("family"),
+                                    customer.getString("mobile"),
+                                    dataObj.getString("createdAt"),
+                                    dataObj.getString("address"),
+                                )
+
+                                ordersModels.add(model)
+                            }
 //
-//                            if (ordersModel.size == 0) {
+                            if (ordersModels.size == 0) {
 //                                binding.vfOrders.displayedChild = 2
-//                            } else {
+                            } else {
 //                                binding.vfOrders.displayedChild = 1
-//                                adapter = OrdersAdapter(ordersModel)
-//                            }
-//                            binding.listOrders.adapter = adapter;
-//                        } else {
-//                            GeneralDialog()
-//                                .message(message)
-//                                .firstButton("باشه") { GeneralDialog().dismiss() }
-//                                .secondButton("تلاش مجدد") { getOrders() }
-//                                .show()
+                                adapter = OrdersAdapter(ordersModels)
+                            }
+                            binding.listOrders.adapter = adapter;
+                        } else {
+                            GeneralDialog()
+                                .message(message)
+                                .firstButton("باشه") { GeneralDialog().dismiss() }
+                                .secondButton("تلاش مجدد") { getOrders() }
+                                .show()
 //                            binding.vfOrders.displayedChild = 3
-//                        }
+                        }
                     } catch (e: JSONException) {
 //                        binding.vfOrders.displayedChild = 3
                         e.printStackTrace()

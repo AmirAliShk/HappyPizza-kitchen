@@ -26,9 +26,9 @@ class Splash : AppCompatActivity() {
             val window = this.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            window?.statusBarColor = ContextCompat.getColor(MyApplication.context, R.color.white)
+            window?.statusBarColor = ContextCompat.getColor(MyApplication.context, R.color.darkGray)
             window?.navigationBarColor =
-                ContextCompat.getColor(MyApplication.context, R.color.white)
+                ContextCompat.getColor(MyApplication.context, R.color.darkGray)
         }
 
         MyApplication.handler.postDelayed(GetAppInfo()::callAppInfoAPI, 1500)
