@@ -12,6 +12,7 @@ import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentOrdersBinding
+import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import org.json.JSONException
@@ -45,26 +46,26 @@ class OrdersFragment : Fragment() {
         return binding.root
     }
 
-//    private fun getOrders() {
+    private fun getOrders() {
 //        if (binding.vfOrders != null) {
 //            binding.vfOrders.displayedChild = 0
 //        }
-//
-//        RequestHelper.builder(EndPoints.ORDER)
-//            .listener(ordersCallBack)
-//            .get()
-//    }
-//
-//    private val ordersCallBack: RequestHelper.Callback =
-//        object : RequestHelper.Callback() {
-//            override fun onResponse(reCall: Runnable?, vararg args: Any?) {
-//                MyApplication.handler.post {
-//                    try {
+
+        RequestHelper.builder(EndPoints.ORDER)
+            .listener(ordersCallBack)
+            .get()
+    }
+
+    private val ordersCallBack: RequestHelper.Callback =
+        object : RequestHelper.Callback() {
+            override fun onResponse(reCall: Runnable?, vararg args: Any?) {
+                MyApplication.handler.post {
+                    try {
 //                        ordersModel = ArrayList()
-//                        val response = JSONObject(args[0].toString())
-//                        val success = response.getBoolean("success")
-//                        val message = response.getString("message")
-//
+                        val response = JSONObject(args[0].toString())
+                        val success = response.getBoolean("success")
+                        val message = response.getString("message")
+
 //                        if (success) {
 //                            val dataObject = response.getJSONArray("data")
 //                            for (i in 0 until dataObject.length()) {
@@ -99,16 +100,16 @@ class OrdersFragment : Fragment() {
 //                                .show()
 //                            binding.vfOrders.displayedChild = 3
 //                        }
-//                    } catch (e: JSONException) {
+                    } catch (e: JSONException) {
 //                        binding.vfOrders.displayedChild = 3
-//                        e.printStackTrace()
-//                    }
-//                }
-//            }
-//
-//            override fun onFailure(reCall: Runnable?, e: Exception?) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+
+            override fun onFailure(reCall: Runnable?, e: Exception?) {
 //                MyApplication.handler.post { binding.vfOrders.displayedChild = 3 }
-//                super.onFailure(reCall, e)
-//            }
-//        }
+                super.onFailure(reCall, e)
+            }
+        }
 }

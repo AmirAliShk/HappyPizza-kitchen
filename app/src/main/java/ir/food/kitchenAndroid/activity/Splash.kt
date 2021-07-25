@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ActivitySplashBinding
@@ -25,11 +26,12 @@ class Splash : AppCompatActivity() {
             val window = this.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            window.statusBarColor = this.resources.getColor(R.color.white)
-            window.navigationBarColor = this.resources.getColor(R.color.white)
+            window?.statusBarColor = ContextCompat.getColor(MyApplication.context, R.color.white)
+            window?.navigationBarColor =
+                ContextCompat.getColor(MyApplication.context, R.color.white)
         }
 
-        GetAppInfo().callAppInfoAPI()
+        MyApplication.handler.postDelayed(GetAppInfo()::callAppInfoAPI, 1500)
 
     }
 

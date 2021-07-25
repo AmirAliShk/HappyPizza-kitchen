@@ -37,7 +37,6 @@ class VerificationFragment : Fragment() {
             window?.statusBarColor = ContextCompat.getColor(MyApplication.context, R.color.white)
             window?.navigationBarColor =
                 ContextCompat.getColor(MyApplication.context, R.color.white)
-            window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
         }
         TypefaceUtil.overrideFonts(binding.root)
 

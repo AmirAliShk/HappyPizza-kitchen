@@ -19,7 +19,7 @@ import org.json.JSONException
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
-
+    var TAG = MainActivity::class.java
     private lateinit var binding: ActivityMainBinding
     private var doubleBackToExitPressedOnce = false
 
@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
                 OrdersFragment()
             )
         }
-
     }
 
     override fun onBackPressed() {
