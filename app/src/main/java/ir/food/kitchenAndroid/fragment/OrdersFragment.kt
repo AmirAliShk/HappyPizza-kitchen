@@ -24,9 +24,10 @@ import java.util.*
 class OrdersFragment : Fragment() {
 
     private lateinit var binding: FragmentOrdersBinding
-    lateinit var ordersModel: OrdersModel
-    lateinit var ordersModels: ArrayList<OrdersModel>
-    lateinit var adapter: OrdersAdapter
+
+    //    lateinit var ordersModel: OrdersModel
+    var ordersModels: ArrayList<OrdersModel> = ArrayList()
+    var adapter: OrdersAdapter = OrdersAdapter(ordersModels)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,13 +50,17 @@ class OrdersFragment : Fragment() {
 
         getOrders()
 
+        binding.imgRefresh.setOnClickListener { getOrders() }
+
+//        binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
+
         return binding.root
     }
 
     private fun getOrders() {
-//        if (binding.vfOrders != null) {
-//            binding.vfOrders.displayedChild = 0
-//        }
+        if (binding.vfOrders != null) {
+            binding.vfOrders.displayedChild = 0
+        }
 
         RequestHelper.builder(EndPoints.ORDER)
             .listener(ordersCallBack)
@@ -67,7 +72,6 @@ class OrdersFragment : Fragment() {
             override fun onResponse(reCall: Runnable?, vararg args: Any?) {
                 MyApplication.handler.post {
                     try {
-                        ordersModels = ArrayList()
                         val response = JSONObject(args[0].toString())
                         val success = response.getBoolean("success")
                         val message = response.getString("message")
@@ -106,10 +110,9 @@ class OrdersFragment : Fragment() {
                             }
 //
                             if (ordersModels.size == 0) {
-//                                binding.vfOrders.displayedChild = 2
+                                binding.vfOrders.displayedChild = 2
                             } else {
-//                                binding.vfOrders.displayedChild = 1
-                                adapter = OrdersAdapter(ordersModels)
+                                binding.vfOrders.displayedChild = 1
                             }
                             binding.listOrders.adapter = adapter;
                         } else {
@@ -118,17 +121,17 @@ class OrdersFragment : Fragment() {
                                 .firstButton("باشه") { GeneralDialog().dismiss() }
                                 .secondButton("تلاش مجدد") { getOrders() }
                                 .show()
-//                            binding.vfOrders.displayedChild = 3
+                            binding.vfOrders.displayedChild = 3
                         }
                     } catch (e: JSONException) {
-//                        binding.vfOrders.displayedChild = 3
+                        binding.vfOrders.displayedChild = 3
                         e.printStackTrace()
                     }
                 }
             }
 
             override fun onFailure(reCall: Runnable?, e: Exception?) {
-//                MyApplication.handler.post { binding.vfOrders.displayedChild = 3 }
+                MyApplication.handler.post { binding.vfOrders.displayedChild = 3 }
                 super.onFailure(reCall, e)
             }
         }

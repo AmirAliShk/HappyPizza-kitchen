@@ -81,14 +81,19 @@ class VerificationFragment : Fragment() {
             MyApplication.handler.post {
                 try {
                     binding.vfSendCode.displayedChild = 0
-                    binding.edtCode.isEnabled = true
-                    binding.btnLogin.isEnabled = true
+
                     val response = JSONObject(args[0].toString())
                     val success = response.getBoolean("success")
                     val message = response.getString("message")
 
                     if (success) {
-                        //todo
+//                        {
+//                            "success": true,
+//                            "message": "کد تاییدیه به شماره موبایل داده شده ، با موفقیت فرستاده شد"
+//                        }
+                        binding.edtCode.isEnabled = true
+                        binding.btnLogin.isEnabled = true
+                        binding.vfSendCode.visibility = View.GONE
                     }
 
                 } catch (e: JSONException) {

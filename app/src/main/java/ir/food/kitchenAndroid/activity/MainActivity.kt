@@ -12,6 +12,7 @@ import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ActivityMainBinding
 import ir.food.kitchenAndroid.fragment.OrdersFragment
+import ir.food.kitchenAndroid.fragment.VerificationFragment
 import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.KeyBoardHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
@@ -41,10 +42,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnOrders.setOnClickListener {
-            FragmentHelper.toFragment(
-                MyApplication.currentActivity,
-                OrdersFragment()
-            )
+            FragmentHelper
+                .toFragment(MyApplication.currentActivity, OrdersFragment())
+                .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
+                .setAddToBackStack(false)
+                .add()
         }
     }
 
