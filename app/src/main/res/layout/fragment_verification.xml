@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkGray"
     android:clickable="true"
     android:gravity="center"
     android:layoutDirection="rtl"
+    android:background="@color/background"
+
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,12 +16,18 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/name_family"
-            android:textColor="@color/black" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/name_family"
+                android:textColor="@color/black" />
+        </LinearLayout>
 
         <EditText
             android:id="@+id/edtNameFamily"
@@ -65,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:background="@drawable/bg_btn"
+                    android:background="@drawable/pale_red"
                     android:text="ارسال کد"
                     android:textColor="@color/white" />
 
@@ -91,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@drawable/bg_btn"
+                android:background="@drawable/red"
                 android:text="ورود"
                 android:textColor="@color/white" />
 

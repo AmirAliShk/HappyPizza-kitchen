@@ -16,11 +16,12 @@
         android:background="@color/darkGray">
 
         <ImageView
-            android:id="@+id/imgSearchOrder"
+            android:id="@+id/imgBack"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:padding="@dimen/_8sdp" />
+            android:layout_alignParentLeft="true"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,13 +33,22 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="سفارش قبلی"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp" />
+
         <ImageView
-            android:id="@+id/imgBack"
+            android:id="@+id/imageView3"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:padding="@dimen/_10sdp"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/ic_refresh" />
 
     </RelativeLayout>
 
@@ -105,6 +115,16 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:src="@drawable/ic_refresh" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/red"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15sdp"
+                android:text="اماده سازی" />
 
         </LinearLayout>
 
