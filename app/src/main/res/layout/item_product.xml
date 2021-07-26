@@ -14,16 +14,29 @@
             android:id="@+id/productName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="رست بیف" />
+            android:layout_weight="1.5"
+            android:text="رست بیف"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:textSize="@dimen/_15sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/quantity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="3" />
+            android:text="3"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_8sdp"
+        android:background="@drawable/pale_red" />
 
 </LinearLayout>
