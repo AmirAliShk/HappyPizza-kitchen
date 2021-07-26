@@ -8,6 +8,7 @@ import ir.food.kitchenAndroid.databinding.ItemOrdersBinding
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.OrdersModel
 import ir.food.kitchenAndroid.model.ProductModel
+import org.json.JSONException
 import org.json.JSONObject
 
 class OrdersAdapter(list: ArrayList<OrdersModel>) :
@@ -27,24 +28,29 @@ class OrdersAdapter(list: ArrayList<OrdersModel>) :
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: OrdersAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = models[position]
 
         holder.binding.customerName.text = model.customerFamily
         holder.binding.time.text = model.createdAt
 
-        for (i in 0 until model.products.length()) {
-            val dataObj: JSONObject = model.products.getJSONObject(i)
+        try {
+            for (i in 0 until model.products.length()) {
+                val dataObj: JSONObject = model.products.getJSONObject(i)
 
-            var model = ProductModel(
-                dataObj.getString("id"),
-                dataObj.getInt("products")
-            )
+                var model = ProductModel(
+                    dataObj.getString("name"),
+                    dataObj.getInt("quantity")
+                )
 
-            productModels.add(model)
+                productModels.add(model)
+            }
+            adapter = ProductsAdapter(productModels)
+            holder.binding.productList.adapter = adapter;
+        } catch (e: JSONException) {
+            e.printStackTrace()
         }
-        adapter = ProductsAdapter(productModels)
-        holder.binding.productList.adapter = adapter;
+
     }
 
     override fun getItemCount(): Int {

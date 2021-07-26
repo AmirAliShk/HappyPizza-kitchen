@@ -75,35 +75,53 @@ class OrdersFragment : Fragment() {
                         val response = JSONObject(args[0].toString())
                         val success = response.getBoolean("success")
                         val message = response.getString("message")
-//                        active: [{
-//                            id: "60b72a70e353f0385c2fe5af",
-//                            products: [{
-//                            name: "لاته",
-//                            quantity: 2,
-//                        }],
-//                            customer: {
-//                            _id: "7465148754878",
-//                            family: "مصطفایی",
-//                            mobile: "09152631225",
-//                        },
-//                            createdAt: "2021-06-01T06:54:01.691Z",
-//                            address: "معلم 43"
-//                        }]
+//                   "active":[
+//                   {
+//                       "id":"60fe47361468d133e036ef4c",
+//                       "products":[
+//                       {
+//                           "quantity":3,
+//                           "name":"پپرونی"
+//                       },
+//                       {
+//                           "quantity":3,
+//                           "name":"کوکا"
+//                       },
+//                       {
+//                           "quantity":1,
+//                           "name":"سالاد فصل"
+//                       },
+//                       {
+//                           "quantity":6,
+//                           "name":"سس کچاپ"
+//                       },
+//                       {
+//                           "quantity":1,
+//                           "name":"نان سیر"
+//                       }
+//                       ],
+//                       "createdAt":"2021-07-26T05:25:10.497Z",
+//                       "customer":{
+//                       "_id":"60fcfe176ea36757d055ffe7",
+//                       "mobile":"09307580143",
+//                       "family":"زهرا رضوی"
+//                   }
+//                   }
+//                   ]
                         if (success) {
                             val dataObject = response.getJSONObject("data")
                             val active = dataObject.getJSONArray("active")
                             for (i in 0 until active.length()) {
                                 val dataObj: JSONObject = active.getJSONObject(i)
-                                val customer = active.getJSONObject(i)
+                                val customer: JSONObject = active.getJSONObject(i).getJSONObject("customer")
 
                                 var model = OrdersModel(
                                     dataObj.getString("id"),
                                     dataObj.getJSONArray("products"),
+                                    dataObj.getString("createdAt"),
                                     customer.getString("_id"),
                                     customer.getString("family"),
-                                    customer.getString("mobile"),
-                                    dataObj.getString("createdAt"),
-                                    dataObj.getString("address"),
+                                    customer.getString("mobile")
                                 )
 
                                 ordersModels.add(model)
