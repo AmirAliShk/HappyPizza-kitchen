@@ -1,24 +1,19 @@
 package ir.food.kitchenAndroid.activity
 
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import ir.food.kitchenAndroid.R
-import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ActivityMainBinding
 import ir.food.kitchenAndroid.fragment.OrdersFragment
-import ir.food.kitchenAndroid.fragment.VerificationFragment
 import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.KeyBoardHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
-import ir.food.kitchenAndroid.okHttp.RequestHelper
-import org.json.JSONException
-import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
     var TAG = MainActivity::class.java
@@ -45,7 +40,6 @@ class MainActivity : AppCompatActivity() {
             FragmentHelper
                 .toFragment(MyApplication.currentActivity, OrdersFragment())
                 .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
-                .setAddToBackStack(false)
                 .add()
         }
     }
@@ -59,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                 if (doubleBackToExitPressedOnce) {
                     finish()
                 } else {
-                    this.doubleBackToExitPressedOnce = true
+                    doubleBackToExitPressedOnce = true
                     MyApplication.Toast(
                         getString(R.string.txt_please_for_exit_reenter_back),
                         Toast.LENGTH_SHORT

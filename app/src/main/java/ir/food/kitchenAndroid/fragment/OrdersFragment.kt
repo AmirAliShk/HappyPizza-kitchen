@@ -50,9 +50,11 @@ class OrdersFragment : Fragment() {
 
         getOrders()
 
+        binding.listOrders.isNestedScrollingEnabled = false
+
         binding.imgRefresh.setOnClickListener { getOrders() }
 
-//        binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
+        binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
 
         return binding.root
     }
@@ -113,7 +115,8 @@ class OrdersFragment : Fragment() {
                             val active = dataObject.getJSONArray("active")
                             for (i in 0 until active.length()) {
                                 val dataObj: JSONObject = active.getJSONObject(i)
-                                val customer: JSONObject = active.getJSONObject(i).getJSONObject("customer")
+                                val customer: JSONObject =
+                                    active.getJSONObject(i).getJSONObject("customer")
 
                                 var model = OrdersModel(
                                     dataObj.getString("id"),
