@@ -127,6 +127,7 @@ class VerificationFragment : Fragment() {
         RequestHelper.builder(EndPoints.LOG_IN)
             .addParam("mobile", binding.edtMobile.text.toString())//todo
             .addParam("code", binding.edtCode.text.toString())
+            .addParam("scope", "kitchen")
             .listener(loginCallBack)
             .post()
     }

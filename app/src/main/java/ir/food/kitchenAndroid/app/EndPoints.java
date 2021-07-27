@@ -39,7 +39,7 @@ public class EndPoints {
     public static final String APP_INFO = WEBSERVICE_PATH + "app/info";
     public static final String LOG_IN = WEBSERVICE_PATH + "login";
     public static final String CHECK_VERIFICATION = WEBSERVICE_PATH + "verificationcode";
-    public static final String SIGN_UP = WEBSERVICE_PATH;
+    public static final String REGISTER = WEBSERVICE_PATH + "register";
     public static final String ORDER = WEBSERVICE_PATH + "order/";
 
     /******************************** refresh token Api *********************************/
