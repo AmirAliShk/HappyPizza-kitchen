@@ -1,19 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
+ve<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true"
-    android:gravity="center"
+    android:background="@color/darkGray"
     android:layoutDirection="rtl"
-    android:background="@color/background"
+    tools:context=".activity.MainActivity">
 
-    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/_14sdp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/ic_menu__2_" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/_190sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_60sdp"
+            android:src="@drawable/ic_happy_pizza" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:background="@drawable/pichi"
         android:orientation="vertical">
 
         <LinearLayout
@@ -26,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/name_family"
-                android:textColor="@color/black" />
+                android:textColor="@color/font" />
         </LinearLayout>
 
         <EditText
@@ -39,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/mobile"
-            android:textColor="@color/black" />
+            android:textColor="@color/font" />
 
         <EditText
             android:id="@+id/edtMobile"
@@ -74,7 +94,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/pale_red"
                     android:text="ارسال کد"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/red" />
 
                 <com.wang.avi.AVLoadingIndicatorView
                     android:layout_width="40dp"
