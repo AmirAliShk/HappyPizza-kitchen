@@ -7,13 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="darkGray">#383a3c</color>
-    <color name="background">#e9eaeb</color>
+    <color name="actionbar">#383a3c</color>
+    <color name="background">#f8f3ef</color>
     <color name="paleRed">#f4c7c3</color>
     <color name="red">#f44336</color>
-    <color name="title">#646464</color>
+    <color name="title">#535353</color>
     <color name="kamGray">#b3bae1</color>
-    <color name="font">#383a3c</color>
+
 
     <color name="fontnvdheazn">
 
