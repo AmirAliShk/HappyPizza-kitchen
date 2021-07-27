@@ -11,15 +11,15 @@ public class EndPoints {
 //    http://192.168.1.145/api/findway/citylatinname/address
 
     public static final String IP = (BuildConfig.DEBUG)
-//            ? "http://192.168.1.145"
-            ? "http://192.168.1.127"
-            : "http://192.168.1.127";//todo
-//            : "http://192.168.1.145";
+//          ? "http://192.168.1.145"
+            ? "http://crm-x.ir"
+            : "http://crm-x.ir";//todo
+//          : "http://192.168.1.145";
 
     public static final String HAKWEYE_IP = (BuildConfig.DEBUG)
 //          ? "http://192.168.1.145"
-            ? "http://192.168.1.127"
-            : "http://192.168.1.127";//todo
+            ? "http://crm-x.ir"
+            : "http://crm-x.ir";//todo
 //          : "http://192.168.1.145";
 
 
@@ -41,6 +41,7 @@ public class EndPoints {
     public static final String CHECK_VERIFICATION = WEBSERVICE_PATH + "verificationcode";
     public static final String REGISTER = WEBSERVICE_PATH + "register";
     public static final String ORDER = WEBSERVICE_PATH + "order/";
+    public static final String STATUS = ORDER + "status";//todo
 
     /******************************** refresh token Api *********************************/
 

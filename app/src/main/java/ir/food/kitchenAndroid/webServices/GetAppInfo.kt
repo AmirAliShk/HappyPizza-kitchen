@@ -61,7 +61,7 @@ class GetAppInfo {
                         val message = response.getString("message")
                         if (success) {
                             val data: JSONObject = response.getJSONObject("data")
-                            val status = data.getBoolean("status")
+                            val status = data.getBoolean("status")//todo
 
                             val updateAvailable = data.getBoolean("update")
                             val forceUpdate = data.getBoolean("isForce")
