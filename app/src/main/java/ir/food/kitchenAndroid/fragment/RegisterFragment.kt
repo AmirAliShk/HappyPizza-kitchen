@@ -54,7 +54,7 @@ class RegisterFragment : Fragment() {
             .addParam("family", "family")
             .addParam("mobile", "mobile")
             .addParam("code", "code")
-            .addParam("scope", "kitchen")
+            .addParam("scope", "cook")
             .listener(registerCallBack)
             .get()
     }

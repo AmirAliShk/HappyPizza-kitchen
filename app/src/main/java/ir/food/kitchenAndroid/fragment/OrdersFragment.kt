@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.adapter.OrdersAdapter
@@ -55,6 +56,16 @@ class OrdersFragment : Fragment() {
         binding.imgRefresh.setOnClickListener { getOrders() }
 
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
+
+        binding.btnOrderReady.setOnClickListener {
+            //todo set condition for first and last item
+            if (binding.listOrders.scrollState == binding.listOrders.size - 1) {
+                getOrders()
+            } else {
+                binding.listOrders.scrollToPosition(binding.listOrders.scrollState + 1)
+            }
+            //todo change status of order
+        }
 
         return binding.root
     }
@@ -129,13 +140,14 @@ class OrdersFragment : Fragment() {
 
                                 ordersModels.add(model)
                             }
-//
+
                             if (ordersModels.size == 0) {
                                 binding.vfOrders.displayedChild = 2
                             } else {
                                 binding.vfOrders.displayedChild = 1
                             }
-                            binding.listOrders.adapter = adapter;
+                            binding.listOrders.adapter = adapter
+
                         } else {
                             GeneralDialog()
                                 .message(message)
