@@ -48,14 +48,49 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/_40sdp"
+                android:layout_marginRight="@dimen/_40sdp"
+                android:layout_marginLeft="@dimen/_40sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
                 android:background="@drawable/stroke_red"
                 android:padding="@dimen/_10sdp"
-                android:text="@string/orders"
+                android:text="آماده نشده ها"
                 android:textColor="@color/title"
                 android:textSize="@dimen/_20sdp"
                 android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_40sdp"
+                android:layout_marginRight="@dimen/_40sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:background="@drawable/stroke_red"
+                android:padding="@dimen/_10sdp"
+                android:text="آماده شده ها"
+                android:textColor="@color/title"
+                android:textSize="@dimen/_20sdp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_40sdp"
+                android:layout_marginRight="@dimen/_40sdp"
+                android:background="@drawable/stroke_red"
+                android:padding="@dimen/_10sdp"
+                android:text="در حال منتظر"
+                android:textColor="@color/title"
+                android:textSize="@dimen/_20sdp"
+                android:textStyle="bold" />
+
         </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>
