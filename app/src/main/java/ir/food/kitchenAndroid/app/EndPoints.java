@@ -12,18 +12,18 @@ public class EndPoints {
 
     public static final String IP = (BuildConfig.DEBUG)
 //          ? "http://192.168.1.145"
-            ? "http://crm-x.ir"
-            : "http://crm-x.ir";//todo
+            ? "http://happypizza.ir"
+            : "http://happypizza.ir";//todo
 //          : "http://192.168.1.145";
 
     public static final String HAKWEYE_IP = (BuildConfig.DEBUG)
 //          ? "http://192.168.1.145"
-            ? "http://crm-x.ir"
-            : "http://crm-x.ir";//todo
+            ? "http://happypizza.ir"
+            : "http://happypizza.ir";//todo
 //          : "http://192.168.1.145";
 
 
-    public static final String APIPort = (BuildConfig.DEBUG) ? "3010" : "1881";
+    public static final String APIPort = (BuildConfig.DEBUG) ? "3030" : "1881";
 
     public static final String HAWKEYE_APIPort = (BuildConfig.DEBUG) ? "3010" : "1890";
 

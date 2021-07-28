@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                 ContextCompat.getColor(MyApplication.context, R.color.darkGray)
         }
 
-        binding.btnOrders.setOnClickListener {
+        binding.btnNotReady.setOnClickListener {
             FragmentHelper
                 .toFragment(MyApplication.currentActivity, OrdersFragment())
                 .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))

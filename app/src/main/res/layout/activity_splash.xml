@@ -20,13 +20,37 @@
         android:layout_height="@dimen/_40sdp"
         android:src="@drawable/ic_happy_pizza" />
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="10dp"
-        app:indicatorColor="@color/white"
-        app:indicatorName="BallBeatIndicator" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="@dimen/_30sdp"
+        android:orientation="horizontal">
+
+        <com.agrawalsuneet.dotsloader.loaders.BounceLoader
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bounce_animDuration="400"
+            app:bounce_ballColor="#f4c7c3"
+            app:bounce_ballRadius="5dp"
+            app:bounce_showShadow="true" />
+
+        <com.agrawalsuneet.dotsloader.loaders.BounceLoader
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bounce_animDuration="400"
+            app:bounce_ballColor="#f49089"
+            app:bounce_ballRadius="5dp"
+            app:bounce_showShadow="true" />
+
+        <com.agrawalsuneet.dotsloader.loaders.BounceLoader
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bounce_animDuration="400"
+            app:bounce_ballColor="#f44336"
+            app:bounce_ballRadius="5dp"
+            app:bounce_showShadow="true" />
+
+    </LinearLayout>
 
 </LinearLayout>

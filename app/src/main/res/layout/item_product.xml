@@ -15,7 +15,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
-            android:text="رست بیف"
             android:layout_marginRight="@dimen/_15sdp"
             android:textSize="@dimen/_15sdp"
             android:paddingTop="@dimen/_5sdp"
@@ -26,7 +25,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="3"
             android:textSize="@dimen/_12sdp"
             android:textColor="@color/black"/>
 

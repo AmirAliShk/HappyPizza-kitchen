@@ -46,7 +46,7 @@ class VerificationFragment : Fragment() {
         binding.btnLogin.isEnabled = false
 
         binding.btnSendCode.setOnClickListener {
-            if (binding.edtNameFamily.toString().isEmpty() || binding.edtMobile.toString()
+            if (binding.edtMobile.toString()
                     .isEmpty()
             ) {
                 MyApplication.Toast("لطفا تمام موارد را کامل کنید", Toast.LENGTH_SHORT)
@@ -56,7 +56,7 @@ class VerificationFragment : Fragment() {
         }
 
         binding.btnLogin.setOnClickListener {
-            if (binding.edtNameFamily.toString().isEmpty() || binding.edtMobile.toString()
+            if ( binding.edtMobile.toString()
                     .isEmpty() || binding.edtCode.toString().isEmpty()
             ) {
                 MyApplication.Toast("لطفا تمام موارد را کامل کنید", Toast.LENGTH_SHORT)
