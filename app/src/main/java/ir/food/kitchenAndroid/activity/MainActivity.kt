@@ -10,7 +10,9 @@ import androidx.core.content.ContextCompat
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ActivityMainBinding
-import ir.food.kitchenAndroid.fragment.OrdersFragment
+import ir.food.kitchenAndroid.fragment.NotReadyOrdersFragment
+import ir.food.kitchenAndroid.fragment.OrdersHistoryFragment
+import ir.food.kitchenAndroid.fragment.ReadyOrdersFragment
 import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.KeyBoardHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
@@ -38,7 +40,21 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnNotReady.setOnClickListener {
             FragmentHelper
-                .toFragment(MyApplication.currentActivity, OrdersFragment())
+                .toFragment(MyApplication.currentActivity, NotReadyOrdersFragment())
+                .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
+                .add()
+        }
+
+        binding.btnReady.setOnClickListener {
+            FragmentHelper
+                .toFragment(MyApplication.currentActivity, ReadyOrdersFragment())
+                .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
+                .add()
+        }
+
+        binding.btnHistory.setOnClickListener {
+            FragmentHelper
+                .toFragment(MyApplication.currentActivity, OrdersHistoryFragment())
                 .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
                 .add()
         }

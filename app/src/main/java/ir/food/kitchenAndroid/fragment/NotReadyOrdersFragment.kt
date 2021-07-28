@@ -13,7 +13,7 @@ import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.adapter.OrdersAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
-import ir.food.kitchenAndroid.databinding.FragmentOrdersBinding
+import ir.food.kitchenAndroid.databinding.FragmentNotReadyOrdersBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.OrdersModel
@@ -22,9 +22,9 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
 
-class OrdersFragment : Fragment() {
+class NotReadyOrdersFragment : Fragment() {
 
-    private lateinit var binding: FragmentOrdersBinding
+    private lateinit var binding: FragmentNotReadyOrdersBinding
 
     //    lateinit var ordersModel: OrdersModel
     var ordersModels: ArrayList<OrdersModel> = ArrayList()
@@ -36,7 +36,7 @@ class OrdersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentOrdersBinding.inflate(layoutInflater)
+        binding = FragmentNotReadyOrdersBinding.inflate(layoutInflater)
 
         if (Build.VERSION.SDK_INT >= 21) {
             val window = this.activity?.window
