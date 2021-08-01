@@ -1,5 +1,6 @@
 package ir.food.kitchenAndroid.fragment
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +10,11 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ir.food.kitchenAndroid.R
+import ir.food.kitchenAndroid.activity.MainActivity
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentRegisterBinding
+import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import org.json.JSONObject
@@ -39,7 +42,22 @@ class RegisterFragment : Fragment() {
 
         TypefaceUtil.overrideFonts(binding.root)
 
+        binding.btnRegister.setOnClickListener {
+            MyApplication.currentActivity.startActivity(
+                Intent(
+                    MyApplication.currentActivity,
+                    MainActivity::class.java
+                )
+            )
+            MyApplication.currentActivity.finish()
+        }
 
+        binding.txtLogin.setOnClickListener {
+            FragmentHelper
+                .toFragment(MyApplication.currentActivity, VerificationFragment())
+                .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
+                .add()
+        }
 
         return binding.root
     }

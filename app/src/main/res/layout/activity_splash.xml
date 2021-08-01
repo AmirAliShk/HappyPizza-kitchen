@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="bottom"
-        android:paddingBottom="@dimen/_30sdp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/_30sdp">
 
         <com.agrawalsuneet.dotsloader.loaders.BounceLoader
             android:layout_width="wrap_content"

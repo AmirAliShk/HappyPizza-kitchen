@@ -8,6 +8,9 @@ import androidx.core.content.ContextCompat
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ActivitySplashBinding
+import ir.food.kitchenAndroid.fragment.NotReadyOrdersFragment
+import ir.food.kitchenAndroid.fragment.RegisterFragment
+import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.webServices.GetAppInfo
 
@@ -31,7 +34,15 @@ class Splash : AppCompatActivity() {
                 ContextCompat.getColor(MyApplication.context, R.color.darkGray)
         }
 
-        MyApplication.handler.postDelayed(GetAppInfo()::callAppInfoAPI, 1500)
+        MyApplication.handler.postDelayed(
+            {
+                FragmentHelper
+                    .toFragment(MyApplication.currentActivity, RegisterFragment())
+                    .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
+                    .setAddToBackStack(false)
+                    .add()
+            }/*GetAppInfo()::callAppInfoAPI*/, 1500
+        )
 
     }
 

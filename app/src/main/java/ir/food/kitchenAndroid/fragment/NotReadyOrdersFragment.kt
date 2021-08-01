@@ -49,7 +49,33 @@ class NotReadyOrdersFragment : Fragment() {
 
         TypefaceUtil.overrideFonts(binding.root)
 
-        getOrders()
+//        getOrders()
+        val data = "\"active\":[{ \"id\":\"60fe47361468d133e036ef4c\", \"products\":[{ \"quantity\":3, \"name\":\"پپرونی\" },{ \"quantity\":3, \"name\":\"کوکا\" },{ \"quantity\":1, \"name\":\"سالاد فصل\" },{ \"quantity\":6, \"name\":\"سس کچاپ\" },{ \"quantity\":1, \"name\":\"نان سیر\" }], \"createdAt\":\"2021-07-26T05:25:10.497Z\", \"customer\":{ \"_id\":\"60fcfe176ea36757d055ffe7\", \"mobile\":\"09307580143\", \"family\":\"زهرا رضوی\" } }]"
+        val dataObject = JSONObject(data)
+        val active = dataObject.getJSONArray("active")
+        for (i in 0 until active.length()) {
+            val dataObj: JSONObject = active.getJSONObject(i)
+            val customer: JSONObject =
+                active.getJSONObject(i).getJSONObject("customer")
+
+            var model = OrdersModel(
+                dataObj.getString("id"),
+                dataObj.getJSONArray("products"),
+                dataObj.getString("createdAt"),
+                customer.getString("_id"),
+                customer.getString("family"),
+                customer.getString("mobile")
+            )
+
+            ordersModels.add(model)
+        }
+
+//        if (ordersModels.size == 0) {
+//            binding.vfOrders.displayedChild = 2
+//        } else {
+//            binding.vfOrders.displayedChild = 1
+//        }
+        binding.listOrders.adapter = adapter
 
         binding.listOrders.isNestedScrollingEnabled = false
 
@@ -86,6 +112,7 @@ class NotReadyOrdersFragment : Fragment() {
                 MyApplication.handler.post {
                     try {
                         val response = JSONObject(args[0].toString())
+                    //    ""active":[{ "id":"60fe47361468d133e036ef4c", "products":[{ "quantity":3, "name":"پپرونی" },{ "quantity":3, "name":"کوکا" },{ "quantity":1, "name":"سالاد فصل" },{ "quantity":6, "name":"سس کچاپ" },{ "quantity":1, "name":"نان سیر" }], "createdAt":"2021-07-26T05:25:10.497Z", "customer":{ "_id":"60fcfe176ea36757d055ffe7", "mobile":"09307580143", "family":"زهرا رضوی" } }]"
                         val success = response.getBoolean("success")
                         val message = response.getString("message")
 //                   "active":[
@@ -122,7 +149,7 @@ class NotReadyOrdersFragment : Fragment() {
 //                   }
 //                   ]
                         if (success) {
-                            val dataObject = response.getJSONObject("data")
+                            val dataObject = response.getJSONObject("\"active\":[{ \"id\":\"60fe47361468d133e036ef4c\", \"products\":[{ \"quantity\":3, \"name\":\"پپرونی\" },{ \"quantity\":3, \"name\":\"کوکا\" },{ \"quantity\":1, \"name\":\"سالاد فصل\" },{ \"quantity\":6, \"name\":\"سس کچاپ\" },{ \"quantity\":1, \"name\":\"نان سیر\" }], \"createdAt\":\"2021-07-26T05:25:10.497Z\", \"customer\":{ \"_id\":\"60fcfe176ea36757d055ffe7\", \"mobile\":\"09307580143\", \"family\":\"زهرا رضوی\" } }]")
                             val active = dataObject.getJSONArray("active")
                             for (i in 0 until active.length()) {
                                 val dataObj: JSONObject = active.getJSONObject(i)

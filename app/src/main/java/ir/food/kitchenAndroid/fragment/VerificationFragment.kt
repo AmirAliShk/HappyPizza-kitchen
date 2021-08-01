@@ -1,5 +1,6 @@
 package ir.food.kitchenAndroid.fragment
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,10 +11,12 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ir.food.kitchenAndroid.R
+import ir.food.kitchenAndroid.activity.MainActivity
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentVerificationBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
+import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.webServices.GetAppInfo
@@ -56,13 +59,27 @@ class VerificationFragment : Fragment() {
         }
 
         binding.btnLogin.setOnClickListener {
-            if ( binding.edtMobile.toString()
-                    .isEmpty() || binding.edtCode.toString().isEmpty()
-            ) {
-                MyApplication.Toast("لطفا تمام موارد را کامل کنید", Toast.LENGTH_SHORT)
-            } else {
-                login()
-            }
+//            if (binding.edtMobile.toString()
+//                    .isEmpty() || binding.edtCode.toString().isEmpty()
+//            ) {
+//                MyApplication.Toast("لطفا تمام موارد را کامل کنید", Toast.LENGTH_SHORT)
+//            } else {
+            MyApplication.currentActivity.startActivity(
+                Intent(
+                    MyApplication.currentActivity,
+                    MainActivity::class.java
+                )
+            )
+            MyApplication.currentActivity.finish()
+            //login()
+//            }
+        }
+
+        binding.txtRegister.setOnClickListener {
+            FragmentHelper
+                .toFragment(MyApplication.currentActivity, RegisterFragment())
+                .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
+                .add()
         }
 
         return binding.root
@@ -87,13 +104,12 @@ class VerificationFragment : Fragment() {
                     val message = response.getString("message")
 
                     if (success) {
-//                        {
-//                            "success": true,
-//                            "message": "کد تاییدیه به شماره موبایل داده شده ، با موفقیت فرستاده شد"
-//                        }
+
+//                            "success": true, "message": "کد تاییدیه به شماره موبایل داده شده ، با موفقیت فرستاده شد"
+
                         binding.edtCode.isEnabled = true
                         binding.btnLogin.isEnabled = true
-                        binding.vfSendCode.visibility = View.GONE
+//                        binding.vfSendCode.visibility = View.GONE
                     }
 
                 } catch (e: JSONException) {
