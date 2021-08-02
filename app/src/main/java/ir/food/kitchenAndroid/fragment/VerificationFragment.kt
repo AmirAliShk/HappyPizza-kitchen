@@ -3,7 +3,6 @@ package ir.food.kitchenAndroid.fragment
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,10 +46,12 @@ class VerificationFragment : Fragment() {
         TypefaceUtil.overrideFonts(binding.root)
 
         binding.edtCode.isEnabled = false
-//        binding.btnLogin.isEnabled = false
+        binding.btnLogin.isEnabled = false
 
         binding.btnSendCode.setOnClickListener {
-            if (binding.edtMobile.text.toString().isEmpty()) {
+            if (binding.edtMobile.toString()
+                    .isEmpty()
+            ) {
                 MyApplication.Toast("لطفا تمام موارد را کامل کنید", Toast.LENGTH_SHORT)
             } else {
                 sendCode()
