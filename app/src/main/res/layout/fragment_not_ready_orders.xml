@@ -33,22 +33,6 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="@string/previous_order"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_10sdp" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:padding="@dimen/_10sdp"
-            android:src="@drawable/ic_refresh" />
-
     </RelativeLayout>
 
     <ViewFlipper
@@ -59,39 +43,153 @@
         <com.wang.avi.AVLoadingIndicatorView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
             app:indicatorColor="@color/white"
             app:indicatorName="BallBeatIndicator" />
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginBottom="15dp"
+            android:scrollbars="none">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listOrders"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:divider="@null"
-                android:listSelector="#00ffffff"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_orders" />
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnOrderReady"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/red"
-                android:text="@string/get_ready"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_15sdp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_13sdp"
+                        android:layout_marginTop="@dimen/_13sdp"
+                        android:layout_marginRight="@dimen/_13sdp"
+                        android:background="@drawable/pale_red"
+                        android:padding="@dimen/_4sdp">
+
+                        <TextView
+                            android:id="@+id/customerName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="@dimen/_6sdp"
+                            android:layout_weight="1.5"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:text="@string/register_time"
+                            android:textColor="@color/title"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <TextView
+                            android:id="@+id/time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:gravity="right"
+                            android:textColor="@color/black" />
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/productList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_13sdp"
+                        android:background="@drawable/field_background"
+                        android:divider="@null"
+                        android:listSelector="#00ffffff"
+                        android:padding="@dimen/_5sdp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_product" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingRight="@dimen/_15sdp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/description"
+                                android:textColor="@color/title" />
+
+                            <TextView
+                                android:id="@+id/description"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="45dp"
+                                android:paddingRight="@dimen/_8ssp"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_margin="@dimen/_6sdp"
+                            android:src="@drawable/ic_call" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_17sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.25"
+                            android:text="@string/address"
+                            android:textColor="@color/title"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <TextView
+                            android:id="@+id/txtAddress"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15sdp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnOrderReady"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/red"
+                    android:text="@string/get_ready"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sdp" />
+
+            </LinearLayout>
+
+        </ScrollView>
 
         <TextView
             android:layout_width="match_parent"

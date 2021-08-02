@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/actionbar"
     android:clickable="true"
     android:layoutDirection="rtl"
-    android:orientation="vertical"
-    tools:context=".activity.MainActivity">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -135,7 +133,7 @@
 
                 <Button
                     android:id="@+id/btnSendCode"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="#00ffffff"
@@ -178,24 +176,25 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/_5sdp"
             android:background="@drawable/red"
-            android:elevation="@dimen/_2sdp"
-            android:paddingHorizontal="@dimen/_30sdp">
+            android:elevation="@dimen/_2sdp">
 
             <Button
                 android:id="@+id/btnLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:background="#00ffffff"
+                android:paddingHorizontal="@dimen/_30sdp"
                 android:text="@string/login"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_20sdp"
                 android:textStyle="bold" />
 
             <com.wang.avi.AVLoadingIndicatorView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:paddingHorizontal="@dimen/_30sdp"
                 app:indicatorColor="@color/white" />
 
         </ViewFlipper>
