@@ -4,12 +4,10 @@
     <string name="txt_please_for_exit_reenter_back">برای خروج دوباره کلید بازگشت را بزنید</string>
 
     <string name="name_family">نام و نام خانوادگی</string>
-    <string name="mobile">موبایل</string>
     <string name="orders">سفارشات</string>
     <string name="not_ready">آماده نشده</string>
     <string name="description">توضیحات</string>
     <string name="get_ready">آماده سازی</string>
-    <string name="register">ثبت نام</string>
     <string name="address">آدرس</string>
     <string name="ready">آماده شده</string>
     <string name="order_history">تاریخچه سفارشات</string>
@@ -20,5 +18,9 @@
     <string name="register_before">قبلا ثبت نام کردم</string>
     <string name="login">ورود</string>
     <string name="register_time">زمان ثبت:</string>
+    <string name="signUp">ثبت نام</string>
+    <string name="mobile">موبایل</string>
+    <string name="name">نام :</string>
+    <string name="email">ایمیل</string>
 
 </resources>

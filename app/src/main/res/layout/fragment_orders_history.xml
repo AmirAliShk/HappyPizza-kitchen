@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background"
     android:clickable="true"
     android:layoutDirection="rtl"
@@ -32,5 +34,16 @@
             android:src="@drawable/ic_back" />
 
     </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_13sdp"
+        android:background="@drawable/field_background"
+        android:divider="@null"
+        android:listSelector="#00ffffff"
+        android:padding="@dimen/_5sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_orders_history" />
 
 </LinearLayout>

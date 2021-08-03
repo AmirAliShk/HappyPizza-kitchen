@@ -32,7 +32,7 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:text="@string/register_time"
-            android:textColor="@color/title"
+            android:textColor="@color/color_Titles"
             android:textSize="@dimen/_12sdp" />
 
         <TextView
@@ -76,7 +76,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/description"
-                    android:textColor="@color/title" />
+                    android:textColor="@color/color_Titles"
+                    />
 
                 <TextView
                     android:id="@+id/description"
@@ -111,7 +112,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.25"
             android:text="@string/address"
-            android:textColor="@color/title"
+            android:textColor="@color/color_Titles"
             android:textSize="@dimen/_12sdp" />
 
         <TextView

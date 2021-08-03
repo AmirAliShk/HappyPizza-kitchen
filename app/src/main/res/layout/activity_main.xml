@@ -47,7 +47,7 @@
             android:background="@drawable/stroke_red"
             android:padding="@dimen/_8sdp"
             android:text="@string/not_ready"
-            android:textColor="@color/title"
+            android:textColor="@color/color_Titles"
             android:textSize="@dimen/_20sdp"
             android:textStyle="bold" />
 
@@ -63,7 +63,7 @@
             android:background="@drawable/stroke_red"
             android:padding="@dimen/_8sdp"
             android:text="@string/ready"
-            android:textColor="@color/title"
+            android:textColor="@color/color_Titles"
             android:textSize="@dimen/_20sdp"
             android:textStyle="bold" />
 
@@ -78,7 +78,7 @@
             android:background="@drawable/stroke_red"
             android:padding="@dimen/_8sdp"
             android:text="@string/order_history"
-            android:textColor="@color/title"
+            android:textColor="@color/color_Titles"
             android:textSize="@dimen/_20sdp"
             android:textStyle="bold" />
 

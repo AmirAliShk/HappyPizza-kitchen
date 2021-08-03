@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/actionbar"
     android:clickable="true"
     android:layoutDirection="rtl"
-    android:orientation="vertical"
-    tools:context=".activity.MainActivity">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,177 +27,170 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/pichi"
-        android:orientation="vertical"
-        android:padding="@dimen/_25sdp">
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:padding="@dimen/_8sdp"
-                android:src="@drawable/ic_phone" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/mobile"
-                android:textSize="@dimen/_15sdp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/edtMobile"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_3ssp"
-                android:layout_marginLeft="@dimen/_15sdp"
-                android:layout_weight="0.5"
-                android:background="@drawable/field_background"
-                android:elevation="@dimen/_2sdp"
-                android:padding="@dimen/_8sdp" />
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_15sdp"
+            android:orientation="vertical"
+            android:padding="@dimen/_10sdp">
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="0.25" />
+                android:layout_weight="1"/>
 
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:padding="@dimen/_8sdp"
-                android:src="@drawable/ic_password" />
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="0dp"
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/ic_phone" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/mobile"
+                    android:textColor="@color/color_Titles"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_15sdp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/verification_code"
-                android:textColor="@color/title"
-                android:textSize="@dimen/_15sdp"
-                android:textStyle="bold" />
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/edtMobile"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:background="@drawable/bg_item"
+                    android:padding="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:elevation="@dimen/_2sdp"
+                    android:layout_margin="@dimen/_3sdp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_15sdp"
-            android:orientation="horizontal">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.30" />
 
-            <EditText
-                android:id="@+id/edtCode"
-                android:layout_width="0dp"
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_15sdp"
-                android:layout_weight="0.5"
-                android:background="@drawable/field_background"
-                android:elevation="@dimen/_2sdp"
-                android:padding="@dimen/_8sdp" />
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <ViewFlipper
-                android:id="@+id/vfSendCode"
-                android:layout_width="0dp"
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:padding="@dimen/_8sdp"
+                    android:src="@drawable/ic_key" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/verification_code"
+                    android:textColor="@color/color_Titles"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_15sdp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/_5sdp"
-                android:layout_weight="0.25"
-                android:background="@drawable/pale_red">
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/_15sdp">
+
+                <EditText
+                    android:id="@+id/edtVerificationCode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:padding="@dimen/_8sdp"
+                    android:inputType="number"
+                    android:layout_weight="0.5"
+                    android:singleLine="true"
+                    android:nextFocusDown="@id/btnLogin"
+                    android:background="@drawable/bg_item"
+                    android:elevation="@dimen/_2sdp"
+                    android:layout_margin="@dimen/_5sdp"/>
 
                 <Button
                     android:id="@+id/btnSendCode"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="#00ffffff"
-                    android:elevation="@dimen/_2sdp"
-                    android:text="ارسال کد"
-                    android:textColor="@color/red"
+                    android:layout_weight="0.25"
+                    android:background="@drawable/pale_red"
+                    android:text="@string/send_code"
                     android:textSize="@dimen/_16sdp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/color_Red"
+                    android:textStyle="bold"
+                    android:elevation="@dimen/_2sdp"
+                    android:layout_margin="@dimen/_5sdp"/>
 
-                <com.wang.avi.AVLoadingIndicatorView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    app:indicatorColor="@color/white" />
 
-            </ViewFlipper>
 
-        </LinearLayout>
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/txtRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
-            android:elevation="@dimen/_2sdp"
-            android:text="@string/register"
-            android:textColor="@color/red"
-            android:textSize="@dimen/_14sdp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtSignup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ثبت نام"
+                android:textColor="@color/color_Red"
+                android:textStyle="bold"
+                android:paddingBottom="@dimen/_10sdp"
+                android:textSize="@dimen/_20sdp"
+                android:layout_margin="@dimen/_5sdp"
+                />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <ViewFlipper
-            android:id="@+id/vfSubmit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/_5sdp"
-            android:background="@drawable/red"
-            android:elevation="@dimen/_2sdp"
-            android:paddingHorizontal="@dimen/_30sdp">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="#00ffffff"
+                android:background="@drawable/bg_red"
+                android:paddingLeft="@dimen/_50sdp"
+                android:paddingRight="@dimen/_50sdp"
                 android:text="@string/login"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_20sdp"
-                android:textStyle="bold" />
-
-            <com.wang.avi.AVLoadingIndicatorView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:textSize="@dimen/_18ssp"
+                android:textStyle="bold"
                 android:layout_gravity="center"
-                app:indicatorColor="@color/white" />
+                android:elevation="@dimen/_2sdp"
+                android:layout_margin="@dimen/_5sdp"/>
 
-        </ViewFlipper>
+
+        </LinearLayout>
 
     </LinearLayout>
 
 </LinearLayout>
+
