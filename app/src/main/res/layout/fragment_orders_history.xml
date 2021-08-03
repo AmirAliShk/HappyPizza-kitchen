@@ -34,6 +34,7 @@
             android:src="@drawable/ic_back" />
 
     </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productList"
         android:layout_width="match_parent"

@@ -4,14 +4,13 @@
     <string name="txt_please_for_exit_reenter_back">برای خروج دوباره کلید بازگشت را بزنید</string>
 
     <string name="name_family">نام و نام خانوادگی</string>
-    <string name="orders">سفارشات</string>
+    <string name="orders">سفارش ها</string>
     <string name="not_ready">آماده نشده</string>
     <string name="description">توضیحات</string>
     <string name="get_ready">آماده سازی</string>
     <string name="address">آدرس</string>
     <string name="ready">آماده شده</string>
-    <string name="order_history">تاریخچه سفارشات</string>
-    <string name="previous_order">سفارش قبلی</string>
+    <string name="order_history">تاریخچه سفارش ها</string>
     <string name="verification_code">کد تایید</string>
     <string name="send_code">ارسال کد</string>
     <string name="password">رمز عبور</string>

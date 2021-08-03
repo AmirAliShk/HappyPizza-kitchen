@@ -20,4 +20,38 @@
         android:layout_height="@dimen/_40sdp"
         android:src="@drawable/ic_happy_pizza" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/_30sdp">
+
+        <com.agrawalsuneet.dotsloader.loaders.BounceLoader
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bounce_animDuration="400"
+            app:bounce_ballColor="#f4c7c3"
+            app:bounce_ballRadius="5dp"
+            app:bounce_showShadow="true" />
+
+        <com.agrawalsuneet.dotsloader.loaders.BounceLoader
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bounce_animDuration="400"
+            app:bounce_ballColor="#f49089"
+            app:bounce_ballRadius="5dp"
+            app:bounce_showShadow="true" />
+
+        <com.agrawalsuneet.dotsloader.loaders.BounceLoader
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bounce_animDuration="400"
+            app:bounce_ballColor="#f44336"
+            app:bounce_ballRadius="5dp"
+            app:bounce_showShadow="true" />
+
+    </LinearLayout>
+
 </LinearLayout>

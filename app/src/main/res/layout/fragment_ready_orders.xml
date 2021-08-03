@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center_vertical"
-            android:text="آماده شده ها"
+            android:text="@string/ready"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -36,7 +36,7 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/productList"
+        android:id="@+id/readyList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_13sdp"

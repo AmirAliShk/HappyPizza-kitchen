@@ -10,6 +10,7 @@ import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ActivitySplashBinding
 import ir.food.kitchenAndroid.fragment.NotReadyOrdersFragment
 import ir.food.kitchenAndroid.fragment.RegisterFragment
+import ir.food.kitchenAndroid.fragment.VerificationFragment
 import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.webServices.GetAppInfo
@@ -37,7 +38,7 @@ class Splash : AppCompatActivity() {
         MyApplication.handler.postDelayed(
             {
                 FragmentHelper
-                    .toFragment(MyApplication.currentActivity, RegisterFragment())
+                    .toFragment(MyApplication.currentActivity, VerificationFragment())
                     .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
                     .setAddToBackStack(false)
                     .add()

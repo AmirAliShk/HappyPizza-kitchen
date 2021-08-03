@@ -39,15 +39,13 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
-
+                android:layout_weight="1" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal">
-
 
                 <ImageView
                     android:layout_width="0dp"
@@ -62,8 +60,8 @@
                     android:layout_weight="2"
                     android:text="@string/mobile"
                     android:textColor="@color/color_Titles"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/_15sdp"/>
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -77,14 +75,14 @@
                     android:id="@+id/edtMobile"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:inputType="number"
-                    android:singleLine="true"
-                    android:background="@drawable/bg_item"
-                    android:padding="@dimen/_8sdp"
+                    android:layout_margin="@dimen/_3sdp"
                     android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/bg_item"
                     android:elevation="@dimen/_2sdp"
-                    android:layout_margin="@dimen/_3sdp"/>
+                    android:inputType="number"
+                    android:padding="@dimen/_8sdp"
+                    android:singleLine="true" />
 
                 <View
                     android:layout_width="0dp"
@@ -99,7 +97,6 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -113,45 +110,43 @@
                     android:layout_weight="2"
                     android:text="@string/verification_code"
                     android:textColor="@color/color_Titles"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/_15sdp"/>
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/_15sdp">
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/edtCode"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5sdp"
                     android:layout_marginLeft="@dimen/_15sdp"
-                    android:padding="@dimen/_8sdp"
-                    android:inputType="number"
                     android:layout_weight="0.5"
-                    android:singleLine="true"
-                    android:nextFocusDown="@id/btnLogin"
                     android:background="@drawable/bg_item"
                     android:elevation="@dimen/_2sdp"
-                    android:layout_margin="@dimen/_5sdp"/>
+                    android:inputType="number"
+                    android:nextFocusDown="@id/btnLogin"
+                    android:padding="@dimen/_8sdp"
+                    android:singleLine="true" />
 
                 <Button
                     android:id="@+id/btnSendCode"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5sdp"
                     android:layout_weight="0.25"
                     android:background="@drawable/pale_red"
-                    android:text="@string/send_code"
-                    android:textSize="@dimen/_16sdp"
-                    android:textColor="@color/color_Red"
-                    android:textStyle="bold"
                     android:elevation="@dimen/_2sdp"
-                    android:layout_margin="@dimen/_5sdp"/>
-
-
+                    android:text="@string/send_code"
+                    android:textColor="@color/color_Red"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -159,12 +154,12 @@
                 android:id="@+id/txtRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_10sdp"
                 android:text="ثبت نام"
                 android:textColor="@color/color_Red"
-                android:textStyle="bold"
-                android:paddingBottom="@dimen/_10sdp"
                 android:textSize="@dimen/_20sdp"
-                android:layout_margin="@dimen/_5sdp" />
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="0dp"
@@ -175,16 +170,16 @@
                 android:id="@+id/btnLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_5sdp"
                 android:background="@drawable/bg_red"
+                android:elevation="@dimen/_2sdp"
                 android:paddingLeft="@dimen/_50sdp"
                 android:paddingRight="@dimen/_50sdp"
                 android:text="@string/login"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_18ssp"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:elevation="@dimen/_2sdp"
-                android:layout_margin="@dimen/_5sdp"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 

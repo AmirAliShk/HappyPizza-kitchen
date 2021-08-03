@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:clickable="true"
     android:gravity="top"
     android:layoutDirection="rtl"
@@ -39,13 +40,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        <com.wang.avi.AVLoadingIndicatorView-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            app:indicatorColor="@color/white"-->
-<!--            app:indicatorName="BallBeatIndicator" />-->
+        <!--        <com.wang.avi.AVLoadingIndicatorView-->
+        <!--            android:layout_width="40dp"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:layout_marginBottom="10dp"-->
+        <!--            app:indicatorColor="@color/white"-->
+        <!--            app:indicatorName="BallBeatIndicator" />-->
 
         <ScrollView
             android:layout_width="match_parent"
@@ -80,10 +81,9 @@
                             android:layout_height="match_parent"
                             android:layout_marginRight="@dimen/_6sdp"
                             android:layout_weight="1.5"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_15sdp"
                             android:text="مبینا واحدی"
-                            />
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15sdp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -100,9 +100,9 @@
                             android:layout_height="match_parent"
                             android:layout_weight="0.5"
                             android:gravity="right|center"
+                            android:text="8:5"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_15sdp"
-                            android:text="8:5"/>
+                            android:textSize="@dimen/_15sdp" />
 
                     </LinearLayout>
 
@@ -132,7 +132,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/description"
-                                android:textColor="@color/color_Titles"/>
+                                android:textColor="@color/color_Titles" />
 
                             <TextView
                                 android:id="@+id/description"
