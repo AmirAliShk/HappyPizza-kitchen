@@ -85,7 +85,7 @@ class VerificationFragment : Fragment() {
     }
 
     private fun sendCode() {
-        binding.vfSendCode.displayedChild = 1
+//        binding.vfSendCode.displayedChild = 1
         RequestHelper.builder(EndPoints.CHECK_VERIFICATION)
             .addParam("mobile", binding.edtMobile.text.toString())
             .listener(sendCodeCallBack)
@@ -96,7 +96,7 @@ class VerificationFragment : Fragment() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
                 try {
-                    binding.vfSendCode.displayedChild = 0
+//                    binding.vfSendCode.displayedChild = 0
 
                     val response = JSONObject(args[0].toString())
                     val success = response.getBoolean("success")
@@ -112,7 +112,7 @@ class VerificationFragment : Fragment() {
                     }
 
                 } catch (e: JSONException) {
-                    binding.vfSendCode.displayedChild = 0
+//                    binding.vfSendCode.displayedChild = 0
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -125,7 +125,7 @@ class VerificationFragment : Fragment() {
 
         override fun onFailure(reCall: Runnable?, e: java.lang.Exception?) {
             MyApplication.handler.post {
-                binding.vfSendCode.displayedChild = 0
+//                binding.vfSendCode.displayedChild = 0
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
                     .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -138,7 +138,7 @@ class VerificationFragment : Fragment() {
     }
 
     private fun login() {
-        binding.vfSubmit.displayedChild = 1
+//        binding.vfSubmit.displayedChild = 1
         RequestHelper.builder(EndPoints.LOG_IN)
             .addParam("mobile", binding.edtMobile.text.toString())//todo
             .addParam("code", binding.edtCode.text.toString())
@@ -152,7 +152,7 @@ class VerificationFragment : Fragment() {
             override fun onResponse(reCall: Runnable?, vararg args: Any?) {
                 MyApplication.handler.post {
                     try {
-                        binding.vfSubmit.displayedChild = 0
+//                        binding.vfSubmit.displayedChild = 0
 //{"success":true,"message":"کاربر با موفقیت وارد شد","data":{"idToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjBkOWJlNGY4ZTJiN2QyOTdjMmU0NjUwIiwidXNlcl9hY3RpdmUiOnRydWUsInVzZXJfZW1wbG95ZXIiOiI2MGQ5YmU0ZjhlMmI3ZDI5N2MyZTQ2NTAiLCJpYXQiOjE2MjQ4ODMwMTAsImV4cCI6MTY0NjQ4MzAxMCwiYXVkIjoiYXVkaWVuY2UiLCJpc3MiOiJpc3N1ZXIifQ.LmSGVrGdlArOdfpwMQGF9f7e4xgs44bjZ9ZdBXF_8iU","accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6InVzZXIiLCJpYXQiOjE2MjQ4ODMwMTAsImV4cCI6MTY1MDgwMzAxMCwiYXVkIjoiYXVkaWVuY2UiLCJpc3MiOiJpc3N1ZXIifQ.SRgJvlVA_fggm6KX2D45v_S7Z1tW7h8g3uT4hEfiohw"}}
 //                      {"success":false,"message":"کاربر در دسترس نمی باشد","data":{}}
                         val response = JSONObject(args[0].toString())
@@ -172,7 +172,7 @@ class VerificationFragment : Fragment() {
                                 .show()
                         }
                     } catch (e: JSONException) {
-                        binding.vfSubmit.displayedChild = 0
+//                        binding.vfSubmit.displayedChild = 0
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
                             .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -185,7 +185,7 @@ class VerificationFragment : Fragment() {
 
             override fun onFailure(reCall: Runnable?, e: Exception?) {
                 MyApplication.handler.post {
-                    binding.vfSubmit.displayedChild = 0
+//                    binding.vfSubmit.displayedChild = 0
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .firstButton("باشه") { GeneralDialog().dismiss() }

@@ -125,7 +125,7 @@
                 android:layout_marginBottom="@dimen/_15sdp">
 
                 <EditText
-                    android:id="@+id/edtVerificationCode"
+                    android:id="@+id/edtCode"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_15sdp"
@@ -156,7 +156,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/txtSignup"
+                android:id="@+id/txtRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="ثبت نام"
@@ -164,8 +164,7 @@
                 android:textStyle="bold"
                 android:paddingBottom="@dimen/_10sdp"
                 android:textSize="@dimen/_20sdp"
-                android:layout_margin="@dimen/_5sdp"
-                />
+                android:layout_margin="@dimen/_5sdp" />
 
             <View
                 android:layout_width="0dp"
@@ -186,7 +185,6 @@
                 android:layout_gravity="center"
                 android:elevation="@dimen/_2sdp"
                 android:layout_margin="@dimen/_5sdp"/>
-
 
         </LinearLayout>
 
