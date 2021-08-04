@@ -92,13 +92,13 @@ class NotReadyOrdersFragment : Fragment() {
                 MyApplication.handler.post {
                     try {
                         val response = JSONObject(args[0].toString())
-                        //    ""active":[{ "id":"60fe47361468d133e036ef4c", "products":[{ "quantity":3, "name":"پپرونی" },{ "quantity":3, "name":"کوکا" },{ "quantity":1, "name":"سالاد فصل" },{ "quantity":6, "name":"سس کچاپ" },{ "quantity":1, "name":"نان سیر" }], "createdAt":"2021-07-26T05:25:10.497Z", "customer":{ "_id":"60fcfe176ea36757d055ffe7", "mobile":"09307580143", "family":"زهرا رضوی" } }]"
+//   {"success":true,"message":"سفارش با موفقیت ارسال شد","data":{"GPS":{"coordinates":[33.29792,59.605933],"type":"Point"},"products":[{"_id":{"_id":"61091b0ca9335b389819e896","name":"مرغ و قارچ"},"quantity":1,"size":"large"}],"_id":"61092c9e4af8121f58108d97","customer":{"_id":"6107bd65e5bdcc11fd46bff2","mobile":"09105044033","family":"محمد جواد حیدری"},"address":"راهنمایی 24","status":{"name":"در صف انتظار","status":0},"description":"ساعت 12 تحویل داده شود","createdAt":"2021-08-03T11:46:38.117Z","__v":0}}
                         val success = response.getBoolean("success")
                         val message = response.getString("message")
 
                         if (success) {
-//                            val dataObject = response.getJSONObject("data")
-                            val products = response.getJSONArray("data")
+                            val dataObject = response.getJSONObject("data")
+                            val products = dataObject.getJSONArray("products")
                             for (i in 0 until products.length()) {
                                 val dataObj: JSONObject = products.getJSONObject(i)
 
