@@ -1,9 +1,7 @@
 package ir.food.kitchenAndroid.fragment
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +10,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ir.food.kitchenAndroid.R
-import ir.food.kitchenAndroid.activity.MainActivity
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentVerificationBinding
@@ -86,8 +83,9 @@ class VerificationFragment : Fragment() {
 
     private fun sendCode() {
 //        binding.vfSendCode.displayedChild = 1
-        RequestHelper.builder(EndPoints.CHECK_VERIFICATION)
+        RequestHelper.builder(EndPoints.LOGIN_CODE)
             .addParam("mobile", binding.edtMobile.text.toString())
+            .addParam("scope", "cook")
             .listener(sendCodeCallBack)
             .post()
     }

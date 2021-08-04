@@ -1,6 +1,5 @@
 package ir.food.kitchenAndroid.fragment
 
-import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +15,6 @@ import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentNotReadyOrdersBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.TypefaceUtil
-import ir.food.kitchenAndroid.model.OrdersModel
 import ir.food.kitchenAndroid.model.ProductModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import org.json.JSONException
@@ -47,32 +45,31 @@ class NotReadyOrdersFragment : Fragment() {
                 ContextCompat.getColor(MyApplication.context, R.color.darkGray)
         }
 
-        TypefaceUtil.overrideFonts(binding.root,MyApplication.IraSanSMedume)
+        TypefaceUtil.overrideFonts(binding.root, MyApplication.IraSanSMedume)
 
-//        getOrders()
-        val data =
-            "{\"products\":[{ \"quantity\":3, \"name\":\"پپرونی\" },{ \"quantity\":3, \"name\":\"کوکا\" },{ \"quantity\":1, \"name\":\"سالاد فصل\" },{ \"quantity\":6, \"name\":\"سس کچاپ\" },{ \"quantity\":1, \"name\":\"نان سیر\" }]}"
-        val dataObject = JSONObject(data)
-        val active = dataObject.getJSONArray("products")
-        for (i in 0 until active.length()) {
-            val dataObj: JSONObject = active.getJSONObject(i)
-
-            var model = ProductModel(
-                dataObj.getString("name"),
-                dataObj.getInt("quantity")
-            )
-
-            productModels.add(model)
-        }
-        binding.productList.adapter = adapter
+        getOrders()
+//        val data =
+//            "{\"products\":[{ \"quantity\":3, \"name\":\"پپرونی\" },{ \"quantity\":3, \"name\":\"کوکا\" },{ \"quantity\":1, \"name\":\"سالاد فصل\" },{ \"quantity\":6, \"name\":\"سس کچاپ\" },{ \"quantity\":1, \"name\":\"نان سیر\" }]}"
+//        val dataObject = JSONObject(data)
+//        val active = dataObject.getJSONArray("products")
+//        for (i in 0 until active.length()) {
+//            val dataObj: JSONObject = active.getJSONObject(i)
+//
+//            var model = ProductModel(
+//                dataObj.getString("name"),
+//                dataObj.getInt("quantity")
+//            )
+//
+//            productModels.add(model)
+//        }
+//        binding.productList.adapter = adapter
 
         binding.imgRefresh.setOnClickListener { getOrders() }
 
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
 
         binding.btnOrderReady.setOnClickListener {
-            //todo set condition for first and last item
-
+            setReady()
             //todo change status of order
         }
 
@@ -84,7 +81,7 @@ class NotReadyOrdersFragment : Fragment() {
             binding.vfOrders.displayedChild = 0
         }
 
-        RequestHelper.builder(EndPoints.ORDER)
+        RequestHelper.builder(EndPoints.NOT_READY_ORDER)
             .listener(ordersCallBack)
             .get()
     }
@@ -100,8 +97,8 @@ class NotReadyOrdersFragment : Fragment() {
                         val message = response.getString("message")
 
                         if (success) {
-                            val dataObject = response.getJSONObject("data")
-                            val products = dataObject.getJSONArray("products")
+//                            val dataObject = response.getJSONObject("data")
+                            val products = response.getJSONArray("data")
                             for (i in 0 until products.length()) {
                                 val dataObj: JSONObject = products.getJSONObject(i)
 
@@ -137,6 +134,50 @@ class NotReadyOrdersFragment : Fragment() {
 
             override fun onFailure(reCall: Runnable?, e: Exception?) {
                 MyApplication.handler.post { binding.vfOrders.displayedChild = 3 }
+                super.onFailure(reCall, e)
+            }
+        }
+
+    private fun setReady() {
+        if (binding.vfSetReady != null) {
+            binding.vfSetReady.displayedChild = 0
+        }
+
+        RequestHelper.builder(EndPoints.READY)
+            .addParam("orderId", "order id")//todo
+            .listener(readyCallBack)
+            .put()
+    }
+
+    private val readyCallBack: RequestHelper.Callback =
+        object : RequestHelper.Callback() {
+            override fun onResponse(reCall: Runnable?, vararg args: Any?) {
+                MyApplication.handler.post {
+                    try {
+                        val response = JSONObject(args[0].toString())
+                        val success = response.getBoolean("success")
+
+                        if (success) {
+                            if (binding.vfSetReady != null) {
+                                binding.vfSetReady.displayedChild = 1
+                            }
+                        }
+                        //todo
+                    } catch (e: JSONException) {
+                        if (binding.vfSetReady != null) {
+                            binding.vfSetReady.displayedChild = 1
+                        }
+                        e.printStackTrace()
+                    }
+                }
+            }
+
+            override fun onFailure(reCall: Runnable?, e: java.lang.Exception?) {
+                MyApplication.handler.post {
+                    if (binding.vfSetReady != null) {
+                        binding.vfSetReady.displayedChild = 1
+                    }
+                }
                 super.onFailure(reCall, e)
             }
         }

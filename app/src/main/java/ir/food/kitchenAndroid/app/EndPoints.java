@@ -38,10 +38,12 @@ public class EndPoints {
 
     public static final String APP_INFO = WEBSERVICE_PATH + "app/info";
     public static final String LOG_IN = WEBSERVICE_PATH + "login";
-    public static final String CHECK_VERIFICATION = WEBSERVICE_PATH + "verificationcode";
+    public static final String REGISTER_CODE = WEBSERVICE_PATH + "verificationcode";
+    public static final String LOGIN_CODE = LOG_IN + "/" + "verificationcode";
     public static final String REGISTER = WEBSERVICE_PATH + "register";
     public static final String ORDER = WEBSERVICE_PATH + "order/";
-    public static final String STATUS = ORDER + "status";//todo
+    public static final String NOT_READY_ORDER = ORDER + "active";
+    public static final String READY = ORDER + "ready";
 
     /******************************** refresh token Api *********************************/
 

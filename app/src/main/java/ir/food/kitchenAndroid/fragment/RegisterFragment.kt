@@ -14,9 +14,11 @@ import ir.food.kitchenAndroid.activity.MainActivity
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentRegisterBinding
+import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.okHttp.RequestHelper
+import org.json.JSONException
 import org.json.JSONObject
 import java.lang.Exception
 
@@ -43,13 +45,14 @@ class RegisterFragment : Fragment() {
         TypefaceUtil.overrideFonts(binding.root)
 
         binding.btnRegister.setOnClickListener {
-            MyApplication.currentActivity.startActivity(
-                Intent(
-                    MyApplication.currentActivity,
-                    MainActivity::class.java
-                )
-            )
-            MyApplication.currentActivity.finish()
+//            MyApplication.currentActivity.startActivity(
+//                Intent(
+//                    MyApplication.currentActivity,
+//                    MainActivity::class.java
+//                )
+//            )
+//            MyApplication.currentActivity.finish()
+            register()
         }
 
         binding.txtLogin.setOnClickListener {
@@ -60,7 +63,63 @@ class RegisterFragment : Fragment() {
             register()
         }
 
+        binding.btnSendCode.setOnClickListener { sendCode() }
+
         return binding.root
+    }
+
+
+    private fun sendCode() {
+//        binding.vfSendCode.displayedChild = 1
+        RequestHelper.builder(EndPoints.REGISTER_CODE)
+            .addParam("mobile", binding.edtMobile.text.toString())
+            .listener(sendCodeCallBack)
+            .post()
+    }
+
+    private val sendCodeCallBack: RequestHelper.Callback = object : RequestHelper.Callback() {
+        override fun onResponse(reCall: Runnable?, vararg args: Any?) {
+            MyApplication.handler.post {
+                try {
+//                    binding.vfSendCode.displayedChild = 0
+
+                    val response = JSONObject(args[0].toString())
+                    val success = response.getBoolean("success")
+                    val message = response.getString("message")
+
+                    if (success) {
+
+//                 "success": true, "message": "کد تاییدیه به شماره موبایل داده شده ، با موفقیت فرستاده شد"
+
+                        binding.edtVerificationCode.isEnabled = true
+                        binding.btnRegister.isEnabled = true
+//                        binding.vfSendCode.visibility = View.GONE
+                    }
+
+                } catch (e: JSONException) {
+//                    binding.vfSendCode.displayedChild = 0
+                    GeneralDialog()
+                        .message("خطایی پیش آمده دوباره امتحان کنید.")
+                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .secondButton("تلاش مجدد") { sendCode() }
+                        .show()
+                    e.printStackTrace()
+                }
+            }
+        }
+
+        override fun onFailure(reCall: Runnable?, e: java.lang.Exception?) {
+            MyApplication.handler.post {
+//                binding.vfSendCode.displayedChild = 0
+                GeneralDialog()
+                    .message("خطایی پیش آمده دوباره امتحان کنید.")
+                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .secondButton("تلاش مجدد") { sendCode() }
+                    .show()
+            }
+            super.onFailure(reCall, e)
+        }
+
     }
 
     private fun register() {
@@ -69,13 +128,13 @@ class RegisterFragment : Fragment() {
 //        }
 
         RequestHelper.builder(EndPoints.REGISTER)
-            .addParam("password", "pass")
-            .addParam("family", "family")
-            .addParam("mobile", "mobile")
-            .addParam("code", "code")
+            .addParam("password", binding.edtPassword.text.toString())
+            .addParam("family", binding.edtName.text.toString())
+            .addParam("mobile", binding.edtMobile.text.toString())
+            .addParam("code", binding.edtVerificationCode.text.toString())
             .addParam("scope", "cook")
             .listener(registerCallBack)
-            .get()
+            .post()
     }
 
     private val registerCallBack: RequestHelper.Callback =
@@ -86,7 +145,21 @@ class RegisterFragment : Fragment() {
                 val response = JSONObject(args[0].toString())
                 val success = response.getBoolean("success")
                 val message = response.getString("message")
-
+                if (success) {
+                    val data = response.getJSONObject("data")
+                    val status = data.getBoolean("status")
+                    if (status) {
+                        MyApplication.prefManager.idToken = data.getString("idToken")
+                        MyApplication.prefManager.authorization = data.getString("accessToken")
+                        MyApplication.currentActivity.startActivity(
+                            Intent(
+                                MyApplication.currentActivity,
+                                MainActivity::class.java
+                            )
+                        )
+                        MyApplication.currentActivity.finish()
+                    }
+                }
             }
 
             override fun onFailure(reCall: Runnable?, e: Exception?) {

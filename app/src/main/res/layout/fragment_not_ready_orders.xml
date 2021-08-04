@@ -40,13 +40,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--        <com.wang.avi.AVLoadingIndicatorView-->
-        <!--            android:layout_width="40dp"-->
-        <!--            android:layout_height="40dp"-->
-        <!--            android:layout_gravity="center"-->
-        <!--            android:layout_marginBottom="10dp"-->
-        <!--            app:indicatorColor="@color/white"-->
-        <!--            app:indicatorName="BallBeatIndicator" />-->
+        <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            app:indicatorColor="@color/white"
+            app:indicatorName="BallBeatIndicator" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,16 +65,15 @@
 
                 <TextView
                     android:id="@+id/customerName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/_6sdp"
-                    android:layout_weight="1.5"
-                    android:text="مبینا واحدی"
+                    android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13sdp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="center"
@@ -84,11 +83,10 @@
 
                 <TextView
                     android:id="@+id/time"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:gravity="right|center"
-                    android:text="۰۸:۰۵"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13sdp" />
 
@@ -133,7 +131,6 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:paddingRight="10dp"
-                        android:text="سس مخصوص و سس سیر بذارین"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14sdp" />
 
@@ -170,22 +167,38 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="کوهسنگی ۲۰ - امیرکبیر - رودکی ۲۰ پلاک ۴۰۳ زنگ اول"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13sdp" />
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btnOrderReady"
+            <ViewFlipper
+                android:id="@+id/vfSetReady"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="center"
+                android:layout_margin="@dimen/_5sdp"
                 android:layout_weight="0.3"
                 android:background="@drawable/red"
-                android:text="@string/get_ready"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_15sdp" />
+                android:elevation="@dimen/_2sdp">
+
+                <Button
+                    android:id="@+id/btnOrderReady"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/red"
+                    android:text="@string/get_ready"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sdp" />
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    app:indicatorColor="@color/white" />
+
+            </ViewFlipper>
 
         </LinearLayout>
 
