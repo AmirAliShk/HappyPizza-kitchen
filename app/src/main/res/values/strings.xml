@@ -8,7 +8,7 @@
     <string name="not_ready">آماده نشده</string>
     <string name="description">توضیحات</string>
     <string name="get_ready">آماده سازی</string>
-    <string name="address">آدرس</string>
+    <string name="address">آدرس :</string>
     <string name="ready">آماده شده</string>
     <string name="order_history">تاریخچه سفارش ها</string>
     <string name="verification_code">کد تایید</string>

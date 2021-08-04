@@ -8,25 +8,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/_5sdp">
 
         <TextView
             android:id="@+id/productName"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginRight="@dimen/_15sdp"
             android:layout_weight="1.5"
-            android:paddingTop="@dimen/_5sdp"
+            android:gravity="center_vertical"
             android:textColor="@color/black"
             android:textSize="@dimen/_15sdp" />
 
         <TextView
             android:id="@+id/quantity"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:gravity="center_vertical"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_15sdp" />
 
     </LinearLayout>
 

@@ -36,15 +36,8 @@ class Splash : AppCompatActivity() {
         }
 
         MyApplication.handler.postDelayed(
-            {
-                FragmentHelper
-                    .toFragment(MyApplication.currentActivity, VerificationFragment())
-                    .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
-                    .setAddToBackStack(false)
-                    .add()
-            }/*GetAppInfo()::callAppInfoAPI*/, 1500
+            GetAppInfo()::callAppInfoAPI, 1500
         )
-
     }
 
     override fun onResume() {

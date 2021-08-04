@@ -1,5 +1,6 @@
 package ir.food.kitchenAndroid.fragment
 
+import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -46,7 +47,7 @@ class NotReadyOrdersFragment : Fragment() {
                 ContextCompat.getColor(MyApplication.context, R.color.darkGray)
         }
 
-        TypefaceUtil.overrideFonts(binding.root)
+        TypefaceUtil.overrideFonts(binding.root,MyApplication.IraSanSMedume)
 
 //        getOrders()
         val data =
@@ -69,15 +70,11 @@ class NotReadyOrdersFragment : Fragment() {
 
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
 
-//        binding.btnOrderReady.setOnClickListener {
-//            //todo set condition for first and last item
-//            if (binding.listOrders.scrollState == binding.listOrders.size - 1) {
-//                getOrders()
-//            } else {
-//                binding.listOrders.scrollToPosition(binding.listOrders.scrollState + 1)
-//            }
-//            //todo change status of order
-//        }
+        binding.btnOrderReady.setOnClickListener {
+            //todo set condition for first and last item
+
+            //todo change status of order
+        }
 
         return binding.root
     }

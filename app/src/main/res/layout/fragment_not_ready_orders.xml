@@ -48,151 +48,146 @@
         <!--            app:indicatorColor="@color/white"-->
         <!--            app:indicatorName="BallBeatIndicator" />-->
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_marginBottom="15dp"
-            android:scrollbars="none">
+            android:layout_margin="@dimen/_17sdp"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:layout_weight="0.25"
+                android:background="@drawable/pale_red"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_5sdp">
+
+                <TextView
+                    android:id="@+id/customerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/_6sdp"
+                    android:layout_weight="1.5"
+                    android:text="مبینا واحدی"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="@string/register_time"
+                    android:textColor="@color/color_Titles"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="right|center"
+                    android:text="۰۸:۰۵"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13sdp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.5"
+                android:background="@drawable/field_background"
                 android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/productList"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:divider="@null"
+                    android:listSelector="#00ffffff"
+                    android:padding="@dimen/_5sdp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_product" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_weight="0.2"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/_10sdp">
 
-                    <LinearLayout
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.7"
+                        android:text="@string/description"
+                        android:textColor="@color/color_Titles"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        android:id="@+id/description"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_13sdp"
-                        android:layout_marginTop="@dimen/_13sdp"
-                        android:layout_marginRight="@dimen/_13sdp"
-                        android:background="@drawable/pale_red"
-                        android:padding="@dimen/_4sdp">
-
-                        <TextView
-                            android:id="@+id/customerName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="@dimen/_6sdp"
-                            android:layout_weight="1.5"
-                            android:text="مبینا واحدی"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_15sdp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.5"
-                            android:gravity="center"
-                            android:text="@string/register_time"
-                            android:textColor="@color/color_Titles"
-                            android:textSize="@dimen/_14sdp" />
-
-                        <TextView
-                            android:id="@+id/time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.5"
-                            android:gravity="right|center"
-                            android:text="8:5"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_15sdp" />
-
-                    </LinearLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/productList"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_13sdp"
-                        android:background="@drawable/field_background"
-                        android:divider="@null"
-                        android:listSelector="#00ffffff"
-                        android:padding="@dimen/_5sdp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/item_product" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:paddingRight="@dimen/_15sdp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/description"
-                                android:textColor="@color/color_Titles" />
-
-                            <TextView
-                                android:id="@+id/description"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="45dp"
-                                android:paddingRight="@dimen/_8ssp"
-                                android:textColor="@color/black" />
-
-                        </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_margin="@dimen/_6sdp"
-                            android:src="@drawable/ic_call" />
-
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginHorizontal="@dimen/_17sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.25"
-                            android:text="@string/address"
-                            android:textColor="@color/color_Titles"
-                            android:textSize="@dimen/_12sdp" />
-
-                        <TextView
-                            android:id="@+id/txtAddress"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_15sdp" />
-
-                    </LinearLayout>
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:paddingRight="10dp"
+                        android:text="سس مخصوص و سس سیر بذارین"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sdp" />
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/btnOrderReady"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/red"
-                    android:text="@string/get_ready"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_15sdp" />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:src="@drawable/ic_call" />
 
             </LinearLayout>
 
-        </ScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_5sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.19"
+                    android:text="@string/address"
+                    android:textColor="@color/color_Titles"
+                    android:textSize="@dimen/_13sdp" />
+
+                <TextView
+                    android:id="@+id/txtAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="کوهسنگی ۲۰ - امیرکبیر - رودکی ۲۰ پلاک ۴۰۳ زنگ اول"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13sdp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnOrderReady"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.3"
+                android:background="@drawable/red"
+                android:text="@string/get_ready"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15sdp" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"

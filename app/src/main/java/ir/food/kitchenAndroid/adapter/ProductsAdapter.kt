@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ItemProductBinding
+import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.ProductModel
 
@@ -27,7 +28,7 @@ class ProductsAdapter(list: ArrayList<ProductModel>) :
         val model = models[position]
 
         holder.binding.productName.text = model.name
-        holder.binding.quantity.text = (model.quantity.toString())
+        holder.binding.quantity.text = StringHelper.toPersianDigits(model.quantity.toString())
     }
 
     override fun getItemCount(): Int {

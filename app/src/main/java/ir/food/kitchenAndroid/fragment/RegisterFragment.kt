@@ -53,10 +53,11 @@ class RegisterFragment : Fragment() {
         }
 
         binding.txtLogin.setOnClickListener {
-            FragmentHelper
-                .toFragment(MyApplication.currentActivity, VerificationFragment())
-                .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
-                .add()
+//            FragmentHelper
+//                .toFragment(MyApplication.currentActivity, VerificationFragment())
+//                .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
+//                .add()
+            register()
         }
 
         return binding.root

@@ -58,20 +58,20 @@ class VerificationFragment : Fragment() {
         }
 
         binding.btnLogin.setOnClickListener {
-//            if (binding.edtMobile.toString()
-//                    .isEmpty() || binding.edtCode.toString().isEmpty()
-//            ) {
-//                MyApplication.Toast("لطفا تمام موارد را کامل کنید", Toast.LENGTH_SHORT)
-//            } else {
-            MyApplication.currentActivity.startActivity(
-                Intent(
-                    MyApplication.currentActivity,
-                    MainActivity::class.java
-                )
-            )
-            MyApplication.currentActivity.finish()
-            //login()
-//            }
+            if (binding.edtMobile.toString()
+                    .isEmpty() || binding.edtCode.toString().isEmpty()
+            ) {
+                MyApplication.Toast("لطفا تمام موارد را کامل کنید", Toast.LENGTH_SHORT)
+            } else {
+//            MyApplication.currentActivity.startActivity(
+//                Intent(
+//                    MyApplication.currentActivity,
+//                    MainActivity::class.java
+//                )
+//            )
+//            MyApplication.currentActivity.finish()
+                login()
+            }
         }
 
         binding.txtRegister.setOnClickListener {
@@ -104,7 +104,7 @@ class VerificationFragment : Fragment() {
 
                     if (success) {
 
-//                            "success": true, "message": "کد تاییدیه به شماره موبایل داده شده ، با موفقیت فرستاده شد"
+//                 "success": true, "message": "کد تاییدیه به شماره موبایل داده شده ، با موفقیت فرستاده شد"
 
                         binding.edtCode.isEnabled = true
                         binding.btnLogin.isEnabled = true

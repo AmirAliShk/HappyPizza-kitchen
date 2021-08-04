@@ -23,7 +23,7 @@ public class EndPoints {
 //          : "http://192.168.1.145";
 
 
-    public static final String APIPort = (BuildConfig.DEBUG) ? "3030" : "1881";
+    public static final String APIPort = (BuildConfig.DEBUG) ? "3010" : "1881";
 
     public static final String HAWKEYE_APIPort = (BuildConfig.DEBUG) ? "3010" : "1890";
 
