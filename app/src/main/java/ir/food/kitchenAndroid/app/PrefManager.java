@@ -27,12 +27,10 @@ public class PrefManager {
     private static final String KEY_USER_NAME = "userName";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
-    private static final String KEY_COUNT_REQUEST = "countRquest";
     private static final String PUSH_TOKEN = "pushToken";
     private static final String PUSH_ID = "pushID";
     private static final String ACCOUNT_NUMBER = "accountNumber";
     private static final String KEY_APP_STATUS = "AppStatus";
-    private static final String COMPLAINT_TYPE = "ComplaintType";
     private static final String AUTHORIZATION = "Authorization";
     private static final String ID_TOKEN = "id_token";
     private static final String REFRESH_TOKEN = "refreshToken";
@@ -80,15 +78,6 @@ public class PrefManager {
 
     public boolean isAppRun() {
         return pref.getBoolean(KEY_APP_STATUS, false);
-    }
-
-    public String getComplaint() {
-        return pref.getString(COMPLAINT_TYPE, "");
-    }
-
-    public void setComplaint(String complaint) {
-        editor.putString(COMPLAINT_TYPE, complaint);
-        editor.commit();
     }
 
     public void setKey(String key) {
@@ -170,15 +159,6 @@ public class PrefManager {
 
     public boolean getLoggedIn() {
         return pref.getBoolean(KEY_IS_LOGGED_IN, false);
-    }
-
-    public void setCountRequest(int count) {
-        editor.putInt(KEY_COUNT_REQUEST, count);
-        editor.commit();
-    }
-
-    public int getCountRequest() {
-        return pref.getInt(KEY_COUNT_REQUEST, 0);
     }
 
     public void setActivationRemainingTime(long v) {

@@ -1,21 +1,16 @@
 package ir.food.kitchenAndroid.fragment
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.activity.MainActivity
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentRegisterBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
-import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import org.json.JSONException
@@ -32,16 +27,6 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRegisterBinding.inflate(layoutInflater)
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            val window = this.activity?.window
-            window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            window?.statusBarColor = ContextCompat.getColor(MyApplication.context, R.color.darkGray)
-            window?.navigationBarColor =
-                ContextCompat.getColor(MyApplication.context, R.color.darkGray)
-        }
-
         TypefaceUtil.overrideFonts(binding.root)
 
         binding.btnRegister.setOnClickListener {
@@ -70,7 +55,7 @@ class RegisterFragment : Fragment() {
 
 
     private fun sendCode() {
-//        binding.vfSendCode.displayedChild = 1
+        binding.vfSendCode.displayedChild = 1
         RequestHelper.builder(EndPoints.REGISTER_CODE)
             .addParam("mobile", binding.edtMobile.text.toString())
             .listener(sendCodeCallBack)
@@ -81,23 +66,29 @@ class RegisterFragment : Fragment() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
                 try {
-//                    binding.vfSendCode.displayedChild = 0
+                    binding.vfSendCode.displayedChild = 0
 
                     val response = JSONObject(args[0].toString())
                     val success = response.getBoolean("success")
                     val message = response.getString("message")
 
                     if (success) {
-
 //                 "success": true, "message": "کد تاییدیه به شماره موبایل داده شده ، با موفقیت فرستاده شد"
 
                         binding.edtVerificationCode.isEnabled = true
                         binding.btnRegister.isEnabled = true
 //                        binding.vfSendCode.visibility = View.GONE
+                    } else {
+                        binding.vfSendCode.displayedChild = 0
+                        GeneralDialog()
+                            .message(message)
+                            .firstButton("باشه") { GeneralDialog().dismiss() }
+                            .secondButton("تلاش مجدد") { sendCode() }
+                            .show()
                     }
 
                 } catch (e: JSONException) {
-//                    binding.vfSendCode.displayedChild = 0
+                    binding.vfSendCode.displayedChild = 0
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -108,9 +99,9 @@ class RegisterFragment : Fragment() {
             }
         }
 
-        override fun onFailure(reCall: Runnable?, e: java.lang.Exception?) {
+        override fun onFailure(reCall: Runnable?, e: Exception?) {
             MyApplication.handler.post {
-//                binding.vfSendCode.displayedChild = 0
+                binding.vfSendCode.displayedChild = 0
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
                     .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -119,14 +110,10 @@ class RegisterFragment : Fragment() {
             }
             super.onFailure(reCall, e)
         }
-
     }
 
     private fun register() {
-//        if (binding.vfOrders != null) {
-//            binding.vfOrders.displayedChild = 0
-//        }
-
+        binding.vfSignUp.displayedChild = 1
         RequestHelper.builder(EndPoints.REGISTER)
             .addParam("password", binding.edtPassword.text.toString())
             .addParam("family", binding.edtName.text.toString())
@@ -139,32 +126,57 @@ class RegisterFragment : Fragment() {
 
     private val registerCallBack: RequestHelper.Callback =
         object : RequestHelper.Callback() {
-
             override fun onResponse(reCall: Runnable?, vararg args: Any?) {
-
-                val response = JSONObject(args[0].toString())
-                val success = response.getBoolean("success")
-                val message = response.getString("message")
-                if (success) {
-                    val data = response.getJSONObject("data")
-                    val status = data.getBoolean("status")
-                    if (status) {
-                        MyApplication.prefManager.idToken = data.getString("idToken")
-                        MyApplication.prefManager.authorization = data.getString("accessToken")
-                        MyApplication.currentActivity.startActivity(
-                            Intent(
-                                MyApplication.currentActivity,
-                                MainActivity::class.java
-                            )
-                        )
-                        MyApplication.currentActivity.finish()
+                MyApplication.handler.post {
+                    try {
+                        binding.vfSignUp.displayedChild = 0
+                        val response = JSONObject(args[0].toString())
+                        val success = response.getBoolean("success")
+                        val message = response.getString("message")
+                        if (success) {
+                            val data = response.getJSONObject("data")
+                            val status = data.getBoolean("status")
+                            if (status) {
+                                MyApplication.prefManager.idToken = data.getString("idToken")
+                                MyApplication.prefManager.authorization =
+                                    data.getString("accessToken")
+                                MyApplication.currentActivity.startActivity(
+                                    Intent(
+                                        MyApplication.currentActivity,
+                                        MainActivity::class.java
+                                    )
+                                )
+                                MyApplication.currentActivity.finish()
+                            }
+                        } else {
+                            binding.vfSignUp.displayedChild = 0
+                            GeneralDialog()
+                                .message(message)
+                                .firstButton("باشه") { GeneralDialog().dismiss() }
+                                .secondButton("تلاش مجدد") { register() }
+                                .show()
+                        }
+                    } catch (e: JSONException) {
+                        binding.vfSignUp.displayedChild = 0
+                        GeneralDialog()
+                            .message("خطایی پیش آمده دوباره امتحان کنید.")
+                            .firstButton("باشه") { GeneralDialog().dismiss() }
+                            .secondButton("تلاش مجدد") { register() }
+                            .show()
+                        e.printStackTrace()
                     }
                 }
             }
 
             override fun onFailure(reCall: Runnable?, e: Exception?) {
+                MyApplication.handler.post {
+                    GeneralDialog()
+                        .message("خطایی پیش آمده دوباره امتحان کنید.")
+                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .secondButton("تلاش مجدد") { register() }
+                        .show()
+                }
                 super.onFailure(reCall, e)
             }
-
         }
 }

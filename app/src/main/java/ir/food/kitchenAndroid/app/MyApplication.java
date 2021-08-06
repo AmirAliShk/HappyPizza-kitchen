@@ -14,7 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
+
 import java.util.Locale;
+
 import ir.food.kitchenAndroid.R;
 import ir.food.kitchenAndroid.helper.TypefaceUtil;
 
@@ -146,6 +148,5 @@ public class MyApplication extends Application {
 //
 //
 //  }
-
 
 }

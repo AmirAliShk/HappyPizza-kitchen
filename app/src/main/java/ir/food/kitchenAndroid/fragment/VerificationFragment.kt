@@ -1,13 +1,10 @@
 package ir.food.kitchenAndroid.fragment
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.EndPoints
@@ -31,16 +28,6 @@ class VerificationFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentVerificationBinding.inflate(layoutInflater)
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            val window = this.activity?.window
-            window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            window?.statusBarColor = ContextCompat.getColor(MyApplication.context, R.color.darkGray)
-            window?.navigationBarColor =
-                ContextCompat.getColor(MyApplication.context, R.color.darkGray)
-        }
-
         TypefaceUtil.overrideFonts(binding.root)
 
         binding.edtCode.isEnabled = false
@@ -48,7 +35,7 @@ class VerificationFragment : Fragment() {
 
         binding.btnSendCode.setOnClickListener {
             if (binding.edtMobile.text.toString().isEmpty()) {
-                MyApplication.Toast("لطفا تمام موارد را کامل کنید", Toast.LENGTH_SHORT)
+                MyApplication.Toast("لطفا شماره موبایل خود را وارد کنید.", Toast.LENGTH_SHORT)
             } else {
                 sendCode()
             }
@@ -82,7 +69,7 @@ class VerificationFragment : Fragment() {
     }
 
     private fun sendCode() {
-//        binding.vfSendCode.displayedChild = 1
+        binding.vfSendCode.displayedChild = 1
         RequestHelper.builder(EndPoints.LOGIN_CODE)
             .addParam("mobile", binding.edtMobile.text.toString())
             .addParam("scope", "cook")
@@ -94,7 +81,7 @@ class VerificationFragment : Fragment() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
                 try {
-//                    binding.vfSendCode.displayedChild = 0
+                    binding.vfSendCode.displayedChild = 0
 
                     val response = JSONObject(args[0].toString())
                     val success = response.getBoolean("success")
@@ -107,10 +94,17 @@ class VerificationFragment : Fragment() {
                         binding.edtCode.isEnabled = true
                         binding.btnLogin.isEnabled = true
 //                        binding.vfSendCode.visibility = View.GONE
+                    } else {
+                        binding.vfSendCode.displayedChild = 0
+                        GeneralDialog()
+                            .message(message)
+                            .firstButton("باشه") { GeneralDialog().dismiss() }
+                            .secondButton("تلاش مجدد") { sendCode() }
+                            .show()
                     }
 
                 } catch (e: JSONException) {
-//                    binding.vfSendCode.displayedChild = 0
+                    binding.vfSendCode.displayedChild = 0
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -123,7 +117,7 @@ class VerificationFragment : Fragment() {
 
         override fun onFailure(reCall: Runnable?, e: java.lang.Exception?) {
             MyApplication.handler.post {
-//                binding.vfSendCode.displayedChild = 0
+                binding.vfSendCode.displayedChild = 0
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
                     .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -136,9 +130,9 @@ class VerificationFragment : Fragment() {
     }
 
     private fun login() {
-//        binding.vfSubmit.displayedChild = 1
+        binding.vfLogin.displayedChild = 1
         RequestHelper.builder(EndPoints.LOG_IN)
-            .addParam("mobile", binding.edtMobile.text.toString())//todo
+            .addParam("mobile", binding.edtMobile.text.toString())
             .addParam("code", binding.edtCode.text.toString())
             .addParam("scope", "cook")
             .listener(loginCallBack)
@@ -150,7 +144,7 @@ class VerificationFragment : Fragment() {
             override fun onResponse(reCall: Runnable?, vararg args: Any?) {
                 MyApplication.handler.post {
                     try {
-//                        binding.vfSubmit.displayedChild = 0
+                        binding.vfLogin.displayedChild = 0
 //{"success":true,"message":"کاربر با موفقیت وارد شد","data":{"idToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjBkOWJlNGY4ZTJiN2QyOTdjMmU0NjUwIiwidXNlcl9hY3RpdmUiOnRydWUsInVzZXJfZW1wbG95ZXIiOiI2MGQ5YmU0ZjhlMmI3ZDI5N2MyZTQ2NTAiLCJpYXQiOjE2MjQ4ODMwMTAsImV4cCI6MTY0NjQ4MzAxMCwiYXVkIjoiYXVkaWVuY2UiLCJpc3MiOiJpc3N1ZXIifQ.LmSGVrGdlArOdfpwMQGF9f7e4xgs44bjZ9ZdBXF_8iU","accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6InVzZXIiLCJpYXQiOjE2MjQ4ODMwMTAsImV4cCI6MTY1MDgwMzAxMCwiYXVkIjoiYXVkaWVuY2UiLCJpc3MiOiJpc3N1ZXIifQ.SRgJvlVA_fggm6KX2D45v_S7Z1tW7h8g3uT4hEfiohw"}}
 //                      {"success":false,"message":"کاربر در دسترس نمی باشد","data":{}}
                         val response = JSONObject(args[0].toString())
@@ -170,7 +164,7 @@ class VerificationFragment : Fragment() {
                                 .show()
                         }
                     } catch (e: JSONException) {
-//                        binding.vfSubmit.displayedChild = 0
+                        binding.vfLogin.displayedChild = 0
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
                             .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -183,7 +177,7 @@ class VerificationFragment : Fragment() {
 
             override fun onFailure(reCall: Runnable?, e: Exception?) {
                 MyApplication.handler.post {
-//                    binding.vfSubmit.displayedChild = 0
+                    binding.vfLogin.displayedChild = 0
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .firstButton("باشه") { GeneralDialog().dismiss() }

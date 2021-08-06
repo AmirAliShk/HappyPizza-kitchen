@@ -8,12 +8,13 @@
         <entry key="app/src/main/res/drawable/bg_toast.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/field_background.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_gps.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_refresh.xml" value="0.209375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/cancelable_loder.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/dialog_general.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/ffeff.xml" value="0.19322916666666667" />
-        <entry key="app/src/main/res/layout/fragment_not_ready_orders.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_not_ready_orders.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_orders_history.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_ready_orders.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.19322916666666667" />

@@ -206,7 +206,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_gravity="center"
-                            app:indicatorColor="@color/white" />
+                            app:indicatorColor="@color/color_Red" />
 
                     </ViewFlipper>
 
@@ -326,20 +326,36 @@
                     android:layout_height="0dp"
                     android:layout_weight="1" />
 
-                <Button
-                    android:id="@+id/btnRegister"
+                <ViewFlipper
+                    android:id="@+id/vfSignUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/_5sdp"
+                    android:layout_weight="0.25"
                     android:background="@drawable/bg_red"
-                    android:elevation="@dimen/_2sdp"
-                    android:paddingLeft="@dimen/_50sdp"
-                    android:paddingRight="@dimen/_50sdp"
-                    android:text="@string/signUp"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_20ssp"
-                    android:textStyle="bold" />
+                    android:elevation="@dimen/_2sdp">
+
+                    <Button
+                        android:id="@+id/btnRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="#00ffffff"
+                        android:paddingHorizontal="@dimen/_25sdp"
+                        android:text="@string/signUp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_20ssp"
+                        android:textStyle="bold" />
+
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:paddingHorizontal="@dimen/_25sdp"
+                        app:indicatorColor="@color/white" />
+
+                </ViewFlipper>
 
             </LinearLayout>
 

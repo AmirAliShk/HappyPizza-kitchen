@@ -13,13 +13,13 @@ public class EndPoints {
     public static final String IP = (BuildConfig.DEBUG)
 //          ? "http://192.168.1.145"
             ? "http://happypizza.ir"
-            : "http://happypizza.ir";//todo
+            : "http://happypizza.ir";
 //          : "http://192.168.1.145";
 
     public static final String HAKWEYE_IP = (BuildConfig.DEBUG)
 //          ? "http://192.168.1.145"
             ? "http://happypizza.ir"
-            : "http://happypizza.ir";//todo
+            : "http://happypizza.ir";
 //          : "http://192.168.1.145";
 
 

@@ -42,21 +42,18 @@ class MainActivity : AppCompatActivity() {
         binding.btnNotReady.setOnClickListener {
             FragmentHelper
                 .toFragment(MyApplication.currentActivity, NotReadyOrdersFragment())
-                .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
                 .add()
         }
 
         binding.btnReady.setOnClickListener {
             FragmentHelper
                 .toFragment(MyApplication.currentActivity, ReadyOrdersFragment())
-                .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
                 .add()
         }
 
         binding.btnHistory.setOnClickListener {
             FragmentHelper
                 .toFragment(MyApplication.currentActivity, OrdersHistoryFragment())
-                .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
                 .add()
         }
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -80,7 +81,8 @@
                     android:layout_weight="0.5"
                     android:background="@drawable/bg_item"
                     android:elevation="@dimen/_2sdp"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
+                    android:maxLength="11"
                     android:padding="@dimen/_8sdp"
                     android:singleLine="true" />
 
@@ -130,23 +132,42 @@
                     android:layout_weight="0.5"
                     android:background="@drawable/bg_item"
                     android:elevation="@dimen/_2sdp"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
                     android:nextFocusDown="@id/btnLogin"
                     android:padding="@dimen/_8sdp"
                     android:singleLine="true" />
 
-                <Button
-                    android:id="@+id/btnSendCode"
+                <ViewFlipper
+                    android:id="@+id/vfSendCode"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_margin="@dimen/_5sdp"
                     android:layout_weight="0.25"
                     android:background="@drawable/pale_red"
-                    android:elevation="@dimen/_2sdp"
-                    android:text="@string/send_code"
-                    android:textColor="@color/color_Red"
-                    android:textSize="@dimen/_16sdp"
-                    android:textStyle="bold" />
+                    android:elevation="@dimen/_2sdp">
+
+                    <Button
+                        android:id="@+id/btnSendCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#00ffffff"
+                        android:elevation="@dimen/_2sdp"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@string/send_code"
+                        android:textColor="@color/color_Red"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
+
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:indicatorColor="@color/color_Red" />
+
+                </ViewFlipper>
 
             </LinearLayout>
 
@@ -166,20 +187,36 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <Button
-                android:id="@+id/btnLogin"
+            <ViewFlipper
+                android:id="@+id/vfLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="0.25"
                 android:background="@drawable/bg_red"
-                android:elevation="@dimen/_2sdp"
-                android:paddingLeft="@dimen/_50sdp"
-                android:paddingRight="@dimen/_50sdp"
-                android:text="@string/login"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_18ssp"
-                android:textStyle="bold" />
+                android:elevation="@dimen/_2sdp">
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="#00ffffff"
+                    android:paddingHorizontal="@dimen/_25sdp"
+                    android:text="@string/login"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_20ssp"
+                    android:textStyle="bold" />
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingHorizontal="@dimen/_25sdp"
+                    app:indicatorColor="@color/white" />
+
+            </ViewFlipper>
 
         </LinearLayout>
 

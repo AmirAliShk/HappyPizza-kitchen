@@ -45,7 +45,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            app:indicatorColor="@color/white"
+            app:indicatorColor="@color/black"
             app:indicatorName="BallBeatIndicator" />
 
         <LinearLayout
@@ -202,12 +202,27 @@
 
         </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="سفارش آماده نشده ای وجود ندارد."
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="سفارش آماده نشده ای وجود ندارد."
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <ImageView
+                android:id="@+id/imgRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:src="@drawable/ic_refresh" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -223,7 +238,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <ImageView
-                android:id="@+id/imgRefresh"
+                android:id="@+id/imgRefreshFail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
