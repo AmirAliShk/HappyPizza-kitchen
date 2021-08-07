@@ -87,9 +87,9 @@
                 android:textSize="@dimen/_13sdp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/orderList"
+                android:id="@+id/productList"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_13sdp"
                 android:background="@drawable/field_background"
                 android:divider="@null"

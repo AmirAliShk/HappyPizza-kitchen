@@ -9,6 +9,7 @@ import ir.food.kitchenAndroid.adapter.ProductsAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentNotReadyOrdersBinding
+import ir.food.kitchenAndroid.dialog.CallDialog
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.DateHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
@@ -20,12 +21,13 @@ import java.util.*
 
 class NotReadyOrdersFragment : Fragment() {
 
-    private lateinit var binding: FragmentNotReadyOrdersBinding
+    lateinit var binding: FragmentNotReadyOrdersBinding
 
     var productModels: ArrayList<ProductModel> = ArrayList()
     var adapter: ProductsAdapter = ProductsAdapter(productModels)
     lateinit var orderId: String
     private lateinit var timer: Timer
+    lateinit var customerNum: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,21 +39,6 @@ class NotReadyOrdersFragment : Fragment() {
 
         getOrders()
         startGetOrdersTimer()
-//        val data =
-//            "{\"products\":[{ \"quantity\":3, \"name\":\"پپرونی\" },{ \"quantity\":3, \"name\":\"کوکا\" },{ \"quantity\":1, \"name\":\"سالاد فصل\" },{ \"quantity\":6, \"name\":\"سس کچاپ\" },{ \"quantity\":1, \"name\":\"نان سیر\" }]}"
-//        val dataObject = JSONObject(data)
-//        val active = dataObject.getJSONArray("products")
-//        for (i in 0 until active.length()) {
-//            val dataObj: JSONObject = active.getJSONObject(i)
-//
-//            var model = ProductModel(
-//                dataObj.getString("name"),
-//                dataObj.getInt("quantity")
-//            )
-//
-//            productModels.add(model)
-//        }
-//        binding.productList.adapter = adapter
 
         binding.imgRefresh.setOnClickListener { getOrders() }
 
@@ -62,11 +49,14 @@ class NotReadyOrdersFragment : Fragment() {
             //todo change status of order
         }
 
+        binding.imgCall.setOnClickListener { CallDialog().show(customerNum) }
+
         return binding.root
     }
 
     private fun getOrders() {
-        binding.vfOrders.displayedChild = 0
+        if (binding.vfOrders != null)
+            binding.vfOrders.displayedChild = 0
         RequestHelper.builder(EndPoints.NOT_READY_ORDER)
             .listener(ordersCallBack)
             .get()
@@ -84,47 +74,44 @@ class NotReadyOrdersFragment : Fragment() {
 
                         if (success) {
                             val dataObject = response.getJSONObject("data")
-
-                            val products = dataObject.getJSONArray("products")
-                            for (i in 0 until products.length()) {
-                                val productDetail: JSONObject = products.getJSONObject(i)
-                                val productId = productDetail.getJSONObject("_id")
-                                var model = ProductModel(
-                                    productId.getString("name"),
-                                    productDetail.getInt("quantity"),
-                                    productDetail.getString("size")
-                                )
-
-                                productModels.add(model)
-                            }
-                            if (productModels.size == 0) {
+                            if (dataObject.toString() == "{}") {
                                 binding.vfOrders.displayedChild = 2
                             } else {
-                                binding.vfOrders.displayedChild = 1
-                            }
-                            binding.productList.adapter = adapter
+                                val products = dataObject.getJSONArray("products")
+                                for (i in 0 until products.length()) {
+                                    val productDetail: JSONObject = products.getJSONObject(i)
+                                    val productId = productDetail.getJSONObject("_id")
+                                    var model = ProductModel(
+                                        productId.getString("name"),
+                                        productDetail.getInt("quantity"),
+                                        productDetail.getString("size")
+                                    )
 
-                            orderId = dataObject.getString("_id")
+                                    productModels.add(model)
+                                }
+                                binding.productList.adapter = adapter
 
-                            val customer = dataObject.getJSONObject("customer")
-                            val customerNum = customer.getString("mobile")
-                            val customerName = customer.getString("family")
+                                orderId = dataObject.getString("_id")
 
-                            val address = dataObject.getString("address")
+                                val customer = dataObject.getJSONObject("customer")
+                                customerNum = customer.getString("mobile")
+                                val customerName = customer.getString("family")
+
+                                val address = dataObject.getString("address")
 
 //                            val status = dataObject.getJSONObject("status")
 //                            val statusCode = status.getInt("status")
 //                            val statusName = status.getString("name")
 
-                            val description = dataObject.getString("description")
+                                val description = dataObject.getString("description")
 
-                            val date = dataObject.getString("createdAt")
+                                val date = dataObject.getString("createdAt")
 
-                            binding.customerName.text = customerName
-                            binding.time.text = DateHelper.parseFormat(date)
-                            binding.description.text = description
-                            binding.txtAddress.text = address
-
+                                binding.customerName.text = customerName
+                                binding.time.text = DateHelper.parseFormat(date)
+                                binding.description.text = description
+                                binding.txtAddress.text = address
+                            }
                         } else {
                             GeneralDialog()
                                 .message(message)
@@ -211,11 +198,11 @@ class NotReadyOrdersFragment : Fragment() {
         }
 
     private fun startGetOrdersTimer() {
+        timer = Timer()
         try {
             if (timer != null) {
                 return
             }
-            timer = Timer()
             timer.scheduleAtFixedRate(object : TimerTask() {
                 override fun run() {
                     getOrders()

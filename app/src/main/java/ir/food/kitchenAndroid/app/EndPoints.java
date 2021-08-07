@@ -44,6 +44,7 @@ public class EndPoints {
     public static final String ORDER = WEBSERVICE_PATH + "order/";
     public static final String NOT_READY_ORDER = ORDER + "active";
     public static final String READY = ORDER + "ready";
+    public static final String HISTORY = ORDER + "finished";
 
     /******************************** refresh token Api *********************************/
 

@@ -49,7 +49,7 @@
             app:indicatorName="BallBeatIndicator" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/orderList"
+            android:id="@+id/historyList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_13sdp"
@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="سفارشی ثبت نشده است."
+                android:text="سفارشی موجود نیست."
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <ImageView
