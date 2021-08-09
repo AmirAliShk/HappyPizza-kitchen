@@ -53,10 +53,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_13sdp"
-            android:background="@drawable/field_background"
+            android:background="#00ffffff"
             android:divider="@null"
             android:listSelector="#00ffffff"
-            android:padding="@dimen/_5sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_ready_orders" />
 

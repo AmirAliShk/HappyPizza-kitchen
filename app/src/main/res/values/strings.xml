@@ -19,7 +19,12 @@
     <string name="register_time">زمان ثبت:</string>
     <string name="signUp">ثبت نام</string>
     <string name="mobile">موبایل</string>
+    <string name="mobile_dot">موبایل :</string>
     <string name="name">نام :</string>
     <string name="email">ایمیل</string>
+    <string name="order">سفارش</string>
+    <string name="price">قیمت</string>
+    <string name="number">تعداد</string>
+    <string name="size">سایز</string>
 
 </resources>

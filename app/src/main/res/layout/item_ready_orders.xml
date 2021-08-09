@@ -1,111 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
+    android:layout_margin="@dimen/_5sdp"
+    android:paddingBottom="@dimen/_10sdp"
+    android:background="@drawable/field_background"
     android:layoutDirection="rtl"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/imgCall"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/ic_call" />
+
     <LinearLayout
+        android:id="@+id/llItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:background="@drawable/bg_item"
-        android:elevation="@dimen/_2sdp"
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/llHeaderStatus"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/redd"
-            android:gravity="center"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:background="@drawable/bg_orders_header"
             android:orientation="horizontal"
-            android:padding="@dimen/_5sdp">
+            android:paddingHorizontal="@dimen/_9sdp"
+            android:paddingVertical="@dimen/_7sdp">
+
+            <ImageView
+                android:id="@+id/imgStatus"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_weight="0.25" />
+
+            <TextView
+                android:id="@+id/txtStatus"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtTime"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.3"
+                android:gravity="left|center_vertical"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center_vertical"
+                android:text="@string/name"
+                android:textColor="@color/color_Titles"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtCustomerName"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="@dimen/_8sdp"
-                android:layout_weight="1"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txtDate"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/_8sdp"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_13sdp"
-                android:textStyle="bold" />
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_9sdp"
-            android:orientation="horizontal">
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_10sdp">
 
-            <ImageView
+            <TextView
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:src="@drawable/ic_gps" />
+                android:text="@string/address"
+                android:textColor="@color/color_Titles"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtAddress"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.7"
-                android:gravity="center_vertical"
+                android:layout_weight="2"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_13sdp" />
-
-            <ImageView
-                android:id="@+id/imgCall"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_weight="0.5"
-                android:src="@drawable/ic_call" />
+                android:textSize="@dimen/_16sdp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
             android:background="@drawable/pale_red"
-            android:orientation="vertical"
-            android:padding="@dimen/_4sdp">
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_3ssp"
-                android:text="@string/orders"
-                android:textSize="@dimen/_13sdp" />
+                android:layout_height="0dp"
+                android:layout_weight="0.8"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/_5sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.79"
+                    android:gravity="center_vertical"
+                    android:paddingRight="@dimen/_9sdp"
+                    android:text="@string/order"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_16sdp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.6"
+                    android:gravity="center"
+                    android:text="@string/size"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_16sdp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="center"
+                    android:paddingRight="@dimen/_9sdp"
+                    android:text="@string/number"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_16sdp" />
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/productList"
+                android:id="@+id/orderList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_13sdp"
-                android:background="@drawable/field_background"
                 android:divider="@null"
                 android:listSelector="#00ffffff"
-                android:padding="@dimen/_5sdp"
+                android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_product" />
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingVertical="@dimen/_5sdp"
+                android:text="@string/description"
+                android:textSize="@dimen/_16sdp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/stroke_red"
+                android:gravity="center"
+                android:textSize="@dimen/_16sdp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

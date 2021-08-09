@@ -28,6 +28,13 @@ class ProductsAdapter(list: ArrayList<ProductModel>) :
         val model = models[position]
 
         holder.binding.productName.text = model.name
+
+        when (model.size) {
+            "medium" -> holder.binding.size.text = "۱ نفره"
+            "large" -> holder.binding.size.text = "۲ نفره"
+            else -> holder.binding.size.text = model.size
+        }
+
         holder.binding.quantity.text = StringHelper.toPersianDigits(model.quantity.toString())
     }
 
