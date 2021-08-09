@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentVerificationBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.FragmentHelper
+import ir.food.kitchenAndroid.helper.KeyBoardHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.webServices.GetAppInfo
@@ -30,11 +30,16 @@ class VerificationFragment : Fragment() {
         binding = FragmentVerificationBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
 
-        binding.edtCode.isEnabled = false
-//        binding.btnLogin.isEnabled = false
+        binding.edtMobile.requestFocus()
+        MyApplication.handler.postDelayed(
+            { KeyBoardHelper.showKeyboard(MyApplication.context) },
+            400
+        )
 
         binding.btnSendCode.setOnClickListener {
-            if (binding.edtMobile.text.toString().isEmpty()) {
+            if (binding.edtMobile.text.toString()
+                    .isEmpty() || binding.edtMobile.text.toString().length != 11
+            ) {
                 MyApplication.Toast("لطفا شماره موبایل خود را وارد کنید.", Toast.LENGTH_SHORT)
             } else {
                 sendCode()
@@ -43,17 +48,11 @@ class VerificationFragment : Fragment() {
 
         binding.btnLogin.setOnClickListener {
             if (binding.edtMobile.toString()
-                    .isEmpty() || binding.edtCode.toString().isEmpty()
+                    .isEmpty() || binding.edtCode.toString()
+                    .isEmpty() || binding.edtMobile.text.toString().length != 11 || binding.edtCode.text.toString().length != 4
             ) {
                 MyApplication.Toast("لطفا تمام موارد را کامل کنید", Toast.LENGTH_SHORT)
             } else {
-//            MyApplication.currentActivity.startActivity(
-//                Intent(
-//                    MyApplication.currentActivity,
-//                    MainActivity::class.java
-//                )
-//            )
-//            MyApplication.currentActivity.finish()
                 login()
             }
         }
@@ -61,7 +60,6 @@ class VerificationFragment : Fragment() {
         binding.txtRegister.setOnClickListener {
             FragmentHelper
                 .toFragment(MyApplication.currentActivity, RegisterFragment())
-                .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
                 .add()
         }
 
@@ -88,12 +86,7 @@ class VerificationFragment : Fragment() {
                     val message = response.getString("message")
 
                     if (success) {
-
 //                 "success": true, "message": "کد تاییدیه به شماره موبایل داده شده ، با موفقیت فرستاده شد"
-
-                        binding.edtCode.isEnabled = true
-                        binding.btnLogin.isEnabled = true
-//                        binding.vfSendCode.visibility = View.GONE
                     } else {
                         binding.vfSendCode.displayedChild = 0
                         GeneralDialog()

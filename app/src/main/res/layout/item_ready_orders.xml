@@ -168,7 +168,6 @@
                 android:layout_height="wrap_content"
                 android:divider="@null"
                 android:listSelector="#00ffffff"
-                android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_product" />
 

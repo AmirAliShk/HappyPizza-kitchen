@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import ir.food.kitchenAndroid.activity.MainActivity
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentRegisterBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
+import ir.food.kitchenAndroid.helper.FragmentHelper
+import ir.food.kitchenAndroid.helper.KeyBoardHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import org.json.JSONException
@@ -29,26 +32,39 @@ class RegisterFragment : Fragment() {
         binding = FragmentRegisterBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
 
+        binding.edtName.requestFocus()
+        MyApplication.handler.postDelayed(
+            { KeyBoardHelper.showKeyboard(MyApplication.context) },
+            400
+        )
         binding.btnRegister.setOnClickListener {
-//            MyApplication.currentActivity.startActivity(
-//                Intent(
-//                    MyApplication.currentActivity,
-//                    MainActivity::class.java
-//                )
-//            )
-//            MyApplication.currentActivity.finish()
-            register()
+            if (binding.edtMobile.text.toString().isEmpty() || binding.edtName.text.toString()
+                    .isEmpty() || binding.edtVerificationCode.text.isEmpty() || binding.edtPassword.text.toString()
+                    .isEmpty() || binding.edtRepeatPassword.text.toString()
+                    .isEmpty() || binding.edtMobile.text.toString().length != 11 || binding.edtVerificationCode.text.toString().length != 4
+            ) {
+                MyApplication.Toast("لطفا تمام موارد را کامل کنید", Toast.LENGTH_SHORT)
+            } else if (binding.edtPassword.text.toString() != binding.edtRepeatPassword.text.toString()) {
+                MyApplication.Toast("رمزعبورها با هم متفاوت هستند.", Toast.LENGTH_SHORT)
+            } else {
+                register()
+            }
         }
 
         binding.txtLogin.setOnClickListener {
-//            FragmentHelper
-//                .toFragment(MyApplication.currentActivity, VerificationFragment())
-//                .setStatusBarColor(MyApplication.currentActivity.resources.getColor(R.color.black))
-//                .add()
-            register()
+            FragmentHelper
+                .toFragment(MyApplication.currentActivity, VerificationFragment())
+                .add()
         }
 
-        binding.btnSendCode.setOnClickListener { sendCode() }
+        binding.btnSendCode.setOnClickListener {
+            if (binding.edtMobile.text.toString()
+                    .isEmpty() || binding.edtMobile.text.toString().length != 11
+            ) {
+                MyApplication.Toast("لطفا شماره موبایل خود را وارد کنید.", Toast.LENGTH_SHORT)
+            } else
+                sendCode()
+        }
 
         return binding.root
     }
@@ -74,10 +90,6 @@ class RegisterFragment : Fragment() {
 
                     if (success) {
 //                 "success": true, "message": "کد تاییدیه به شماره موبایل داده شده ، با موفقیت فرستاده شد"
-
-                        binding.edtVerificationCode.isEnabled = true
-                        binding.btnRegister.isEnabled = true
-//                        binding.vfSendCode.visibility = View.GONE
                     } else {
                         binding.vfSendCode.displayedChild = 0
                         GeneralDialog()

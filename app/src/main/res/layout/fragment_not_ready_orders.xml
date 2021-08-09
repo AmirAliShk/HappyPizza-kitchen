@@ -189,7 +189,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:background="@drawable/red"
-                    android:text="@string/get_ready"
+                    android:text="@string/finish_get_ready"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_15sdp" />
 

@@ -80,6 +80,7 @@
                         android:layout_weight="0.5"
                         android:background="@drawable/bg_item"
                         android:elevation="@dimen/_2sdp"
+                        android:nextFocusDown="@id/edtMobile"
                         android:padding="@dimen/_8sdp"
                         android:singleLine="true" />
 
@@ -131,7 +132,9 @@
                         android:elevation="@dimen/_2sdp"
                         android:inputType="numberDecimal"
                         android:maxLength="11"
-                        android:padding="@dimen/_8sdp" />
+                        android:nextFocusDown="@id/edtVerificationCode"
+                        android:padding="@dimen/_8sdp"
+                        android:singleLine="true" />
 
                     <View
                         android:layout_width="0dp"
@@ -180,7 +183,9 @@
                         android:elevation="@dimen/_2sdp"
                         android:inputType="numberDecimal"
                         android:maxLength="4"
-                        android:padding="@dimen/_8sdp" />
+                        android:nextFocusDown="@id/edtPassword"
+                        android:padding="@dimen/_8sdp"
+                        android:singleLine="true" />
 
                     <ViewFlipper
                         android:id="@+id/vfSendCode"
@@ -252,7 +257,9 @@
                         android:layout_weight="0.5"
                         android:background="@drawable/bg_item"
                         android:elevation="@dimen/_2sdp"
-                        android:padding="@dimen/_6sdp" />
+                        android:nextFocusDown="@id/edtRepeatPassword"
+                        android:padding="@dimen/_6sdp"
+                        android:singleLine="true" />
 
                     <View
                         android:layout_width="0dp"
@@ -301,7 +308,8 @@
                         android:layout_weight="0.5"
                         android:background="@drawable/bg_item"
                         android:elevation="@dimen/_2sdp"
-                        android:padding="@dimen/_6sdp" />
+                        android:padding="@dimen/_6sdp"
+                        android:singleLine="true" />
 
                     <View
                         android:layout_width="0dp"
