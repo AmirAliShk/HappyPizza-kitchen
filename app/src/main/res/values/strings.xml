@@ -26,5 +26,6 @@
     <string name="price">قیمت</string>
     <string name="number">تعداد</string>
     <string name="size">سایز</string>
+    <string name="toman">تومان</string>
 
 </resources>

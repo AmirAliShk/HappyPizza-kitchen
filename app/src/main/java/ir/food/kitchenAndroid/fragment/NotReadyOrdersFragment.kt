@@ -23,8 +23,8 @@ class NotReadyOrdersFragment : Fragment() {
 
     lateinit var binding: FragmentNotReadyOrdersBinding
 
-    var productModels: ArrayList<ProductModel> = ArrayList()
-    var adapter: ProductsAdapter = ProductsAdapter(productModels)
+    lateinit var productModels: ArrayList<ProductModel>
+    lateinit var adapter: ProductsAdapter
     lateinit var orderId: String
     private lateinit var timer: Timer
     lateinit var customerNum: String
@@ -44,10 +44,7 @@ class NotReadyOrdersFragment : Fragment() {
 
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
 
-        binding.btnOrderReady.setOnClickListener {
-            setReady()
-            //todo change status of order
-        }
+        binding.btnOrderReady.setOnClickListener { setReady() }
 
         binding.imgCall.setOnClickListener { CallDialog().show(customerNum) }
 
@@ -55,8 +52,8 @@ class NotReadyOrdersFragment : Fragment() {
     }
 
     private fun getOrders() {
-        if (binding.vfOrders != null)
-            binding.vfOrders.displayedChild = 0
+        binding.vfOrders.displayedChild = 0
+
         RequestHelper.builder(EndPoints.NOT_READY_ORDER)
             .listener(ordersCallBack)
             .get()
@@ -73,10 +70,13 @@ class NotReadyOrdersFragment : Fragment() {
                         val message = response.getString("message")
 
                         if (success) {
+                            productModels = ArrayList()
+                            adapter = ProductsAdapter(productModels)
                             val dataObject = response.getJSONObject("data")
                             if (dataObject.toString() == "{}") {
                                 binding.vfOrders.displayedChild = 2
                             } else {
+                                binding.vfOrders.displayedChild = 1
                                 val products = dataObject.getJSONArray("products")
                                 for (i in 0 until products.length()) {
                                     val productDetail: JSONObject = products.getJSONObject(i)
