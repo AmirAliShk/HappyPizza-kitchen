@@ -12,6 +12,7 @@ import ir.food.kitchenAndroid.databinding.FragmentNotReadyOrdersBinding
 import ir.food.kitchenAndroid.dialog.CallDialog
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.DateHelper
+import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.ProductModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
@@ -108,9 +109,14 @@ class NotReadyOrdersFragment : Fragment() {
                                 val date = dataObject.getString("createdAt")
 
                                 binding.customerName.text = customerName
-                                binding.time.text = DateHelper.parseFormat(date)
-                                binding.description.text = description
-                                binding.txtAddress.text = address
+                                binding.time.text =
+                                    StringHelper.toPersianDigits(
+                                        DateHelper.parseFormatToStringNoDay(date) + "  " + StringHelper.toPersianDigits(
+                                            DateHelper.parseFormat(date)
+                                        )
+                                    )
+                                binding.description.text = StringHelper.toPersianDigits(description)
+                                binding.txtAddress.text = StringHelper.toPersianDigits(address)
                             }
                         } else {
                             GeneralDialog()

@@ -621,6 +621,9 @@ public class DateHelper {
     public static String parseFormatToString(String date) {
         return strPersianTree(parseFormat(date, null));
     }
+ public static String parseFormatToStringNoDay(String date) {
+        return strPersianTen(parseFormat(date, null));
+    }
 
     public static String parseFormat(String date) {
         return strPersianFour1(parseFormat(date, null));

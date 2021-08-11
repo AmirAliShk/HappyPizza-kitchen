@@ -40,11 +40,11 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
         holder.binding.txtStatus.text = model.statusName
         holder.binding.txtCustomerName.text = model.customerFamily
         holder.binding.txtTime.text =
-            StringHelper.toPersianDigits(DateHelper.parseFormatToString(model.createdAt)) + " " + StringHelper.toPersianDigits(
+            StringHelper.toPersianDigits(DateHelper.parseFormatToStringNoDay(model.createdAt)) + "  " + StringHelper.toPersianDigits(
                 DateHelper.parseFormat(model.createdAt)
             )
         holder.binding.txtAddress.text = model.address
-
+//      holder.binding.txtDescription.text = model. //todo
         var icon = R.drawable.ic_coooking
         var color = R.color.cooking
         when (model.statusCode) {
