@@ -43,6 +43,8 @@ class NotReadyOrdersFragment : Fragment() {
 
         binding.imgRefresh.setOnClickListener { getOrders() }
 
+        binding.imgRefreshFail.setOnClickListener { getOrders() }
+
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
 
         binding.btnOrderReady.setOnClickListener { setReady() }

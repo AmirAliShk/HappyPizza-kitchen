@@ -33,7 +33,13 @@ class ReadyOrdersFragment : Fragment() {
         TypefaceUtil.overrideFonts(binding.root)
 
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
+
+        binding.imgRefresh.setOnClickListener { getReady() }
+
+        binding.imgRefreshFail.setOnClickListener { getReady() }
+
         getReady()
+
         return binding.root
     }
 

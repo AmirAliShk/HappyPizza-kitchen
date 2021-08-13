@@ -33,7 +33,13 @@ class OrdersHistoryFragment : Fragment() {
         TypefaceUtil.overrideFonts(binding.root)
 
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
+
+        binding.imgRefresh.setOnClickListener { getHistory() }
+
+        binding.imgRefreshFail.setOnClickListener { getHistory() }
+
         getHistory()
+
         return binding.root
     }
 
