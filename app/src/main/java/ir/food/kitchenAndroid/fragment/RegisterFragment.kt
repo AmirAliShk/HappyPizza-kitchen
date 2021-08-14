@@ -89,6 +89,7 @@ class RegisterFragment : Fragment() {
                     val message = response.getString("message")
 
                     if (success) {
+                         MyApplication.Toast(message, Toast.LENGTH_LONG)
 //                 "success": true, "message": "کد تاییدیه به شماره موبایل داده شده ، با موفقیت فرستاده شد"
                     } else {
                         binding.vfSendCode.displayedChild = 0

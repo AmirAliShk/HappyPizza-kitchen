@@ -16,13 +16,17 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".activity.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action
+                    android:name="android.intent.action.MAIN"
+                    android:windowSoftInputMode="adjustResize" />
             </intent-filter>
         </activity>
 
         <activity android:name=".activity.Splash">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action
+                    android:name="android.intent.action.MAIN"
+                    android:windowSoftInputMode="adjustResize" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

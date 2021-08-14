@@ -14,6 +14,7 @@ import ir.food.kitchenAndroid.fragment.VerificationFragment
 import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.webServices.GetAppInfo
+import org.acra.ACRA
 
 class Splash : AppCompatActivity() {
     var TAG = Splash::class.java
@@ -35,7 +36,10 @@ class Splash : AppCompatActivity() {
                 ContextCompat.getColor(MyApplication.context, R.color.darkGray)
             window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
-
+        ACRA.getErrorReporter().putCustomData("LineCode",
+            MyApplication.prefManager.userCode.toString()
+        )
+        ACRA.getErrorReporter().putCustomData("projectId", MyApplication.prefManager.pushId.toString())
         MyApplication.handler.postDelayed(
             GetAppInfo()::callAppInfoAPI, 1500
         )

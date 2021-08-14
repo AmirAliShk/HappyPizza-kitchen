@@ -36,7 +36,7 @@ class NotReadyOrdersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNotReadyOrdersBinding.inflate(layoutInflater)
-        TypefaceUtil.overrideFonts(binding.root, MyApplication.IraSanSMedume)
+        TypefaceUtil.overrideFonts(binding.root)
 
         getOrders()
         startGetOrdersTimer()

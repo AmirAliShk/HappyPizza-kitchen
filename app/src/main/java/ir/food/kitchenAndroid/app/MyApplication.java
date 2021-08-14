@@ -15,11 +15,25 @@ import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
 
-import java.util.Locale;
+import org.acra.ACRA;
+import org.acra.annotation.AcraHttpSender;
+import org.acra.config.CoreConfigurationBuilder;
+import org.acra.config.HttpSenderConfigurationBuilder;
+import org.acra.data.StringFormat;
+import org.acra.sender.HttpSender;
 
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+import ir.food.kitchenAndroid.BuildConfig;
 import ir.food.kitchenAndroid.R;
 import ir.food.kitchenAndroid.helper.TypefaceUtil;
 
+@AcraHttpSender(
+        uri = "http://turbotaxi.ir:6061/api/crashReport",
+        httpMethod = HttpSender.Method.POST
+)
 public class MyApplication extends Application {
 
     private static final String TAG = MyApplication.class.getSimpleName();
@@ -60,10 +74,10 @@ public class MyApplication extends Application {
         config.locale = locale;
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
 
-//        initACRA();
+        initACRA();
     }
 
-//    private void initACRA() {
+    private void initACRA() {
 //        Map<String, String> authHeaderMap = new HashMap<>();
 //        authHeaderMap.put("Authorization", MyApplication.prefManager.getAuthorization());
 //        authHeaderMap.put("id_token", MyApplication.prefManager.getIdToken());
@@ -78,9 +92,9 @@ public class MyApplication extends Application {
 //                .setHttpMethod(HttpSender.Method.POST)
 //                .setHttpHeaders(authHeaderMap)
 //                .setEnabled(true);
-////        if (!BuildConfig.DEBUG)
-//        ACRA.init(this, builder);
-//    }
+//        if (!BuildConfig.DEBUG)
+        ACRA.init(this);
+    }
 
     private void initTypeface() {
         iranSance = Typeface.createFromAsset(getAssets(), IRANSANS);

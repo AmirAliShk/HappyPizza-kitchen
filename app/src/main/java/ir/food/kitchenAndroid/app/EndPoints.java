@@ -6,26 +6,19 @@ public class EndPoints {
 
     /*TODO : check apis and ports before release*/
 
-//    http://192.168.1.145:3000/api/operator/*****
-//    http://api.parsian.ir:1881/api/operator/
-//    http://192.168.1.145/api/findway/citylatinname/address
+    public static final String IP =
+            "http://happypizza.ir";
+//           "http://192.168.1.145";
 
-    public static final String IP = (BuildConfig.DEBUG)
-//          ? "http://192.168.1.145"
-            ? "http://happypizza.ir"
-            : "http://happypizza.ir";
-//          : "http://192.168.1.145";
+    public static final String HAKWEYE_IP =
 
-    public static final String HAKWEYE_IP = (BuildConfig.DEBUG)
-//          ? "http://192.168.1.145"
-            ? "http://happypizza.ir"
-            : "http://happypizza.ir";
-//          : "http://192.168.1.145";
+            "http://happypizza.ir";
+//           "http://192.168.1.145";
 
 
-    public static final String APIPort = (BuildConfig.DEBUG) ? "3010" : "1881";
+    public static final String APIPort = "3010";
 
-    public static final String HAWKEYE_APIPort = (BuildConfig.DEBUG) ? "3010" : "1890";
+    public static final String HAWKEYE_APIPort = "1890";
 
     public static final String ACRA_PATH = "http://turbotaxi.ir:6061/api/v1/crashReport";
 

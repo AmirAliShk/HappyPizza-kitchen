@@ -89,13 +89,13 @@ public class PrefManager {
         return pref.getString(KEY_KEY, "");
     }
 
-    public void setUserCode(int userCode) {
-        editor.putInt(KEY_USER_CODE, userCode);
-        editor.commit();
+    public String getUserCode() {
+        return pref.getString(KEY_USER_CODE, "0");
     }
 
-    public int getUserCode() {
-        return pref.getInt(KEY_USER_CODE, 0);
+    public void setUserCode(String v) {
+        editor.putString(KEY_USER_CODE, v);
+        editor.commit();
     }
 
     public void setRepetitionTime(int repetitionTime) {
