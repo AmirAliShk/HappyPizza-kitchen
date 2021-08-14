@@ -9,6 +9,6 @@ data class OrderHistoryModel(
     val address: String,
     val statusName: String,
     val statusCode: Int,
-    val description: String,
-    val date: String
+    val createdAt: String,
+    val description: String
 )

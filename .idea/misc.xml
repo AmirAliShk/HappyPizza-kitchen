@@ -14,11 +14,14 @@
         <entry key="app/src/main/res/drawable/ic_call_answer.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_chef.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_chef_happy_pizza.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_close.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_coooking.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_delivery.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_gps.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_log_out.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_refresh.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_round_done_24.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/pale_red.xml" value="0.209375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.19322916666666667" />
@@ -34,7 +37,7 @@
         <entry key="app/src/main/res/layout/item_orders.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/item_orders_history.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/item_product.xml" value="0.19322916666666667" />
-        <entry key="app/src/main/res/layout/item_ready_orders.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_ready_orders.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_reedy_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_toast.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/jhjj.xml" value="0.25" />

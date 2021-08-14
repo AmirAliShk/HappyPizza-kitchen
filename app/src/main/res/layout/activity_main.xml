@@ -27,6 +27,13 @@
             android:layout_marginRight="@dimen/_60sdp"
             android:src="@drawable/ic_happy_pizza" />
 
+        <ImageView
+            android:id="@+id/imgLogout"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/ic_log_out"
+            android:visibility="visible" />
+
     </LinearLayout>
 
     <LinearLayout

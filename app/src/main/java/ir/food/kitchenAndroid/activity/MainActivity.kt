@@ -1,5 +1,6 @@
 package ir.food.kitchenAndroid.activity
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -10,6 +11,7 @@ import androidx.core.content.ContextCompat
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ActivityMainBinding
+import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.fragment.NotReadyOrdersFragment
 import ir.food.kitchenAndroid.fragment.OrdersHistoryFragment
 import ir.food.kitchenAndroid.fragment.ReadyOrdersFragment
@@ -45,6 +47,20 @@ class MainActivity : AppCompatActivity() {
                 .add()
         }
 
+        binding.imgLogout.setOnClickListener {
+            GeneralDialog().message("ایا از خروج از حساب کاربری خود اطمینان دارید؟")
+                .firstButton("بله") {
+                    MyApplication.prefManager.authorization = ""
+                    MyApplication.currentActivity.startActivity(
+                        Intent(
+                            MyApplication.currentActivity,
+                            Splash::class.java
+                        )
+                    )
+                    MyApplication.currentActivity.finish()
+                }.secondButton("خیر") {}
+                .show()
+        }
         binding.btnReady.setOnClickListener {
             FragmentHelper
                 .toFragment(MyApplication.currentActivity, ReadyOrdersFragment())

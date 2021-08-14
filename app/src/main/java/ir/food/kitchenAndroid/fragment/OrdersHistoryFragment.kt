@@ -74,8 +74,8 @@ class OrdersHistoryFragment : Fragment() {
                                 orderDetails.getString("address"),
                                 status.getString("name"),
                                 status.getInt("status"),
-                                orderDetails.getString("description"),
-                                orderDetails.getString("finishDate")
+                                orderDetails.getString("finishDate"),
+                                orderDetails.getString("description")
                             )
                             readyOrdersModels.add(model)
                         }
