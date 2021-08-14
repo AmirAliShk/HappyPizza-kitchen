@@ -30,7 +30,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
         val binding = ItemOrdersHistoryBinding.inflate(
             LayoutInflater.from(MyApplication.context), parent, false
         )
-        TypefaceUtil.overrideFonts(binding.root, MyApplication.IraSanSMedume)
+        TypefaceUtil.overrideFonts(binding.root)
         return ViewHolder(binding)
     }
 

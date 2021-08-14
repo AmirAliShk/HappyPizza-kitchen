@@ -20,7 +20,7 @@ class ProductsAdapter(list: ArrayList<ProductModel>) :
         val binding = ItemProductBinding.inflate(
             LayoutInflater.from(MyApplication.context), parent, false
         )
-        TypefaceUtil.overrideFonts(binding.root, MyApplication.IraSanSMedume)
+        TypefaceUtil.overrideFonts(binding.root)
         return ViewHolder(binding)
     }
 
