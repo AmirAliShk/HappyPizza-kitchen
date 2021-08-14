@@ -2,6 +2,7 @@ package ir.food.kitchenAndroid.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
@@ -9,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ItemOrdersHistoryBinding
-import ir.food.kitchenAndroid.dialog.CallDialog
 import ir.food.kitchenAndroid.helper.DateHelper
 import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
@@ -43,10 +43,15 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
             StringHelper.toPersianDigits(DateHelper.parseFormatToStringNoDay(model.createdAt)) + "  " + StringHelper.toPersianDigits(
                 DateHelper.parseFormat(model.createdAt)
             )
+
         holder.binding.txtAddress.text = model.address
-        holder.binding.txtDescription.text = model.description
-        var  icon = R.drawable.ic_close
-        var  color = R.color.canceled
+        if (model.description == "") {
+            holder.binding.llDescription.visibility = View.GONE
+        } else
+            holder.binding.txtDescription.text = model.description
+
+        var icon = R.drawable.ic_close
+        var color = R.color.canceled
         when (model.statusCode) {
             1 -> {
                 icon = R.drawable.ic_close

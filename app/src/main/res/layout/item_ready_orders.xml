@@ -27,8 +27,7 @@
         <LinearLayout
             android:id="@+id/llHeaderStatus"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
             android:background="@drawable/bg_orders_header"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/_9sdp"
@@ -65,10 +64,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/_10sdp">
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_7sdp">
 
             <TextView
                 android:layout_width="0dp"
@@ -93,10 +92,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/_10sdp">
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_7sdp">
 
             <TextView
                 android:layout_width="0dp"
@@ -119,16 +118,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:background="@drawable/pale_red"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingVertical="@dimen/_5sdp">
 
@@ -166,8 +163,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/orderList"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:divider="@null"
                 android:listSelector="#00ffffff"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -176,16 +172,15 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llDescription"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
                 android:paddingVertical="@dimen/_5sdp"
                 android:text="@string/description"
                 android:textSize="@dimen/_13sdp" />
@@ -193,8 +188,7 @@
             <TextView
                 android:id="@+id/txtDescription"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.7"
+                android:layout_height="wrap_content"
                 android:background="@drawable/stroke_red"
                 android:gravity="center"
                 android:textSize="@dimen/_16sdp" />

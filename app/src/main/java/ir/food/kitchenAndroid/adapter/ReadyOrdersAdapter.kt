@@ -2,6 +2,7 @@ package ir.food.kitchenAndroid.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
@@ -21,8 +22,8 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
 
     private val models = list
 
-    var productModels: ArrayList<ProductModel> = ArrayList()
-    var adapter: ProductsAdapter = ProductsAdapter(productModels)
+    lateinit var productModels: ArrayList<ProductModel>
+    lateinit var adapter: ProductsAdapter
 
     class ViewHolder(val binding: ItemReadyOrdersBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -44,7 +45,12 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
                 DateHelper.parseFormat(model.createdAt)
             )
         holder.binding.txtAddress.text = model.address
-//      holder.binding.txtDescription.text = model. //todo
+
+        if (model.description == "") {
+            holder.binding.llDescription.visibility = View.GONE
+        } else
+            holder.binding.txtDescription.text = model.description
+
         var icon = R.drawable.ic_coooking
         var color = R.color.cooking
         when (model.statusCode) {
@@ -73,7 +79,8 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
                 )
             )
         }
-
+        productModels = ArrayList()
+        adapter = ProductsAdapter(productModels)
         for (i in 0 until model.products.length()) {
             val productsDetail = model.products.getJSONObject(i)
             var model = ProductModel(

@@ -76,7 +76,8 @@ class ReadyOrdersFragment : Fragment() {
                                 orderDetails.getString("address"),
                                 status.getString("name"),
                                 status.getInt("status"),
-                                orderDetails.getString("createdAt")
+                                orderDetails.getString("createdAt"),
+                                orderDetails.getString("description")
                             )
                             readyOrdersModels.add(model)
                         }

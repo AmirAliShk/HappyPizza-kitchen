@@ -10,5 +10,6 @@ data class ReadyOrdersModel(
     val address: String,
     val statusName: String,
     val statusCode: Int,
-    val createdAt: String
+    val createdAt: String,
+    val description: String
 )
