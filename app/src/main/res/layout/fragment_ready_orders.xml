@@ -16,21 +16,22 @@
         android:baselineAligned="false">
 
         <TextView
+            android:id="@+id/txtTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:text="@string/ready"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="@dimen/_16sdp"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imgBack"
             android:layout_width="@dimen/_50sdp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:padding="@dimen/_10sdp"
+            android:padding="@dimen/_14sdp"
             android:src="@drawable/ic_back" />
 
     </RelativeLayout>
@@ -52,7 +53,6 @@
             android:id="@+id/readyList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_13sdp"
             android:background="#00ffffff"
             android:divider="@null"
             android:listSelector="#00ffffff"

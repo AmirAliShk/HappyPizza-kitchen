@@ -12,25 +12,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/darkGray"
-        android:baselineAligned="false">
+        android:background="@color/darkGray">
 
         <TextView
+            android:id="@+id/txtTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:text="تاریخچه سفارشات"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="@dimen/_14sdp"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imgBack"
             android:layout_width="@dimen/_50sdp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:padding="@dimen/_10sdp"
+            android:padding="@dimen/_14sdp"
             android:src="@drawable/ic_back" />
 
     </RelativeLayout>
@@ -52,11 +52,10 @@
             android:id="@+id/historyList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_13sdp"
+            android:layout_marginHorizontal="@dimen/_13sdp"
             android:background="#00ffffff"
             android:divider="@null"
             android:listSelector="#00ffffff"
-            android:padding="@dimen/_5sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_orders_history" />
 

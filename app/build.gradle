@@ -16,7 +16,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-//team-x_PizzaChef
+    //pass = team-x_PizzaChef
+    //alias = Happy pizza chef
     buildTypes {
         release {
             minifyEnabled false

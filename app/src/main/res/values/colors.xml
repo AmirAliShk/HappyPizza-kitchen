@@ -5,20 +5,19 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <color name="darkGray">#383738</color>
-    <color name="background">#f8f3ef</color>
+    <color name="background">#ececec</color>
     <color name="paleRed">#f4c7c3</color>
     <color name="red">#f44336</color>
     <color name="color_Titles">#535353</color>
-    <color name="kamGray">#b3bae1</color>
     <color name="color_green">#43a047</color>
-    <color name="color_Red">#f44336</color>
+
     <color name="cooking">#ff5722</color>
     <color name="delivery">#1e88e5</color>
     <color name="preparing">#ffb300</color>
-    <color name="gray_light">#8b8886</color>
     <color name="finished">#43a047</color>
     <color name="canceled">#e53935</color>
+
 </resources>

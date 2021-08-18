@@ -31,7 +31,7 @@ class ReadyOrdersFragment : Fragment() {
     ): View? {
         binding = FragmentReadyOrdersBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
-
+        binding.txtTitle.typeface = MyApplication.IraSanSMedume
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
 
         binding.imgRefresh.setOnClickListener { getReady() }

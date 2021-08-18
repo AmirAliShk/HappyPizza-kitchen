@@ -31,7 +31,7 @@ class OrdersHistoryFragment : Fragment() {
     ): View? {
         binding = FragmentOrdersHistoryBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
-
+ binding.txtTitle.typeface = MyApplication.IraSanSMedume
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
 
         binding.imgRefresh.setOnClickListener { getHistory() }

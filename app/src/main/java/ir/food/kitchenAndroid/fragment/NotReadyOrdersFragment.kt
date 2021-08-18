@@ -40,7 +40,7 @@ class NotReadyOrdersFragment : Fragment() {
 
         getOrders()
         startGetOrdersTimer()
-
+        binding.txtTitle.typeface = MyApplication.IraSanSMedume
         binding.imgRefresh.setOnClickListener { getOrders() }
 
         binding.imgRefreshFail.setOnClickListener { getOrders() }
@@ -117,7 +117,12 @@ class NotReadyOrdersFragment : Fragment() {
                                             DateHelper.parseFormat(date)
                                         )
                                     )
-                                binding.description.text = StringHelper.toPersianDigits(description)
+                                if (description.equals("")) {
+                                    binding.llDescription.visibility = View.INVISIBLE
+                                } else {
+                                    binding.description.text =
+                                        StringHelper.toPersianDigits(description)
+                                }
                                 binding.txtAddress.text = StringHelper.toPersianDigits(address)
                             }
                         } else {
