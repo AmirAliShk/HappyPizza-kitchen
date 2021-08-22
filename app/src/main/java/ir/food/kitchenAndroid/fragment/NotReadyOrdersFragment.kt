@@ -1,6 +1,7 @@
 package ir.food.kitchenAndroid.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -213,12 +214,12 @@ class NotReadyOrdersFragment : Fragment() {
     private fun startGetOrdersTimer() {
         timer = Timer()
         try {
-            if (timer != null) {
-                return
-            }
             timer.scheduleAtFixedRate(object : TimerTask() {
                 override fun run() {
-                    getOrders()
+                    MyApplication.handler.post {
+                        Log.i("TAG", "run: start timer")
+                        getOrders()
+                    }
                 }
             }, 0, 10000)
         } catch (e: java.lang.Exception) {
@@ -228,10 +229,8 @@ class NotReadyOrdersFragment : Fragment() {
 
     private fun stopGetOrdersTimer() {
         try {
-            if (timer != null) {
-                timer.cancel()
-//                timer = null //todo
-            }
+            Log.i("TAG", "stopGetOrdersTimer: stop timer")
+            timer.cancel()
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
