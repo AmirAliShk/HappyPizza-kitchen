@@ -86,7 +86,7 @@ class VerificationFragment : Fragment() {
                     val message = response.getString("message")
 
                     if (success) {
-                         MyApplication.Toast(message, Toast.LENGTH_LONG)
+                        MyApplication.Toast(message, Toast.LENGTH_LONG)
 //                 "success": true, "message": "کد تاییدیه به شماره موبایل داده شده ، با موفقیت فرستاده شد"
                     } else {
                         binding.vfSendCode.displayedChild = 0
@@ -181,4 +181,9 @@ class VerificationFragment : Fragment() {
                 super.onFailure(reCall, e)
             }
         }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        KeyBoardHelper.hideKeyboard()
+    }
 }

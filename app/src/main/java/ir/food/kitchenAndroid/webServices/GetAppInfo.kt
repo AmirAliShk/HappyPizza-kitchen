@@ -6,7 +6,6 @@ import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.activity.MainActivity
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
-import ir.food.kitchenAndroid.app.MyApplication.context
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.fragment.VerificationFragment
 import ir.food.kitchenAndroid.helper.AppVersionHelper
@@ -41,7 +40,7 @@ class GetAppInfo {
 //                deviceInfo.put("DISPLAY_SIZE", ScreenHelper.getScreenSize(MyApplication.currentActivity));
 //                deviceInfo.put("ANDROID_ID", android_id);
                 RequestHelper.builder(EndPoints.APP_INFO)
-                    .addParam("versionCode", AppVersionHelper(context).versionCode)
+                    .addParam("versionCode", AppVersionHelper(MyApplication.context).versionCode)
                     .addParam("os", "Android")
                     .listener(appInfoCallBack)
                     .post()

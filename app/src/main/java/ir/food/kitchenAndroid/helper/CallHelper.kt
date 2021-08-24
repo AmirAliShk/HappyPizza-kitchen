@@ -1,12 +1,12 @@
-package ir.food.kitchenAndroid.helper;
+package ir.food.kitchenAndroid.helper
 
-import android.content.Intent;
-import android.net.Uri;
-import ir.food.kitchenAndroid.app.MyApplication;
+import android.content.Intent
+import android.net.Uri
+import ir.food.kitchenAndroid.app.MyApplication
 
-public class CallHelper {
+object CallHelper {
 
-    public static void make(String number) {
+    fun make(number: String) {
 //    Intent callIntent = new Intent(Intent.ACTION_CALL);
 //    callIntent.setData(Uri.parseXML("tel:" + number));
 //    if (ActivityCompat.checkSelfPermission(MyApplication.currentActivity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -19,10 +19,8 @@ public class CallHelper {
 //      return;
 //    }
 //    MyApplication.currentActivity.startActivity(callIntent);
-
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:" + number));
-        MyApplication.currentActivity.startActivity(intent);
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:$number")
+        MyApplication.currentActivity.startActivity(intent)
     }
 }
-

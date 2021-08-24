@@ -39,8 +39,8 @@ class NotReadyOrdersFragment : Fragment() {
         binding = FragmentNotReadyOrdersBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
 
-        getOrders()
         startGetOrdersTimer()
+
         binding.txtTitle.typeface = MyApplication.IraSanSMedume
         binding.imgRefresh.setOnClickListener { getOrders() }
 

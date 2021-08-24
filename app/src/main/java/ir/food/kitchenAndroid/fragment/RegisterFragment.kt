@@ -37,6 +37,7 @@ class RegisterFragment : Fragment() {
             { KeyBoardHelper.showKeyboard(MyApplication.context) },
             400
         )
+
         binding.btnRegister.setOnClickListener {
             if (binding.edtMobile.text.toString().isEmpty() || binding.edtName.text.toString()
                     .isEmpty() || binding.edtVerificationCode.text.isEmpty() || binding.edtPassword.text.toString()
@@ -69,7 +70,6 @@ class RegisterFragment : Fragment() {
         return binding.root
     }
 
-
     private fun sendCode() {
         binding.vfSendCode.displayedChild = 1
         RequestHelper.builder(EndPoints.REGISTER_CODE)
@@ -89,7 +89,7 @@ class RegisterFragment : Fragment() {
                     val message = response.getString("message")
 
                     if (success) {
-                         MyApplication.Toast(message, Toast.LENGTH_LONG)
+                        MyApplication.Toast(message, Toast.LENGTH_LONG)
 //                 "success": true, "message": "کد تاییدیه به شماره موبایل داده شده ، با موفقیت فرستاده شد"
                     } else {
                         binding.vfSendCode.displayedChild = 0
@@ -192,4 +192,9 @@ class RegisterFragment : Fragment() {
                 super.onFailure(reCall, e)
             }
         }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        KeyBoardHelper.hideKeyboard()
+    }
 }
