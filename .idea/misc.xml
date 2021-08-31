@@ -23,6 +23,7 @@
         <entry key="app/src/main/res/drawable/ic_refresh.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_round_done_24.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/pale_red.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/redd.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/cancelable_loder.xml" value="0.19322916666666667" />

@@ -63,6 +63,14 @@ class NotReadyOrdersFragment : Fragment() {
             .get()
     }
 
+    private fun refresh() {
+//        binding.vfOrders.displayedChild = 0
+        binding.avlRefresh.visibility = View.VISIBLE
+        RequestHelper.builder(EndPoints.NOT_READY_ORDER)
+            .listener(ordersCallBack)
+            .get()
+    }
+
     private val ordersCallBack: RequestHelper.Callback =
         object : RequestHelper.Callback() {
             override fun onResponse(reCall: Runnable?, vararg args: Any?) {
@@ -72,7 +80,7 @@ class NotReadyOrdersFragment : Fragment() {
 //{"success":true,"message":"سفارش با موفقیت ارسال شد","data":{"GPS":{"coordinates":[33.29792,59.605933],"type":"Point"},"products":[{"_id":{"_id":"61091b0ca9335b389819e896","name":"مرغ و قارچ"},"quantity":1,"size":"large"}],"_id":"61092c9e4af8121f58108d97","customer":{"_id":"6107bd65e5bdcc11fd46bff2","mobile":"09105044033","family":"محمد جواد حیدری"},"address":"راهنمایی 24","status":{"name":"در حال اماده سازی","status":5},"description":"ساعت 12 تحویل داده شود","createdAt":"2021-08-03T11:46:38.117Z","__v":0,"cookId":"610a6fa3e5bdcc11fd46c0aa"}}
                         val success = response.getBoolean("success")
                         val message = response.getString("message")
-
+                        binding.avlRefresh.visibility = View.GONE
                         if (success) {
                             productModels = ArrayList()
                             adapter = ProductsAdapter(productModels)
@@ -133,9 +141,11 @@ class NotReadyOrdersFragment : Fragment() {
                                 .secondButton("تلاش مجدد") { getOrders() }
                                 .show()
                             binding.vfOrders.displayedChild = 3
+                            binding.avlRefresh.visibility = View.GONE
                         }
                     } catch (e: JSONException) {
                         binding.vfOrders.displayedChild = 3
+                        binding.avlRefresh.visibility = View.GONE
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
                             .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -149,6 +159,7 @@ class NotReadyOrdersFragment : Fragment() {
             override fun onFailure(reCall: Runnable?, e: Exception?) {
                 MyApplication.handler.post {
                     binding.vfOrders.displayedChild = 3
+                    binding.avlRefresh.visibility = View.GONE
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -218,7 +229,7 @@ class NotReadyOrdersFragment : Fragment() {
                 override fun run() {
                     MyApplication.handler.post {
                         Log.i("TAG", "run: start timer")
-                        getOrders()
+                        refresh()
                     }
                 }
             }, 0, 10000)
