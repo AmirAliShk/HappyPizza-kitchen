@@ -69,7 +69,7 @@ class VerificationFragment : Fragment() {
     private fun sendCode() {
         binding.vfSendCode.displayedChild = 1
         RequestHelper.builder(EndPoints.LOGIN_CODE)
-            .addParam("mobile", binding.edtMobile.text.toString())
+            .addParam("mobile", if (binding.edtMobile.text.toString().startsWith("0")) binding.edtMobile.text.toString() else "0${binding.edtMobile.text.toString()}")
             .addParam("scope", "cook")
             .listener(sendCodeCallBack)
             .post()
@@ -126,7 +126,7 @@ class VerificationFragment : Fragment() {
     private fun login() {
         binding.vfLogin.displayedChild = 1
         RequestHelper.builder(EndPoints.LOG_IN)
-            .addParam("mobile", binding.edtMobile.text.toString())
+            .addParam("mobile", if (binding.edtMobile.text.toString().startsWith("0")) binding.edtMobile.text.toString() else "0${binding.edtMobile.text.toString()}")
             .addParam("code", binding.edtCode.text.toString())
             .addParam("scope", "cook")
             .listener(loginCallBack)
@@ -150,6 +150,7 @@ class VerificationFragment : Fragment() {
                             MyApplication.prefManager.authorization =
                                 dataObject.getString("accessToken")
                             GetAppInfo().callAppInfoAPI()
+                            KeyBoardHelper.hideKeyboard()
                         } else {
                             GeneralDialog()
                                 .message(message)

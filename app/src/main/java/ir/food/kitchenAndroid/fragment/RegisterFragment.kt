@@ -73,7 +73,7 @@ class RegisterFragment : Fragment() {
     private fun sendCode() {
         binding.vfSendCode.displayedChild = 1
         RequestHelper.builder(EndPoints.REGISTER_CODE)
-            .addParam("mobile", binding.edtMobile.text.toString())
+            .addParam("mobile", if (binding.edtMobile.text.toString().startsWith("0")) binding.edtMobile.text.toString() else "0${binding.edtMobile.text.toString()}")
             .listener(sendCodeCallBack)
             .post()
     }
@@ -130,7 +130,7 @@ class RegisterFragment : Fragment() {
         RequestHelper.builder(EndPoints.REGISTER)
             .addParam("password", binding.edtPassword.text.toString())
             .addParam("family", binding.edtName.text.toString())
-            .addParam("mobile", binding.edtMobile.text.toString())
+            .addParam("mobile", if (binding.edtMobile.text.toString().startsWith("0")) binding.edtMobile.text.toString() else "0${binding.edtMobile.text.toString()}")
             .addParam("code", binding.edtVerificationCode.text.toString())
             .addParam("scope", "cook")
             .listener(registerCallBack)
@@ -160,6 +160,7 @@ class RegisterFragment : Fragment() {
                                     )
                                 )
                                 MyApplication.currentActivity.finish()
+                                KeyBoardHelper.hideKeyboard()
                             }
                         } else {
                             binding.vfSignUp.displayedChild = 0
