@@ -42,7 +42,7 @@ class RegisterFragment : Fragment() {
             if (binding.edtMobile.text.toString().isEmpty() || binding.edtName.text.toString()
                     .isEmpty() || binding.edtVerificationCode.text.isEmpty() || binding.edtPassword.text.toString()
                     .isEmpty() || binding.edtRepeatPassword.text.toString()
-                    .isEmpty() || binding.edtMobile.text.toString().length != 11 || binding.edtVerificationCode.text.toString().length != 4
+                    .isEmpty() || binding.edtMobile.text.toString().length > 10 || binding.edtVerificationCode.text.toString().length != 4
             ) {
                 MyApplication.Toast("لطفا تمام موارد را کامل کنید", Toast.LENGTH_SHORT)
             } else if (binding.edtPassword.text.toString() != binding.edtRepeatPassword.text.toString()) {
@@ -60,7 +60,7 @@ class RegisterFragment : Fragment() {
 
         binding.btnSendCode.setOnClickListener {
             if (binding.edtMobile.text.toString()
-                    .isEmpty() || binding.edtMobile.text.toString().length != 11
+                    .isEmpty() || binding.edtMobile.text.toString().length > 10
             ) {
                 MyApplication.Toast("لطفا شماره موبایل خود را وارد کنید.", Toast.LENGTH_SHORT)
             } else
@@ -73,7 +73,11 @@ class RegisterFragment : Fragment() {
     private fun sendCode() {
         binding.vfSendCode.displayedChild = 1
         RequestHelper.builder(EndPoints.REGISTER_CODE)
-            .addParam("mobile", if (binding.edtMobile.text.toString().startsWith("0")) binding.edtMobile.text.toString() else "0${binding.edtMobile.text.toString()}")
+            .addParam("mobile",
+                if (binding.edtMobile.text.toString()
+                        .startsWith("0")
+                ) binding.edtMobile.text.toString() else "0${binding.edtMobile.text.toString()}"
+            )
             .listener(sendCodeCallBack)
             .post()
     }
@@ -130,7 +134,11 @@ class RegisterFragment : Fragment() {
         RequestHelper.builder(EndPoints.REGISTER)
             .addParam("password", binding.edtPassword.text.toString())
             .addParam("family", binding.edtName.text.toString())
-            .addParam("mobile", if (binding.edtMobile.text.toString().startsWith("0")) binding.edtMobile.text.toString() else "0${binding.edtMobile.text.toString()}")
+            .addParam("mobile",
+                if (binding.edtMobile.text.toString()
+                        .startsWith("0")
+                ) binding.edtMobile.text.toString() else "0${binding.edtMobile.text.toString()}"
+            )
             .addParam("code", binding.edtVerificationCode.text.toString())
             .addParam("scope", "cook")
             .listener(registerCallBack)

@@ -38,7 +38,7 @@ class VerificationFragment : Fragment() {
 
         binding.btnSendCode.setOnClickListener {
             if (binding.edtMobile.text.toString()
-                    .isEmpty() || binding.edtMobile.text.toString().length != 11
+                    .isEmpty() || binding.edtMobile.text.toString().length > 10
             ) {
                 MyApplication.Toast("لطفا شماره موبایل خود را وارد کنید.", Toast.LENGTH_SHORT)
             } else {
@@ -49,7 +49,7 @@ class VerificationFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
             if (binding.edtMobile.toString()
                     .isEmpty() || binding.edtCode.toString()
-                    .isEmpty() || binding.edtMobile.text.toString().length != 11 || binding.edtCode.text.toString().length != 4
+                    .isEmpty() || binding.edtMobile.text.toString().length > 10 || binding.edtCode.text.toString().length != 4
             ) {
                 MyApplication.Toast("لطفا تمام موارد را کامل کنید", Toast.LENGTH_SHORT)
             } else {
@@ -69,7 +69,11 @@ class VerificationFragment : Fragment() {
     private fun sendCode() {
         binding.vfSendCode.displayedChild = 1
         RequestHelper.builder(EndPoints.LOGIN_CODE)
-            .addParam("mobile", if (binding.edtMobile.text.toString().startsWith("0")) binding.edtMobile.text.toString() else "0${binding.edtMobile.text.toString()}")
+            .addParam("mobile",
+                if (binding.edtMobile.text.toString()
+                        .startsWith("0")
+                ) binding.edtMobile.text.toString() else "0${binding.edtMobile.text.toString()}"
+            )
             .addParam("scope", "cook")
             .listener(sendCodeCallBack)
             .post()
@@ -126,7 +130,11 @@ class VerificationFragment : Fragment() {
     private fun login() {
         binding.vfLogin.displayedChild = 1
         RequestHelper.builder(EndPoints.LOG_IN)
-            .addParam("mobile", if (binding.edtMobile.text.toString().startsWith("0")) binding.edtMobile.text.toString() else "0${binding.edtMobile.text.toString()}")
+            .addParam("mobile",
+                if (binding.edtMobile.text.toString()
+                        .startsWith("0")
+                ) binding.edtMobile.text.toString() else "0${binding.edtMobile.text.toString()}"
+            )
             .addParam("code", binding.edtCode.text.toString())
             .addParam("scope", "cook")
             .listener(loginCallBack)
