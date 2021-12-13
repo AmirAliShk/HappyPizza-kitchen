@@ -28,7 +28,7 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRegisterBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
 
@@ -42,7 +42,7 @@ class RegisterFragment : Fragment() {
             if (binding.edtMobile.text.toString().isEmpty() || binding.edtName.text.toString()
                     .isEmpty() || binding.edtVerificationCode.text.isEmpty() || binding.edtPassword.text.toString()
                     .isEmpty() || binding.edtRepeatPassword.text.toString()
-                    .isEmpty() || binding.edtMobile.text.toString().length > 10 || binding.edtVerificationCode.text.toString().length != 4
+                    .isEmpty() || binding.edtMobile.text.toString().length < 10 || binding.edtVerificationCode.text.toString().length != 4
             ) {
                 MyApplication.Toast("لطفا تمام موارد را کامل کنید", Toast.LENGTH_SHORT)
             } else if (binding.edtPassword.text.toString() != binding.edtRepeatPassword.text.toString()) {
@@ -60,7 +60,7 @@ class RegisterFragment : Fragment() {
 
         binding.btnSendCode.setOnClickListener {
             if (binding.edtMobile.text.toString()
-                    .isEmpty() || binding.edtMobile.text.toString().length > 10
+                    .isEmpty() || binding.edtMobile.text.toString().length < 10
             ) {
                 MyApplication.Toast("لطفا شماره موبایل خود را وارد کنید.", Toast.LENGTH_SHORT)
             } else
@@ -103,7 +103,6 @@ class RegisterFragment : Fragment() {
                             .secondButton("تلاش مجدد") { sendCode() }
                             .show()
                     }
-
                 } catch (e: JSONException) {
                     binding.vfSendCode.displayedChild = 0
                     GeneralDialog()

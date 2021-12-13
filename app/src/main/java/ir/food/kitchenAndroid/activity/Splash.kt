@@ -41,7 +41,7 @@ class Splash : AppCompatActivity() {
         )
         ACRA.getErrorReporter().putCustomData("projectId", MyApplication.prefManager.pushId.toString())
         MyApplication.handler.postDelayed(
-            GetAppInfo()::callAppInfoAPI, 1500
+            GetAppInfo()::callAppInfoAPI, 500
         )
     }
 
