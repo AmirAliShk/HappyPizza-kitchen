@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ir.food.kitchenAndroid.R
+import ir.food.kitchenAndroid.adapter.ProductsAdapter
+import ir.food.kitchenAndroid.adapter.ReadyOrdersAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentGetProductsBinding
 import ir.food.kitchenAndroid.databinding.FragmentReadyOrdersBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.TypefaceUtil
+import ir.food.kitchenAndroid.model.ProductModel
 import ir.food.kitchenAndroid.model.ReadyOrdersModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import org.json.JSONException
@@ -20,6 +23,8 @@ import java.lang.Exception
 
 class GetProductsFragment : Fragment() {
     lateinit var binding: FragmentGetProductsBinding
+    var productModels: ArrayList<ProductModel> = ArrayList()
+    var adapter: ProductsAdapter = ProductsAdapter(productModels)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,29 +59,25 @@ class GetProductsFragment : Fragment() {
                         val dataObject = response.getJSONArray("data")
 
                         for (i in 0 until dataObject.length()) {
-                            val orderDetails: JSONObject = dataObject.getJSONObject(i)
-                            val customer = orderDetails.getJSONObject("customer")
-                            val status = orderDetails.getJSONObject("status")
+                            val objProduct: JSONObject = dataObject.getJSONObject(i)
+                            val model = ProductModel(
+                                objProduct.getString("_id"),
+                                objProduct.getString("name"),
+                                objProduct.getString("description"),
+                                objProduct.getInt("supply"),
+                                objProduct.getString("updatedAt"),
+                                objProduct.getString("typeName"),
+                                objProduct.getString("typeId"),
 
-                            val model = ReadyOrdersModel(
-                                orderDetails.getJSONArray("products"),
-                                orderDetails.getString("_id"),
-                                customer.getString("mobile"),
-                                customer.getString("family"),
-                                orderDetails.getString("address"),
-                                status.getString("name"),
-                                status.getInt("status"),
-                                orderDetails.getString("createdAt"),
-                                orderDetails.getString("description")
                             )
-//                            readyOrdersModels.add(model)
+                            productModels.add(model)
                         }
-//                        if (readyOrdersModels.size == 0) {
-//                            binding.vfProducts.displayedChild = 2
-//                        } else {
-//                            binding.vfProducts.displayedChild = 1
-//                        }
-//                        binding.readyList.adapter = adapter
+                        if (productModels.size == 0) {
+                            binding.vfProducts.displayedChild = 2
+                        } else {
+                            binding.vfProducts.displayedChild = 1
+                        }
+                        binding.listProducts.adapter = adapter
                     } else {
                         GeneralDialog()
                             .message(message)

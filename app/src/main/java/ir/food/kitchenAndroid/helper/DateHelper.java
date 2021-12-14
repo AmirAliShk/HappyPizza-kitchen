@@ -11,12 +11,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-/**
- * Created by Amirreza Erfanian on 30/12/2017.
- * A.E
- * version = 2
- */
-
 public class DateHelper {
 
     private class SolarCalendar {
