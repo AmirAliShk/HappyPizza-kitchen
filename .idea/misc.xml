@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/bg_dialog.xml" value="0.31302083333333336" />
         <entry key="app/src/main/res/drawable/bg_item.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/bg_orders_header.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/bg_prepairing_header.xml" value="0.209375" />
@@ -20,7 +21,9 @@
         <entry key="app/src/main/res/drawable/ic_gps.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_log_out.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_phone.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_refresh.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_round_add_24.xml" value="0.25092592592592594" />
         <entry key="app/src/main/res/drawable/ic_round_done_24.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/pale_red.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/redd.xml" value="0.35625" />
@@ -28,8 +31,10 @@
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/cancelable_loder.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/dialog_call.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/dialog_edit_products.xml" value="0.29791666666666666" />
         <entry key="app/src/main/res/layout/dialog_general.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/ffeff.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/fragment_get_products.xml" value="0.2351851851851852" />
         <entry key="app/src/main/res/layout/fragment_not_ready_orders.xml" value="0.19025641025641027" />
         <entry key="app/src/main/res/layout/fragment_orders_history.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_ready_orders.xml" value="0.19322916666666667" />
@@ -38,6 +43,7 @@
         <entry key="app/src/main/res/layout/item_orders.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/item_orders_history.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/item_product.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/item_products.xml" value="0.29791666666666666" />
         <entry key="app/src/main/res/layout/item_ready_orders.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_reedy_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_toast.xml" value="0.19322916666666667" />

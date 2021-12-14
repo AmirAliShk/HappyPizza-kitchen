@@ -14,15 +14,15 @@ import ir.food.kitchenAndroid.helper.DateHelper
 import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.OrderHistoryModel
-import ir.food.kitchenAndroid.model.ProductModel
+import ir.food.kitchenAndroid.model.CartModel
 
 class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
     RecyclerView.Adapter<OrdersHistoryAdapter.ViewHolder>() {
 
     private val models = list
 
-    lateinit var productModels: ArrayList<ProductModel>
-    lateinit var adapter: ProductsAdapter
+    lateinit var cartModels: ArrayList<CartModel>
+    lateinit var adapter: CartAdapter
 
     class ViewHolder(val binding: ItemOrdersHistoryBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -79,17 +79,17 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
             )
         }
 
-        productModels = ArrayList()
-        adapter = ProductsAdapter(productModels)
+        cartModels = ArrayList()
+        adapter = CartAdapter(cartModels)
         for (i in 0 until model.products.length()) {
             val productsDetail = model.products.getJSONObject(i)
 
-            var model = ProductModel(
+            var model = CartModel(
                 productsDetail.getString("name"),
                 productsDetail.getInt("quantity"),
                 productsDetail.getString("size")
             )
-            productModels.add(model)
+            cartModels.add(model)
         }
         holder.binding.orderList.adapter = adapter
     }

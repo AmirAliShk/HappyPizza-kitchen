@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import ir.food.kitchenAndroid.adapter.ProductsAdapter
+import ir.food.kitchenAndroid.adapter.CartAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentNotReadyOrdersBinding
@@ -15,7 +15,7 @@ import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.DateHelper
 import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
-import ir.food.kitchenAndroid.model.ProductModel
+import ir.food.kitchenAndroid.model.CartModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import org.json.JSONException
 import org.json.JSONObject
@@ -25,8 +25,8 @@ class NotReadyOrdersFragment : Fragment() {
 
     lateinit var binding: FragmentNotReadyOrdersBinding
 
-    lateinit var productModels: ArrayList<ProductModel>
-    lateinit var adapter: ProductsAdapter
+    lateinit var cartModels: ArrayList<CartModel>
+    lateinit var adapter: CartAdapter
     lateinit var orderId: String
     private lateinit var timer: Timer
     lateinit var customerNum: String
@@ -82,8 +82,8 @@ class NotReadyOrdersFragment : Fragment() {
                         val message = response.getString("message")
                         binding.avlRefresh.visibility = View.GONE
                         if (success) {
-                            productModels = ArrayList()
-                            adapter = ProductsAdapter(productModels)
+                            cartModels = ArrayList()
+                            adapter = CartAdapter(cartModels)
                             val dataObject = response.getJSONObject("data")
                             if (dataObject.toString() == "{}") {
                                 binding.vfOrders.displayedChild = 2
@@ -93,13 +93,13 @@ class NotReadyOrdersFragment : Fragment() {
                                 for (i in 0 until products.length()) {
                                     val productDetail: JSONObject = products.getJSONObject(i)
                                     val productId = productDetail.getJSONObject("_id")
-                                    var model = ProductModel(
+                                    var model = CartModel(
                                         productId.getString("name"),
                                         productDetail.getInt("quantity"),
                                         productDetail.getString("size")
                                     )
 
-                                    productModels.add(model)
+                                    cartModels.add(model)
                                 }
                                 binding.productList.adapter = adapter
 

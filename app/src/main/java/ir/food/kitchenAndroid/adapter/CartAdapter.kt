@@ -9,8 +9,8 @@ import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.CartModel
 
-class ProductsAdapter(list: ArrayList<CartModel>) :
-    RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
+class CartAdapter(list: ArrayList<CartModel>) :
+    RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
     private val models = list
 
