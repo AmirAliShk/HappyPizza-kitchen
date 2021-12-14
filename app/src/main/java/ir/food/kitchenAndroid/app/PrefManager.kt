@@ -34,6 +34,14 @@ class PrefManager {
     private val REPETITION_TIME = "repetitionTime"
     private val KEY_ACTIVATION_REMAINING_TIME = "activationRemainingTime"
     private val PRODUCTS = "products"
+    private val HIRED = "hired"
+
+    var hired: Boolean
+        get() = this.sharedPreferences.getBoolean(HIRED, false)
+        set(hired) {
+            editor.putBoolean(HIRED, hired)
+            editor.commit()
+        }
 
     var authorization: String?
         get() = this.sharedPreferences.getString(AUTHORIZATION, "")

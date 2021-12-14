@@ -67,6 +67,15 @@ class GetAppInfo {
                             val updateAvailable = data.getBoolean("update")
                             val forceUpdate = data.getBoolean("isForce")
                             val updateUrl = data.getString("updateUrl")
+                            MyApplication.prefManager.hired = data.getBoolean("hired")
+
+                            if(!MyApplication.prefManager.hired){
+                                GeneralDialog()
+                                    .message("هنوز درخواست استخدام شما از سمت مدیر تایید نشده است")
+                                    .secondButton("خروج از برنامه") {MyApplication.currentActivity.finish()}
+                                    .show()
+                                return@post
+                            }
 
                             if (updateAvailable) {
                                 updatePart(forceUpdate, updateUrl)
