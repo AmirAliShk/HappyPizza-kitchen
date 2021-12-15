@@ -32,10 +32,61 @@ class GetProductsFragment : Fragment() {
     ): View? {
         binding = FragmentGetProductsBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
+        binding.imgBack.setOnClickListener {
+            MyApplication.currentActivity.onBackPressed()
+        }
 
         getProducts()
+        getProductsType()
 
         return binding.root
+    }
+
+    private fun getProductsType() {
+        RequestHelper.builder(EndPoints.GET_PRODUCTS_TYPE)
+            .listener(productsTypeCallBack)
+            .get()
+    }
+
+    private val productsTypeCallBack: RequestHelper.Callback = object : RequestHelper.Callback() {
+        override fun onResponse(reCall: Runnable?, vararg args: Any?) {
+            MyApplication.handler.post {
+                try {
+                    val response = JSONObject(args[0].toString())
+                    val success = response.getBoolean("success")
+                    val message = response.getString("message")
+                    if (success) {
+                        val data = response.getJSONArray("data")
+                        MyApplication.prefManager.productList = data.toString()
+                    } else {
+                        GeneralDialog()
+                            .message(message)
+                            .firstButton("باشه") { GeneralDialog().dismiss() }
+                            .secondButton("تلاش مجدد") { getProductsType() }
+                            .show()
+                    }
+
+                } catch (e: JSONException) {
+                    GeneralDialog()
+                        .message("خطایی پیش آمده دوباره امتحان کنید.")
+                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .secondButton("تلاش مجدد") { getProductsType() }
+                        .show()
+                    e.printStackTrace()
+                }
+            }
+        }
+
+        override fun onFailure(reCall: Runnable?, e: java.lang.Exception?) {
+            MyApplication.handler.post {
+                GeneralDialog()
+                    .message("خطایی پیش آمده دوباره امتحان کنید.")
+                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .secondButton("تلاش مجدد") { getProductsType() }
+                    .show()
+            }
+            super.onFailure(reCall, e)
+        }
     }
 
     private fun getProducts() {

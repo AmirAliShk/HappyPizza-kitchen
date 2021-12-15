@@ -35,6 +35,14 @@ class PrefManager {
     private val KEY_ACTIVATION_REMAINING_TIME = "activationRemainingTime"
     private val PRODUCTS = "products"
     private val HIRED = "hired"
+    private val PRODUCT_LIST = "productList"
+
+    var productList: String?
+        get() = this.sharedPreferences.getString(PRODUCT_LIST, "")
+        set(productList) {
+            editor.putString(PRODUCT_LIST, productList)
+            editor.commit()
+        }
 
     var hired: Boolean
         get() = this.sharedPreferences.getBoolean(HIRED, false)

@@ -30,6 +30,8 @@ object EndPoints {
     const val READY = ORDER + "ready"
     const val HISTORY = ORDER + "finished"
     const val GET_PRODUCTS = WEBSERVICE_PATH + "product"
+    const val EDIT_PRODUCTS = WEBSERVICE_PATH + "product"
+    const val GET_PRODUCTS_TYPE = WEBSERVICE_PATH + "product/type"
 
     /******************************** refresh token Api  *****************************************/
     const val REFRESH_TOKEN = HAWKEYE_PATH + "token"
