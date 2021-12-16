@@ -67,16 +67,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_marginBottom="@dimen/_15sdp"
-                android:layout_weight="0.4"
                 android:background="@drawable/bg_preparing_header"
                 android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:paddingVertical="@dimen/_5sdp">
 
                 <ImageView
-                    android:layout_width="50dp"
+                    android:layout_width="@dimen/_30sdp"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_chef" />
 
@@ -87,6 +86,7 @@
                     android:text="در حال آماده سازی"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_17sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -105,12 +105,12 @@
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
-                android:layout_weight="0.3">
+                android:layout_weight="0.5">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.2"
+                    android:layout_weight="0.5"
                     android:text="@string/name"
                     android:textColor="@color/color_Titles"
                     android:textSize="@dimen/_17sdp" />
@@ -130,7 +130,7 @@
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
-                android:layout_weight="0.3"
+                android:layout_weight="0.5"
                 android:orientation="horizontal">
 
                 <TextView
@@ -160,8 +160,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.2"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="@dimen/_5sdp">
 
@@ -200,8 +199,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/productList"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:divider="@null"
                     android:listSelector="#00ffffff"
                     android:paddingBottom="@dimen/_5sdp"
@@ -213,8 +211,8 @@
             <LinearLayout
                 android:id="@+id/llDescription"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/_10sdp">
 
@@ -230,32 +228,36 @@
                 <TextView
                     android:id="@+id/description"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/stroke_red"
                     android:gravity="center_vertical"
-                    android:paddingRight="10dp"
+                    android:padding="10dp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_19sdp" />
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imgCall"
-                android:layout_width="50dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_gravity="left"
-                android:layout_marginLeft="@dimen/_6sdp"
-                android:layout_weight="1"
-                android:src="@drawable/ic_call_answer" />
+                android:gravity="bottom|left"
+                android:layout_weight="1.5">
+
+                <ImageView
+                    android:id="@+id/imgCall"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:src="@drawable/ic_call_answer" />
+
+            </LinearLayout>
 
             <ViewFlipper
                 android:id="@+id/vfSetReady"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/_5sdp"
-                android:layout_weight="0.5"
                 android:background="@drawable/red"
                 android:elevation="@dimen/_2sdp">
 

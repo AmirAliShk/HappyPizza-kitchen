@@ -127,7 +127,7 @@ class NotReadyOrdersFragment : Fragment() {
                                         )
                                     )
                                 if (description.equals("")) {
-                                    binding.llDescription.visibility = View.INVISIBLE
+                                    binding.llDescription.visibility = View.GONE
                                 } else {
                                     binding.description.text =
                                         StringHelper.toPersianDigits(description)

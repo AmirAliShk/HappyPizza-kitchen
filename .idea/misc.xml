@@ -32,6 +32,7 @@
         <entry key="app/src/main/res/drawable/pale_red.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/redd.xml" value="0.35625" />
         <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.20208333333333334" />
+        <entry key="app/src/main/res/layout-land/fragment_not_ready_orders.xml" value="0.20208333333333334" />
         <entry key="app/src/main/res/layout-sw720dp/activity_main.xml" value="0.2125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.19322916666666667" />
@@ -42,7 +43,7 @@
         <entry key="app/src/main/res/layout/dialog_products.xml" value="0.2833333333333333" />
         <entry key="app/src/main/res/layout/ffeff.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_get_products.xml" value="0.2351851851851852" />
-        <entry key="app/src/main/res/layout/fragment_not_ready_orders.xml" value="0.19025641025641027" />
+        <entry key="app/src/main/res/layout/fragment_not_ready_orders.xml" value="0.2833333333333333" />
         <entry key="app/src/main/res/layout/fragment_orders_history.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_ready_orders.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.19322916666666667" />
