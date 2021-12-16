@@ -22,13 +22,17 @@
         <entry key="app/src/main/res/drawable/ic_gps.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_log_out.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_order_history.xml" value="0.2796296296296296" />
         <entry key="app/src/main/res/drawable/ic_phone.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_prepared.xml" value="0.2796296296296296" />
         <entry key="app/src/main/res/drawable/ic_refresh.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_round_add_24.xml" value="0.25092592592592594" />
         <entry key="app/src/main/res/drawable/ic_round_arrow_drop_down_24.xml" value="0.2948717948717949" />
         <entry key="app/src/main/res/drawable/ic_round_done_24.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/pale_red.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/redd.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.20208333333333334" />
+        <entry key="app/src/main/res/layout-sw720dp/activity_main.xml" value="0.2125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/cancelable_loder.xml" value="0.19322916666666667" />
