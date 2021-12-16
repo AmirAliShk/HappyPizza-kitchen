@@ -28,7 +28,13 @@ class ProductDialog {
     var productTypes: String = ""
     lateinit var spinner: Spinner
 
-    fun show(productModel: ProductModel, type: Int) {
+    interface ProductDialogInterface {
+        fun dismissListener(b:Boolean)
+    }
+
+    lateinit var pDialogInterface: ProductDialogInterface
+
+    fun show(productModel: ProductModel, type: Int, pDialogInterface: ProductDialogInterface) {
         dialog = Dialog(MyApplication.currentActivity)
         dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
         binding = DialogProductsBinding.inflate(LayoutInflater.from(MyApplication.context))
@@ -43,6 +49,7 @@ class ProductDialog {
         spinner = binding.spType
         initProductTypeSpinner()
         binding.imgClose.setOnClickListener { dismiss() }
+        this.pDialogInterface = pDialogInterface
 
         MyApplication.handler.postDelayed({
             if (type == 1) { // 1 mean edit
@@ -95,6 +102,7 @@ class ProductDialog {
         description: String,
         type: String
     ) {
+        binding.vfSubmit.displayedChild = 1
         RequestHelper.builder(EndPoints.EDIT_PRODUCTS)
             .listener(editProductTypeCallBack)
             .addParam("productId", id)
@@ -110,14 +118,17 @@ class ProductDialog {
             override fun onResponse(reCall: Runnable?, vararg args: Any?) {
                 MyApplication.handler.post {
                     try {
+                        binding.vfSubmit.displayedChild = 0
                         dismiss()
                         val response = JSONObject(args[0].toString())
                         val success = response.getBoolean("success")
                         val message = response.getString("message")
                         if (success) {
+
                             GeneralDialog()
                                 .message(message)
                                 .firstButton("باشه") {
+                                    pDialogInterface.dismissListener(true)
                                     GeneralDialog().dismiss()
                                 }
                                 .show()
@@ -129,6 +140,7 @@ class ProductDialog {
                         }
 
                     } catch (e: JSONException) {
+                        binding.vfSubmit.displayedChild = 0
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
                             .secondButton("باشه") { GeneralDialog().dismiss() }
@@ -140,6 +152,7 @@ class ProductDialog {
 
             override fun onFailure(reCall: Runnable?, e: java.lang.Exception?) {
                 MyApplication.handler.post {
+                    binding.vfSubmit.displayedChild = 0
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .secondButton("باشه") { GeneralDialog().dismiss() }

@@ -1,5 +1,6 @@
 package ir.food.kitchenAndroid.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +17,19 @@ import ir.food.kitchenAndroid.model.ProductModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import org.json.JSONException
 import org.json.JSONObject
+import java.util.*
+import kotlin.collections.ArrayList
 
-class ProductsAdapter(list: ArrayList<ProductModel>) :
+class ProductsAdapter(list: ArrayList<ProductModel>, listener : ProductAdapterInterface) :
     RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
     private val models = list
+
+    interface ProductAdapterInterface {
+        fun dismissListener(b: Boolean)
+    }
+
+    var pAdapterInterface: ProductAdapterInterface= listener
 
     class ViewHolder(val binding: ItemProductsBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -42,7 +51,14 @@ class ProductsAdapter(list: ArrayList<ProductModel>) :
             StringHelper.toPersianDigits(DateHelper.parseFormatToStringNoDay(model.updatedAt)) + "  " + StringHelper.toPersianDigits(
                 DateHelper.parseFormat(model.updatedAt)
             )
-        holder.binding.imgEdit.setOnClickListener { ProductDialog().show(model, 1) }
+        holder.binding.imgEdit.setOnClickListener {
+            ProductDialog().show(model, 1, object : ProductDialog.ProductDialogInterface {
+                override fun dismissListener(b: Boolean) {
+                    Log.i("TAG", "dismissListener: Products dialog")
+                    pAdapterInterface.dismissListener(b)
+                }
+            })
+        }
         if (model.description.trim().isEmpty()) {
             holder.binding.llDesc.visibility = View.GONE
         } else {
