@@ -20,6 +20,8 @@ import java.lang.Exception
 class ReadyOrdersFragment : Fragment() {
 
     lateinit var binding: FragmentReadyOrdersBinding
+    private lateinit var response: String
+    private val KEY_READY_ORDER = "lastReadyOrder"
 
     var readyOrdersModels: ArrayList<ReadyOrdersModel> = ArrayList()
     var adapter: ReadyOrdersAdapter = ReadyOrdersAdapter(readyOrdersModels)
@@ -38,9 +40,19 @@ class ReadyOrdersFragment : Fragment() {
 
         binding.imgRefreshFail.setOnClickListener { getReady() }
 
-        getReady()
+        if (savedInstanceState == null) {
+            getReady()
+        } else {
+            response = savedInstanceState.getString(KEY_READY_ORDER).toString()
+            parseDate(response)
+        }
 
         return binding.root
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(KEY_READY_ORDER, response)
     }
 
     private fun getReady() {
@@ -50,51 +62,56 @@ class ReadyOrdersFragment : Fragment() {
             .get()
     }
 
+    private fun parseDate(result: String) {
+        response = result
+        val response = JSONObject(result)
+
+        val success = response.getBoolean("success")
+        val message = response.getString("message")
+
+        if (success) {
+            val dataObject = response.getJSONArray("data")
+
+            for (i in 0 until dataObject.length()) {
+                val orderDetails: JSONObject = dataObject.getJSONObject(i)
+                val customer = orderDetails.getJSONObject("customer")
+                val status = orderDetails.getJSONObject("status")
+
+                val model = ReadyOrdersModel(
+                    orderDetails.getJSONArray("products"),
+                    orderDetails.getString("_id"),
+                    customer.getString("mobile"),
+                    customer.getString("family"),
+                    orderDetails.getString("address"),
+                    status.getString("name"),
+                    status.getInt("status"),
+                    orderDetails.getString("createdAt"),
+                    orderDetails.getString("description")
+                )
+                readyOrdersModels.add(model)
+            }
+            if (readyOrdersModels.size == 0) {
+                binding.vfOrders.displayedChild = 2
+            } else {
+                binding.vfOrders.displayedChild = 1
+            }
+            binding.readyList.adapter = adapter
+        } else {
+            GeneralDialog()
+                .message(message)
+                .firstButton("باشه") { GeneralDialog().dismiss() }
+                .secondButton("تلاش مجدد") { getReady() }
+                .show()
+            binding.vfOrders.displayedChild = 3
+        }
+    }
+
     private val readyCallBack: RequestHelper.Callback = object : RequestHelper.Callback() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
                 try {
                     binding.vfOrders.displayedChild = 1
-                    val response = JSONObject(args[0].toString())
-
-                    val success = response.getBoolean("success")
-                    val message = response.getString("message")
-
-                    if (success) {
-                        val dataObject = response.getJSONArray("data")
-
-                        for (i in 0 until dataObject.length()) {
-                            val orderDetails: JSONObject = dataObject.getJSONObject(i)
-                            val customer = orderDetails.getJSONObject("customer")
-                            val status = orderDetails.getJSONObject("status")
-
-                            val model = ReadyOrdersModel(
-                                orderDetails.getJSONArray("products"),
-                                orderDetails.getString("_id"),
-                                customer.getString("mobile"),
-                                customer.getString("family"),
-                                orderDetails.getString("address"),
-                                status.getString("name"),
-                                status.getInt("status"),
-                                orderDetails.getString("createdAt"),
-                                orderDetails.getString("description")
-                            )
-                            readyOrdersModels.add(model)
-                        }
-                        if (readyOrdersModels.size == 0) {
-                            binding.vfOrders.displayedChild = 2
-                        } else {
-                            binding.vfOrders.displayedChild = 1
-                        }
-                        binding.readyList.adapter = adapter
-                    } else {
-                        GeneralDialog()
-                            .message(message)
-                            .firstButton("باشه") { GeneralDialog().dismiss() }
-                            .secondButton("تلاش مجدد") { getReady() }
-                            .show()
-                        binding.vfOrders.displayedChild = 3
-                    }
+                    parseDate(args[0].toString())
 
                 } catch (e: JSONException) {
                     binding.vfOrders.displayedChild = 3

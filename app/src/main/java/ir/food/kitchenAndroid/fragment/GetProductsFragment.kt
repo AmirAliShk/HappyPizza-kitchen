@@ -16,6 +16,7 @@ import ir.food.kitchenAndroid.databinding.FragmentReadyOrdersBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.dialog.ProductDialog
 import ir.food.kitchenAndroid.helper.TypefaceUtil
+import ir.food.kitchenAndroid.model.OrderHistoryModel
 import ir.food.kitchenAndroid.model.ProductModel
 import ir.food.kitchenAndroid.model.ReadyOrdersModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
@@ -25,16 +26,21 @@ import java.lang.Exception
 
 class GetProductsFragment : Fragment() {
     lateinit var binding: FragmentGetProductsBinding
+    private lateinit var response: String
+    private lateinit var responsePType: String
+    private val KEY_LAST_DATA = "lastData"
+    private val KEY_LAST_DATA_PTYPE = "lastDatePType"
     var productModels: ArrayList<ProductModel> = ArrayList()
-    var adapter: ProductsAdapter = ProductsAdapter(productModels,object : ProductsAdapter.ProductAdapterInterface{
-        override fun dismissListener(b: Boolean) {
-            if(b){
+    var adapter: ProductsAdapter =
+        ProductsAdapter(productModels, object : ProductsAdapter.ProductAdapterInterface {
+            override fun dismissListener(b: Boolean) {
+                if (b) {
                     productModels.clear()
                     getProducts()
 
+                }
             }
-        }
-    })
+        })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,8 +52,16 @@ class GetProductsFragment : Fragment() {
             MyApplication.currentActivity.onBackPressed()
         }
 
-        getProducts()
-        getProductsType()
+        if (savedInstanceState == null) {
+            getProducts()
+            getProductsType()
+        } else {
+            response = savedInstanceState.getString(KEY_LAST_DATA).toString()
+            responsePType = savedInstanceState.getString(KEY_LAST_DATA_PTYPE).toString()
+            parseDate(response)
+        }
+
+
 
         return binding.root
     }
@@ -62,20 +76,7 @@ class GetProductsFragment : Fragment() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
                 try {
-                    val response = JSONObject(args[0].toString())
-                    val success = response.getBoolean("success")
-                    val message = response.getString("message")
-                    if (success) {
-                        val data = response.getJSONArray("data")
-                        MyApplication.prefManager.productList = data.toString()
-                    } else {
-                        GeneralDialog()
-                            .message(message)
-                            .firstButton("باشه") { GeneralDialog().dismiss() }
-                            .secondButton("تلاش مجدد") { getProductsType() }
-                            .show()
-                    }
-
+                    parseTypeData(args[0].toString())
                 } catch (e: JSONException) {
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
@@ -111,42 +112,7 @@ class GetProductsFragment : Fragment() {
             MyApplication.handler.post {
                 try {
                     binding.vfProducts.displayedChild = 1
-                    val response = JSONObject(args[0].toString())
-
-                    val success = response.getBoolean("success")
-                    val message = response.getString("message")
-
-                    if (success) {
-                        val dataObject = response.getJSONArray("data")
-
-                        for (i in 0 until dataObject.length()) {
-                            val objProduct: JSONObject = dataObject.getJSONObject(i)
-                            val model = ProductModel(
-                                objProduct.getString("_id"),
-                                objProduct.getString("name"),
-                                objProduct.getString("description"),
-                                objProduct.getInt("supply"),
-                                objProduct.getString("updatedAt"),
-                                objProduct.getString("typeName"),
-                                objProduct.getString("typeId"),
-
-                            )
-                            productModels.add(model)
-                        }
-                        if (productModels.size == 0) {
-                            binding.vfProducts.displayedChild = 2
-                        } else {
-                            binding.vfProducts.displayedChild = 1
-                        }
-                        binding.listProducts.adapter = adapter
-                    } else {
-                        GeneralDialog()
-                            .message(message)
-                            .firstButton("باشه") { GeneralDialog().dismiss() }
-                            .secondButton("تلاش مجدد") { getProducts() }
-                            .show()
-                        binding.vfProducts.displayedChild = 3
-                    }
+                    parseDate(args[0].toString())
 
                 } catch (e: JSONException) {
                     binding.vfProducts.displayedChild = 3
@@ -171,6 +137,72 @@ class GetProductsFragment : Fragment() {
             }
             super.onFailure(reCall, e)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(KEY_LAST_DATA, response)
+        outState.putString(KEY_LAST_DATA_PTYPE, responsePType)
+    }
+
+    private fun parseDate(result: String) {
+        response = result
+        val response = JSONObject(result)
+
+        val success = response.getBoolean("success")
+        val message = response.getString("message")
+
+        if (success) {
+            val dataObject = response.getJSONArray("data")
+
+            for (i in 0 until dataObject.length()) {
+                val objProduct: JSONObject = dataObject.getJSONObject(i)
+                val model = ProductModel(
+                    objProduct.getString("_id"),
+                    objProduct.getString("name"),
+                    objProduct.getString("description"),
+                    objProduct.getInt("supply"),
+                    objProduct.getString("updatedAt"),
+                    objProduct.getString("typeName"),
+                    objProduct.getString("typeId"),
+
+                    )
+                productModels.add(model)
+            }
+            if (productModels.size == 0) {
+                binding.vfProducts.displayedChild = 2
+            } else {
+                binding.vfProducts.displayedChild = 1
+            }
+            binding.listProducts.adapter = adapter
+        } else {
+            GeneralDialog()
+                .message(message)
+                .firstButton("باشه") { GeneralDialog().dismiss() }
+                .secondButton("تلاش مجدد") { getProducts() }
+                .show()
+            binding.vfProducts.displayedChild = 3
+        }
+
+
+    }
+
+    private fun parseTypeData(result: String) {
+        responsePType = result
+        val response = JSONObject(result)
+        val success = response.getBoolean("success")
+        val message = response.getString("message")
+        if (success) {
+            val data = response.getJSONArray("data")
+            MyApplication.prefManager.productList = data.toString()
+        } else {
+            GeneralDialog()
+                .message(message)
+                .firstButton("باشه") { GeneralDialog().dismiss() }
+                .secondButton("تلاش مجدد") { getProductsType() }
+                .show()
+        }
+
     }
 
 }

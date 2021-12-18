@@ -16,6 +16,7 @@ import ir.food.kitchenAndroid.helper.DateHelper
 import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.CartModel
+import ir.food.kitchenAndroid.model.ReadyOrdersModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import org.json.JSONException
 import org.json.JSONObject
@@ -24,7 +25,8 @@ import java.util.*
 class NotReadyOrdersFragment : Fragment() {
 
     lateinit var binding: FragmentNotReadyOrdersBinding
-
+    private lateinit var response: String
+    private val KEY_ORDER = "lastOrder"
     lateinit var cartModels: ArrayList<CartModel>
     lateinit var adapter: CartAdapter
     lateinit var orderId: String
@@ -39,7 +41,12 @@ class NotReadyOrdersFragment : Fragment() {
         binding = FragmentNotReadyOrdersBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
 
-        startGetOrdersTimer()
+        if (savedInstanceState == null) {
+            startGetOrdersTimer()
+        }else{
+            response = savedInstanceState.getString(KEY_ORDER).toString()
+            parseDate(response)
+        }
 
         binding.txtTitle.typeface = MyApplication.IraSanSMedume
         binding.imgRefresh.setOnClickListener { getOrders() }
@@ -76,74 +83,7 @@ class NotReadyOrdersFragment : Fragment() {
             override fun onResponse(reCall: Runnable?, vararg args: Any?) {
                 MyApplication.handler.post {
                     try {
-                        val response = JSONObject(args[0].toString())
-//{"success":true,"message":"سفارش با موفقیت ارسال شد","data":{"GPS":{"coordinates":[33.29792,59.605933],"type":"Point"},"products":[{"_id":{"_id":"61091b0ca9335b389819e896","name":"مرغ و قارچ"},"quantity":1,"size":"large"}],"_id":"61092c9e4af8121f58108d97","customer":{"_id":"6107bd65e5bdcc11fd46bff2","mobile":"09105044033","family":"محمد جواد حیدری"},"address":"راهنمایی 24","status":{"name":"در حال اماده سازی","status":5},"description":"ساعت 12 تحویل داده شود","createdAt":"2021-08-03T11:46:38.117Z","__v":0,"cookId":"610a6fa3e5bdcc11fd46c0aa"}}
-                        val success = response.getBoolean("success")
-                        val message = response.getString("message")
-                        binding.avlRefresh.visibility = View.GONE
-                        if (success) {
-                            cartModels = ArrayList()
-                            adapter = CartAdapter(cartModels)
-                            val dataObject = response.getJSONObject("data")
-                            if (dataObject.toString() == "{}") {
-                                binding.vfOrders.displayedChild = 2
-                            } else {
-                                binding.vfOrders.displayedChild = 1
-                                val products = dataObject.getJSONArray("products")
-                                for (i in 0 until products.length()) {
-                                    val productDetail: JSONObject = products.getJSONObject(i)
-                                    val productId = productDetail.getJSONObject("_id")
-                                    var model = CartModel(
-                                        productId.getString("name"),
-                                        productDetail.getInt("quantity"),
-                                        productDetail.getString("size")
-                                    )
-
-                                    cartModels.add(model)
-                                }
-                                binding.productList.adapter = adapter
-
-                                orderId = dataObject.getString("_id")
-
-                                val customer = dataObject.getJSONObject("customer")
-                                customerNum = customer.getString("mobile")
-                                val customerName = customer.getString("family")
-
-                                val address = dataObject.getString("address")
-
-//                            val status = dataObject.getJSONObject("status")
-//                            val statusCode = status.getInt("status")
-//                            val statusName = status.getString("name")
-
-                                val description = dataObject.getString("description")
-
-                                val date = dataObject.getString("createdAt")
-
-                                binding.customerName.text = customerName
-                                binding.time.text =
-                                    StringHelper.toPersianDigits(
-                                        DateHelper.parseFormatToStringNoDay(date) + "  " + StringHelper.toPersianDigits(
-                                            DateHelper.parseFormat(date)
-                                        )
-                                    )
-                                if (description.equals("")) {
-                                    binding.llDescription.visibility = View.GONE
-                                } else {
-                                    binding.llDescription.visibility = View.VISIBLE
-                                    binding.description.text =
-                                        StringHelper.toPersianDigits(description)
-                                }
-                                binding.txtAddress.text = StringHelper.toPersianDigits(address)
-                            }
-                        } else {
-                            GeneralDialog()
-                                .message(message)
-                                .firstButton("باشه") { GeneralDialog().dismiss() }
-                                .secondButton("تلاش مجدد") { getOrders() }
-                                .show()
-                            binding.vfOrders.displayedChild = 3
-                            binding.avlRefresh.visibility = View.GONE
-                        }
+                       parseDate(args[0].toString())
                     } catch (e: JSONException) {
                         binding.vfOrders.displayedChild = 3
                         binding.avlRefresh.visibility = View.GONE
@@ -246,6 +186,83 @@ class NotReadyOrdersFragment : Fragment() {
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun parseDate(result: String) {
+        response = result
+        val response = JSONObject(result)
+//{"success":true,"message":"سفارش با موفقیت ارسال شد","data":{"GPS":{"coordinates":[33.29792,59.605933],"type":"Point"},"products":[{"_id":{"_id":"61091b0ca9335b389819e896","name":"مرغ و قارچ"},"quantity":1,"size":"large"}],"_id":"61092c9e4af8121f58108d97","customer":{"_id":"6107bd65e5bdcc11fd46bff2","mobile":"09105044033","family":"محمد جواد حیدری"},"address":"راهنمایی 24","status":{"name":"در حال اماده سازی","status":5},"description":"ساعت 12 تحویل داده شود","createdAt":"2021-08-03T11:46:38.117Z","__v":0,"cookId":"610a6fa3e5bdcc11fd46c0aa"}}
+        val success = response.getBoolean("success")
+        val message = response.getString("message")
+        binding.avlRefresh.visibility = View.GONE
+        if (success) {
+            cartModels = ArrayList()
+            adapter = CartAdapter(cartModels)
+            val dataObject = response.getJSONObject("data")
+            if (dataObject.toString() == "{}") {
+                binding.vfOrders.displayedChild = 2
+            } else {
+                binding.vfOrders.displayedChild = 1
+                val products = dataObject.getJSONArray("products")
+                for (i in 0 until products.length()) {
+                    val productDetail: JSONObject = products.getJSONObject(i)
+                    val productId = productDetail.getJSONObject("_id")
+                    var model = CartModel(
+                        productId.getString("name"),
+                        productDetail.getInt("quantity"),
+                        productDetail.getString("size")
+                    )
+
+                    cartModels.add(model)
+                }
+                binding.productList.adapter = adapter
+
+                orderId = dataObject.getString("_id")
+
+                val customer = dataObject.getJSONObject("customer")
+                customerNum = customer.getString("mobile")
+                val customerName = customer.getString("family")
+
+                val address = dataObject.getString("address")
+
+//                            val status = dataObject.getJSONObject("status")
+//                            val statusCode = status.getInt("status")
+//                            val statusName = status.getString("name")
+
+                val description = dataObject.getString("description")
+
+                val date = dataObject.getString("createdAt")
+
+                binding.customerName.text = customerName
+                binding.time.text =
+                    StringHelper.toPersianDigits(
+                        DateHelper.parseFormatToStringNoDay(date) + "  " + StringHelper.toPersianDigits(
+                            DateHelper.parseFormat(date)
+                        )
+                    )
+                if (description.equals("")) {
+                    binding.llDescription.visibility = View.GONE
+                } else {
+                    binding.llDescription.visibility = View.VISIBLE
+                    binding.description.text =
+                        StringHelper.toPersianDigits(description)
+                }
+                binding.txtAddress.text = StringHelper.toPersianDigits(address)
+            }
+        } else {
+            GeneralDialog()
+                .message(message)
+                .firstButton("باشه") { GeneralDialog().dismiss() }
+                .secondButton("تلاش مجدد") { getOrders() }
+                .show()
+            binding.vfOrders.displayedChild = 3
+            binding.avlRefresh.visibility = View.GONE
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(KEY_ORDER, response)
     }
 
     override fun onDestroy() {
