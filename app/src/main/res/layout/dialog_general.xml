@@ -6,9 +6,10 @@
     android:layoutDirection="rtl">
 
     <LinearLayout
-        android:layout_width="@dimen/_280sdp"
-        android:layout_height="180dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_marginHorizontal="@dimen/_20sdp"
         android:background="@drawable/bg_item"
         android:elevation="@dimen/_5sdp"
         android:orientation="vertical">
@@ -16,20 +17,17 @@
         <TextView
             android:id="@+id/txtMessage"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.25"
+            android:layout_height="wrap_content"
             android:gravity="bottom|center_horizontal"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
+           android:padding="@dimen/_10sdp"
             android:textColor="@color/black"
-            android:textSize="17sp" />
+            android:textSize="@dimen/_17ssp" />
 
         <LinearLayout
             android:id="@+id/llBtnView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.25"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_20sdp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -45,7 +43,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_green"
                 android:elevation="@dimen/_3sdp"
-                android:padding="@dimen/_8sdp"
+                android:padding="@dimen/_5sdp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold" />
@@ -63,7 +61,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_red"
                 android:elevation="@dimen/_3sdp"
-                android:padding="@dimen/_10sdp"
+                android:padding="@dimen/_5sdp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold" />

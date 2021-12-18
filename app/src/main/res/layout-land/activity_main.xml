@@ -76,7 +76,7 @@
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
                     android:src="@drawable/ic_unprepared"
-                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     android:layout_gravity="center"/>
 
                 <TextView
@@ -107,7 +107,7 @@
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
                     android:src="@drawable/ic_prepared"
-                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     android:layout_gravity="center"/>
 
                 <TextView
@@ -151,8 +151,8 @@
                 <ImageView
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
-                    android:padding="@dimen/_2sdp"
-                    android:layout_marginRight="@dimen/_5sdp"
+                    android:padding="@dimen/_3sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     android:src="@drawable/ic_order_history"
                     android:layout_gravity="center"/>
 
@@ -183,7 +183,9 @@
                 <ImageView
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
-                    android:layout_marginRight="@dimen/_5sdp"
+                    android:padding="@dimen/_3sdp"
+                    android:src="@drawable/ic_product_inventory"
+                    android:layout_marginRight="@dimen/_10sdp"
                     android:layout_gravity="center" />
 
                 <TextView

@@ -40,21 +40,15 @@
 
                 <RelativeLayout
                     android:layout_width="@dimen/_150sdp"
+                    android:background="@drawable/bg_item"
                     android:layout_height="wrap_content">
 
                     <Spinner
                         android:id="@+id/spType"
                         android:layout_width="@dimen/_150sdp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_item"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
                         tools:listitem="@layout/item_spinner" />
-
-                    <ImageView
-                        android:layout_width="@dimen/_25sdp"
-                        android:layout_height="@dimen/_25sdp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_round_arrow_drop_down_24" />
 
                 </RelativeLayout>
 
@@ -69,16 +63,16 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1.5"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/_5sdp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:layout_marginRight="@dimen/_5sdp"
                         android:text="نام محصول"
                         android:textColor="@color/darkGray"
                         android:textSize="@dimen/_15sdp" />
@@ -86,9 +80,10 @@
                     <EditText
                         android:id="@+id/edtPName"
                         android:layout_width="match_parent"
-                        android:padding="@dimen/_5sdp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_item" />
+                        android:background="@drawable/bg_item"
+                        android:textColor="@color/black"
+                        android:padding="@dimen/_5sdp" />
 
                 </LinearLayout>
 
@@ -120,9 +115,11 @@
                         <EditText
                             android:id="@+id/edtQuantity"
                             android:layout_width="match_parent"
-                            android:padding="@dimen/_5sdp"
                             android:layout_height="wrap_content"
-                            android:background="@color/transparent" />
+                            android:background="@color/transparent"
+                            android:padding="@dimen/_5sdp"
+                            android:gravity="right"
+                            android:textColor="@color/black" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -163,6 +160,7 @@
                     android:padding="@dimen/_5sdp"
                     android:gravity="top|right"
                     android:lines="3"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_item" />
 

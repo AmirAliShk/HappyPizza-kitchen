@@ -187,6 +187,7 @@
                 android:gravity="center"
                 android:paddingVertical="@dimen/_5sdp"
                 android:text="@string/description"
+                android:textColor="@color/color_Titles"
                 android:textSize="@dimen/_17sdp" />
 
             <TextView

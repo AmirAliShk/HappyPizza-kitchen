@@ -161,6 +161,7 @@
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_32sdp"
                 android:layout_gravity="center"
+                android:src="@drawable/ic_product_inventory"
                 android:layout_marginRight="@dimen/_20sdp" />
 
             <TextView
