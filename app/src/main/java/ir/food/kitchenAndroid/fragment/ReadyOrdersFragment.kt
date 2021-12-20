@@ -30,7 +30,7 @@ class ReadyOrdersFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentReadyOrdersBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
         binding.txtTitle.typeface = MyApplication.IraSanSMedume

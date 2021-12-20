@@ -45,7 +45,7 @@ class GetProductsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentGetProductsBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
         binding.imgBack.setOnClickListener {
@@ -60,8 +60,6 @@ class GetProductsFragment : Fragment() {
             responsePType = savedInstanceState.getString(KEY_LAST_DATA_PTYPE).toString()
             parseDate(response)
         }
-
-
 
         return binding.root
     }
@@ -183,8 +181,6 @@ class GetProductsFragment : Fragment() {
                 .show()
             binding.vfProducts.displayedChild = 3
         }
-
-
     }
 
     private fun parseTypeData(result: String) {
@@ -202,7 +198,5 @@ class GetProductsFragment : Fragment() {
                 .secondButton("تلاش مجدد") { getProductsType() }
                 .show()
         }
-
     }
-
 }

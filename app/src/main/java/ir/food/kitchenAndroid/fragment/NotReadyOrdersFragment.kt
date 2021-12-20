@@ -37,7 +37,7 @@ class NotReadyOrdersFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentNotReadyOrdersBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
 
@@ -101,11 +101,6 @@ class NotReadyOrdersFragment : Fragment() {
                 MyApplication.handler.post {
                     binding.vfOrders.displayedChild = 3
                     binding.avlRefresh.visibility = View.GONE
-                    GeneralDialog()
-                        .message("خطایی پیش آمده دوباره امتحان کنید.")
-                        .firstButton("باشه") { GeneralDialog().dismiss() }
-                        .secondButton("تلاش مجدد") { getOrders() }
-                        .show()
                 }
                 super.onFailure(reCall, e)
             }

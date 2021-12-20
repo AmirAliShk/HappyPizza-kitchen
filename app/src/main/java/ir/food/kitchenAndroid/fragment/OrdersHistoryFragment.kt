@@ -30,10 +30,10 @@ class OrdersHistoryFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentOrdersHistoryBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
- binding.txtTitle.typeface = MyApplication.IraSanSMedume
+        binding.txtTitle.typeface = MyApplication.IraSanSMedume
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
 
         binding.imgRefresh.setOnClickListener { getHistory() }
@@ -61,7 +61,7 @@ class OrdersHistoryFragment : Fragment() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
                 try {
-                  parseDate(args[0].toString())
+                    parseDate(args[0].toString())
                 } catch (e: JSONException) {
                     binding.vfHistory.displayedChild = 3
                     GeneralDialog()
@@ -133,7 +133,5 @@ class OrdersHistoryFragment : Fragment() {
                 .show()
             binding.vfHistory.displayedChild = 3
         }
-
     }
-
 }
