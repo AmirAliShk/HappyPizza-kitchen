@@ -3,15 +3,12 @@ package ir.food.kitchenAndroid.app
 import org.acra.annotation.AcraHttpSender
 import org.acra.sender.HttpSender
 import android.app.Application
-import ir.food.kitchenAndroid.app.MyApplication
-import ir.food.kitchenAndroid.app.PrefManager
 import org.acra.ACRA
 import android.graphics.Typeface
 import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
-import android.os.Environment
 import android.os.Handler
 import android.view.LayoutInflater
 import ir.food.kitchenAndroid.R
@@ -20,7 +17,6 @@ import android.widget.TextView
 import android.widget.Toast
 import android.view.Gravity
 import android.view.View
-import androidx.fragment.app.FragmentManager
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
@@ -109,7 +105,7 @@ class MyApplication : Application() {
         config.locale = locale
         context.resources.updateConfiguration(config, context.resources.displayMetrics)
 
-//        avaStart()
+        avaStart()
         initACRA()
 
     }

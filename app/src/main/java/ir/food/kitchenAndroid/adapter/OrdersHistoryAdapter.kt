@@ -1,5 +1,6 @@
 package ir.food.kitchenAndroid.adapter
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
         return ViewHolder(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = models[position]
 
@@ -84,7 +86,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
         for (i in 0 until model.products.length()) {
             val productsDetail = model.products.getJSONObject(i)
 
-            var model = CartModel(
+            val model = CartModel(
                 productsDetail.getString("name"),
                 productsDetail.getInt("quantity"),
                 productsDetail.getString("size")

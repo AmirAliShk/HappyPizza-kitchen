@@ -14,6 +14,7 @@ import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.KeyBoardHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.okHttp.RequestHelper
+import ir.food.kitchenAndroid.push.AvaCrashReporter
 import ir.food.kitchenAndroid.webServices.GetAppInfo
 import org.json.JSONException
 import org.json.JSONObject
@@ -41,6 +42,8 @@ class VerificationFragment : Fragment() {
                     .isEmpty() || binding.edtMobile.text.toString().length < 10
             ) {
                 MyApplication.Toast("لطفا شماره موبایل خود را وارد کنید.", Toast.LENGTH_SHORT)
+                binding.edtMobile.requestFocus()
+                KeyBoardHelper.showKeyboard(MyApplication.context)
             } else {
                 sendCode()
             }
@@ -60,7 +63,7 @@ class VerificationFragment : Fragment() {
         binding.txtRegister.setOnClickListener {
             FragmentHelper
                 .toFragment(MyApplication.currentActivity, RegisterFragment())
-                .add()
+                .replace()
         }
 
         return binding.root
@@ -109,6 +112,7 @@ class VerificationFragment : Fragment() {
                         .secondButton("تلاش مجدد") { login() }
                         .show()
                     e.printStackTrace()
+                    AvaCrashReporter.send(e, "VerificationFragment class, sendCodeCallBack")
                 }
             }
         }
@@ -158,7 +162,6 @@ class VerificationFragment : Fragment() {
                             MyApplication.prefManager.authorization =
                                 dataObject.getString("accessToken")
                             GetAppInfo().callAppInfoAPI()
-                            KeyBoardHelper.hideKeyboard()
                         } else {
                             GeneralDialog()
                                 .message(message)
@@ -174,6 +177,7 @@ class VerificationFragment : Fragment() {
                             .secondButton("تلاش مجدد") { login() }
                             .show()
                         e.printStackTrace()
+                        AvaCrashReporter.send(e, "VerificationFragment class, loginCallBack")
                     }
                 }
             }
@@ -190,9 +194,4 @@ class VerificationFragment : Fragment() {
                 super.onFailure(reCall, e)
             }
         }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        KeyBoardHelper.hideKeyboard()
-    }
 }

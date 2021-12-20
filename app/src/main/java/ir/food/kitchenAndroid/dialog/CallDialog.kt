@@ -12,6 +12,7 @@ import ir.food.kitchenAndroid.databinding.DialogCallBinding
 import ir.food.kitchenAndroid.helper.CallHelper
 import ir.food.kitchenAndroid.helper.KeyBoardHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
+import ir.food.kitchenAndroid.push.AvaCrashReporter
 
 class CallDialog {
 
@@ -39,7 +40,6 @@ class CallDialog {
         }
 
         dialog.show()
-
     }
 
     private fun dismiss() {
@@ -48,7 +48,7 @@ class CallDialog {
             KeyBoardHelper.hideKeyboard()
         } catch (e: Exception) {
             e.printStackTrace()
+            AvaCrashReporter.send(e, "CallDialog class, dismiss method")
         }
     }
-
 }

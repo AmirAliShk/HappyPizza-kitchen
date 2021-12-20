@@ -17,6 +17,7 @@ import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.ProductModel
 import ir.food.kitchenAndroid.model.ProductsTypeModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
+import ir.food.kitchenAndroid.push.AvaCrashReporter
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -242,6 +243,7 @@ class ProductDialog {
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            AvaCrashReporter.send(e, "ProductDialog class, initProductTypeSpinner method")
         }
         if (spinner == null) return
 
@@ -274,6 +276,8 @@ class ProductDialog {
         try {
             dialog.dismiss()
         } catch (e: Exception) {
+            e.printStackTrace()
+            AvaCrashReporter.send(e, "ProductDialog class, dismiss method")
         }
     }
 

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ir.food.kitchenAndroid.adapter.CartAdapter
@@ -16,8 +18,8 @@ import ir.food.kitchenAndroid.helper.DateHelper
 import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.CartModel
-import ir.food.kitchenAndroid.model.ReadyOrdersModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
+import ir.food.kitchenAndroid.push.AvaCrashReporter
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
@@ -32,6 +34,8 @@ class NotReadyOrdersFragment : Fragment() {
     lateinit var orderId: String
     private lateinit var timer: Timer
     lateinit var customerNum: String
+    var tapTwice = false
+    var lastFiveSecond: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,19 +47,27 @@ class NotReadyOrdersFragment : Fragment() {
 
         if (savedInstanceState == null) {
             startGetOrdersTimer()
-        }else{
+        } else {
             response = savedInstanceState.getString(KEY_ORDER).toString()
             parseDate(response)
         }
 
         binding.txtTitle.typeface = MyApplication.IraSanSMedume
+
         binding.imgRefresh.setOnClickListener { getOrders() }
 
         binding.imgRefreshFail.setOnClickListener { getOrders() }
 
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
 
-        binding.btnOrderReady.setOnClickListener { setReady() }
+        binding.btnOrderReady.setOnClickListener {
+            if (tapTwice) {
+                setReady()
+            } else {
+                tapTwice = true
+                MyApplication.handler.postDelayed({ tapTwice = false }, 300)
+            }
+        }
 
         binding.imgCall.setOnClickListener { CallDialog().show(customerNum) }
 
@@ -64,15 +76,15 @@ class NotReadyOrdersFragment : Fragment() {
 
     private fun getOrders() {
         binding.vfOrders.displayedChild = 0
-
+        lastFiveSecond = Calendar.getInstance().timeInMillis + 5000
         RequestHelper.builder(EndPoints.NOT_READY_ORDER)
             .listener(ordersCallBack)
             .get()
     }
 
     private fun refresh() {
-//        binding.vfOrders.displayedChild = 0
-        binding.avlRefresh.visibility = View.VISIBLE
+        binding.avlRefresh.visibility = VISIBLE
+
         RequestHelper.builder(EndPoints.NOT_READY_ORDER)
             .listener(ordersCallBack)
             .get()
@@ -83,16 +95,17 @@ class NotReadyOrdersFragment : Fragment() {
             override fun onResponse(reCall: Runnable?, vararg args: Any?) {
                 MyApplication.handler.post {
                     try {
-                       parseDate(args[0].toString())
+                        parseDate(args[0].toString())
                     } catch (e: JSONException) {
                         binding.vfOrders.displayedChild = 3
-                        binding.avlRefresh.visibility = View.GONE
+                        binding.avlRefresh.visibility = GONE
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
                             .firstButton("باشه") { GeneralDialog().dismiss() }
                             .secondButton("تلاش مجدد") { getOrders() }
                             .show()
                         e.printStackTrace()
+                        AvaCrashReporter.send(e, "NotReadyOrdersFragment class, ordersCallBack")
                     }
                 }
             }
@@ -100,7 +113,7 @@ class NotReadyOrdersFragment : Fragment() {
             override fun onFailure(reCall: Runnable?, e: Exception?) {
                 MyApplication.handler.post {
                     binding.vfOrders.displayedChild = 3
-                    binding.avlRefresh.visibility = View.GONE
+                    binding.avlRefresh.visibility = GONE
                 }
                 super.onFailure(reCall, e)
             }
@@ -141,6 +154,7 @@ class NotReadyOrdersFragment : Fragment() {
                             .secondButton("تلاش مجدد") { setReady() }
                             .show()
                         e.printStackTrace()
+                        AvaCrashReporter.send(e, "NotReadyOrderFragment class, readyCallBack")
                     }
                 }
             }
@@ -164,13 +178,16 @@ class NotReadyOrdersFragment : Fragment() {
             timer.scheduleAtFixedRate(object : TimerTask() {
                 override fun run() {
                     MyApplication.handler.post {
-                        Log.i("TAG", "run: start timer")
-                        refresh()
+                        if (lastFiveSecond < Calendar.getInstance().timeInMillis) {
+                            Log.i("TAG", "run: start timer")
+                            refresh()
+                        }
                     }
                 }
             }, 0, 10000)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
+            AvaCrashReporter.send(e, "NotReadyOrderFragment class, startGetOrdersTimer method")
         }
     }
 
@@ -180,6 +197,7 @@ class NotReadyOrdersFragment : Fragment() {
             timer.cancel()
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
+            AvaCrashReporter.send(e, "NotReadyOrderFragment class, stopGetOrdersTimer method")
         }
     }
 
@@ -189,7 +207,7 @@ class NotReadyOrdersFragment : Fragment() {
 //{"success":true,"message":"سفارش با موفقیت ارسال شد","data":{"GPS":{"coordinates":[33.29792,59.605933],"type":"Point"},"products":[{"_id":{"_id":"61091b0ca9335b389819e896","name":"مرغ و قارچ"},"quantity":1,"size":"large"}],"_id":"61092c9e4af8121f58108d97","customer":{"_id":"6107bd65e5bdcc11fd46bff2","mobile":"09105044033","family":"محمد جواد حیدری"},"address":"راهنمایی 24","status":{"name":"در حال اماده سازی","status":5},"description":"ساعت 12 تحویل داده شود","createdAt":"2021-08-03T11:46:38.117Z","__v":0,"cookId":"610a6fa3e5bdcc11fd46c0aa"}}
         val success = response.getBoolean("success")
         val message = response.getString("message")
-        binding.avlRefresh.visibility = View.GONE
+        binding.avlRefresh.visibility = GONE
         if (success) {
             cartModels = ArrayList()
             adapter = CartAdapter(cartModels)
@@ -213,19 +231,11 @@ class NotReadyOrdersFragment : Fragment() {
                 binding.productList.adapter = adapter
 
                 orderId = dataObject.getString("_id")
-
                 val customer = dataObject.getJSONObject("customer")
                 customerNum = customer.getString("mobile")
                 val customerName = customer.getString("family")
-
                 val address = dataObject.getString("address")
-
-//                            val status = dataObject.getJSONObject("status")
-//                            val statusCode = status.getInt("status")
-//                            val statusName = status.getString("name")
-
                 val description = dataObject.getString("description")
-
                 val date = dataObject.getString("createdAt")
 
                 binding.customerName.text = customerName
@@ -236,9 +246,9 @@ class NotReadyOrdersFragment : Fragment() {
                         )
                     )
                 if (description.equals("")) {
-                    binding.llDescription.visibility = View.GONE
+                    binding.llDescription.visibility = GONE
                 } else {
-                    binding.llDescription.visibility = View.VISIBLE
+                    binding.llDescription.visibility = VISIBLE
                     binding.description.text =
                         StringHelper.toPersianDigits(description)
                 }
@@ -251,7 +261,7 @@ class NotReadyOrdersFragment : Fragment() {
                 .secondButton("تلاش مجدد") { getOrders() }
                 .show()
             binding.vfOrders.displayedChild = 3
-            binding.avlRefresh.visibility = View.GONE
+            binding.avlRefresh.visibility = GONE
         }
     }
 

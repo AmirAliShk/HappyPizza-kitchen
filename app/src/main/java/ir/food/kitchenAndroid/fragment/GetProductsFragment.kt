@@ -1,25 +1,19 @@
 package ir.food.kitchenAndroid.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.adapter.ProductsAdapter
-import ir.food.kitchenAndroid.adapter.ReadyOrdersAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentGetProductsBinding
-import ir.food.kitchenAndroid.databinding.FragmentReadyOrdersBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
-import ir.food.kitchenAndroid.dialog.ProductDialog
 import ir.food.kitchenAndroid.helper.TypefaceUtil
-import ir.food.kitchenAndroid.model.OrderHistoryModel
 import ir.food.kitchenAndroid.model.ProductModel
-import ir.food.kitchenAndroid.model.ReadyOrdersModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
+import ir.food.kitchenAndroid.push.AvaCrashReporter
 import org.json.JSONException
 import org.json.JSONObject
 import java.lang.Exception
@@ -37,7 +31,6 @@ class GetProductsFragment : Fragment() {
                 if (b) {
                     productModels.clear()
                     getProducts()
-
                 }
             }
         })
@@ -82,11 +75,12 @@ class GetProductsFragment : Fragment() {
                         .secondButton("تلاش مجدد") { getProductsType() }
                         .show()
                     e.printStackTrace()
+                    AvaCrashReporter.send(e, "GetProductsFragment class, productsTypeCallBack")
                 }
             }
         }
 
-        override fun onFailure(reCall: Runnable?, e: java.lang.Exception?) {
+        override fun onFailure(reCall: Runnable?, e: Exception?) {
             MyApplication.handler.post {
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
@@ -111,7 +105,6 @@ class GetProductsFragment : Fragment() {
                 try {
                     binding.vfProducts.displayedChild = 1
                     parseDate(args[0].toString())
-
                 } catch (e: JSONException) {
                     binding.vfProducts.displayedChild = 3
                     GeneralDialog()
@@ -120,6 +113,7 @@ class GetProductsFragment : Fragment() {
                         .secondButton("تلاش مجدد") { getProducts() }
                         .show()
                     e.printStackTrace()
+                    AvaCrashReporter.send(e, "GetProductsFragment class, productsCallBack")
                 }
             }
         }
@@ -162,9 +156,8 @@ class GetProductsFragment : Fragment() {
                     objProduct.getInt("supply"),
                     objProduct.getString("updatedAt"),
                     objProduct.getString("typeName"),
-                    objProduct.getString("typeId"),
-
-                    )
+                    objProduct.getString("typeId")
+                )
                 productModels.add(model)
             }
             if (productModels.size == 0) {

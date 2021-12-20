@@ -19,6 +19,7 @@ import ir.food.kitchenAndroid.fragment.ReadyOrdersFragment
 import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.KeyBoardHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
+import ir.food.kitchenAndroid.push.AvaCrashReporter
 
 class MainActivity : AppCompatActivity() {
     var TAG = MainActivity::class.java
@@ -48,6 +49,18 @@ class MainActivity : AppCompatActivity() {
                 .add()
         }
 
+        binding.btnReady.setOnClickListener {
+            FragmentHelper
+                .toFragment(MyApplication.currentActivity, ReadyOrdersFragment())
+                .add()
+        }
+
+        binding.btnHistory.setOnClickListener {
+            FragmentHelper
+                .toFragment(MyApplication.currentActivity, OrdersHistoryFragment())
+                .add()
+        }
+
         binding.btnProductsList.setOnClickListener {
             FragmentHelper
                 .toFragment(MyApplication.currentActivity, GetProductsFragment())
@@ -65,19 +78,9 @@ class MainActivity : AppCompatActivity() {
                         )
                     )
                     MyApplication.currentActivity.finish()
-                }.secondButton("خیر") {}
+                }
+                .secondButton("خیر") {}
                 .show()
-        }
-        binding.btnReady.setOnClickListener {
-            FragmentHelper
-                .toFragment(MyApplication.currentActivity, ReadyOrdersFragment())
-                .add()
-        }
-
-        binding.btnHistory.setOnClickListener {
-            FragmentHelper
-                .toFragment(MyApplication.currentActivity, OrdersHistoryFragment())
-                .add()
         }
     }
 
@@ -102,6 +105,7 @@ class MainActivity : AppCompatActivity() {
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            AvaCrashReporter.send(e, "MainActivity class, onBackPressed method")
         }
     }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:clickable="true"
     android:layoutDirection="rtl"
@@ -36,12 +36,12 @@
 
         <ImageView
             android:id="@+id/imgAdd"
-            android:visibility="invisible"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:padding="@dimen/_12sdp"
-            android:src="@drawable/ic_round_add_24" />
+            android:src="@drawable/ic_round_add_24"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 

@@ -16,6 +16,7 @@ import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.KeyBoardHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.okHttp.RequestHelper
+import ir.food.kitchenAndroid.push.AvaCrashReporter
 import org.json.JSONException
 import org.json.JSONObject
 import java.lang.Exception
@@ -55,7 +56,7 @@ class RegisterFragment : Fragment() {
         binding.txtLogin.setOnClickListener {
             FragmentHelper
                 .toFragment(MyApplication.currentActivity, VerificationFragment())
-                .add()
+                .replace()
         }
 
         binding.btnSendCode.setOnClickListener {
@@ -63,6 +64,8 @@ class RegisterFragment : Fragment() {
                     .isEmpty() || binding.edtMobile.text.toString().length < 10
             ) {
                 MyApplication.Toast("لطفا شماره موبایل خود را وارد کنید.", Toast.LENGTH_SHORT)
+                binding.edtMobile.requestFocus()
+                KeyBoardHelper.showKeyboard(MyApplication.context)
             } else
                 sendCode()
         }
@@ -73,7 +76,8 @@ class RegisterFragment : Fragment() {
     private fun sendCode() {
         binding.vfSendCode.displayedChild = 1
         RequestHelper.builder(EndPoints.REGISTER_CODE)
-            .addParam("mobile",
+            .addParam(
+                "mobile",
                 if (binding.edtMobile.text.toString()
                         .startsWith("0")
                 ) binding.edtMobile.text.toString() else "0${binding.edtMobile.text.toString()}"
@@ -111,6 +115,7 @@ class RegisterFragment : Fragment() {
                         .secondButton("تلاش مجدد") { sendCode() }
                         .show()
                     e.printStackTrace()
+                    AvaCrashReporter.send(e, "RegisterFragment class, sendCodeCallBack")
                 }
             }
         }
@@ -133,7 +138,8 @@ class RegisterFragment : Fragment() {
         RequestHelper.builder(EndPoints.REGISTER)
             .addParam("password", binding.edtPassword.text.toString())
             .addParam("family", binding.edtName.text.toString())
-            .addParam("mobile",
+            .addParam(
+                "mobile",
                 if (binding.edtMobile.text.toString()
                         .startsWith("0")
                 ) binding.edtMobile.text.toString() else "0${binding.edtMobile.text.toString()}"
@@ -167,7 +173,6 @@ class RegisterFragment : Fragment() {
                                     )
                                 )
                                 MyApplication.currentActivity.finish()
-                                KeyBoardHelper.hideKeyboard()
                             }
                         } else {
                             binding.vfSignUp.displayedChild = 0
@@ -185,6 +190,7 @@ class RegisterFragment : Fragment() {
                             .secondButton("تلاش مجدد") { register() }
                             .show()
                         e.printStackTrace()
+                        AvaCrashReporter.send(e, "RegisterFragment class, registerCallBack")
                     }
                 }
             }
@@ -200,9 +206,4 @@ class RegisterFragment : Fragment() {
                 super.onFailure(reCall, e)
             }
         }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        KeyBoardHelper.hideKeyboard()
-    }
 }

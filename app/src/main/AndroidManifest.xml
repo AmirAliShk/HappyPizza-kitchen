@@ -14,19 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.MainActivity">
+        <activity
+            android:name=".activity.MainActivity"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
-                <action
-                    android:name="android.intent.action.MAIN"
-                    android:windowSoftInputMode="adjustResize" />
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.Splash">
+        <activity
+            android:name=".activity.Splash"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
-                <action
-                    android:name="android.intent.action.MAIN"
-                    android:windowSoftInputMode="adjustResize" />
+                <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

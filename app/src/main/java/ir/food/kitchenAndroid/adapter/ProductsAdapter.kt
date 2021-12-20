@@ -1,26 +1,21 @@
 package ir.food.kitchenAndroid.adapter
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ItemProductsBinding
-import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.dialog.ProductDialog
 import ir.food.kitchenAndroid.helper.DateHelper
 import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.ProductModel
-import ir.food.kitchenAndroid.okHttp.RequestHelper
-import org.json.JSONException
-import org.json.JSONObject
-import java.util.*
 import kotlin.collections.ArrayList
 
-class ProductsAdapter(list: ArrayList<ProductModel>, listener : ProductAdapterInterface) :
+class ProductsAdapter(list: ArrayList<ProductModel>, listener: ProductAdapterInterface) :
     RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
     private val models = list
@@ -29,7 +24,7 @@ class ProductsAdapter(list: ArrayList<ProductModel>, listener : ProductAdapterIn
         fun dismissListener(b: Boolean)
     }
 
-    var pAdapterInterface: ProductAdapterInterface= listener
+    var pAdapterInterface: ProductAdapterInterface = listener
 
     class ViewHolder(val binding: ItemProductsBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -42,6 +37,7 @@ class ProductsAdapter(list: ArrayList<ProductModel>, listener : ProductAdapterIn
         return ViewHolder(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = models[position]
         holder.binding.txtType.text = model.typeName
@@ -54,7 +50,6 @@ class ProductsAdapter(list: ArrayList<ProductModel>, listener : ProductAdapterIn
         holder.binding.imgEdit.setOnClickListener {
             ProductDialog().show(model, 1, object : ProductDialog.ProductDialogInterface {
                 override fun dismissListener(b: Boolean) {
-                    Log.i("TAG", "dismissListener: Products dialog")
                     pAdapterInterface.dismissListener(b)
                 }
             })
@@ -65,11 +60,9 @@ class ProductsAdapter(list: ArrayList<ProductModel>, listener : ProductAdapterIn
             holder.binding.llDesc.visibility = View.VISIBLE
             holder.binding.txtDesc.text = model.description
         }
-
     }
 
     override fun getItemCount(): Int {
         return models.size
     }
-
 }

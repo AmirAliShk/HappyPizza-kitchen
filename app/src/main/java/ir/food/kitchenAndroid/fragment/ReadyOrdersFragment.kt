@@ -13,6 +13,7 @@ import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.ReadyOrdersModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
+import ir.food.kitchenAndroid.push.AvaCrashReporter
 import org.json.JSONException
 import org.json.JSONObject
 import java.lang.Exception
@@ -62,6 +63,38 @@ class ReadyOrdersFragment : Fragment() {
             .get()
     }
 
+    private val readyCallBack: RequestHelper.Callback = object : RequestHelper.Callback() {
+        override fun onResponse(reCall: Runnable?, vararg args: Any?) {
+            MyApplication.handler.post {
+                try {
+                    binding.vfOrders.displayedChild = 1
+                    parseDate(args[0].toString())
+                } catch (e: JSONException) {
+                    binding.vfOrders.displayedChild = 3
+                    GeneralDialog()
+                        .message("خطایی پیش آمده دوباره امتحان کنید.")
+                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .secondButton("تلاش مجدد") { getReady() }
+                        .show()
+                    e.printStackTrace()
+                    AvaCrashReporter.send(e, "ReadyOrdersFragment class, readyCallBack")
+                }
+            }
+        }
+
+        override fun onFailure(reCall: Runnable?, e: Exception?) {
+            MyApplication.handler.post {
+                binding.vfOrders.displayedChild = 3
+                GeneralDialog()
+                    .message("خطایی پیش آمده دوباره امتحان کنید.")
+                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .secondButton("تلاش مجدد") { getReady() }
+                    .show()
+            }
+            super.onFailure(reCall, e)
+        }
+    }
+
     private fun parseDate(result: String) {
         response = result
         val response = JSONObject(result)
@@ -103,38 +136,6 @@ class ReadyOrdersFragment : Fragment() {
                 .secondButton("تلاش مجدد") { getReady() }
                 .show()
             binding.vfOrders.displayedChild = 3
-        }
-    }
-
-    private val readyCallBack: RequestHelper.Callback = object : RequestHelper.Callback() {
-        override fun onResponse(reCall: Runnable?, vararg args: Any?) {
-            MyApplication.handler.post {
-                try {
-                    binding.vfOrders.displayedChild = 1
-                    parseDate(args[0].toString())
-
-                } catch (e: JSONException) {
-                    binding.vfOrders.displayedChild = 3
-                    GeneralDialog()
-                        .message("خطایی پیش آمده دوباره امتحان کنید.")
-                        .firstButton("باشه") { GeneralDialog().dismiss() }
-                        .secondButton("تلاش مجدد") { getReady() }
-                        .show()
-                    e.printStackTrace()
-                }
-            }
-        }
-
-        override fun onFailure(reCall: Runnable?, e: Exception?) {
-            MyApplication.handler.post {
-                binding.vfOrders.displayedChild = 3
-                GeneralDialog()
-                    .message("خطایی پیش آمده دوباره امتحان کنید.")
-                    .firstButton("باشه") { GeneralDialog().dismiss() }
-                    .secondButton("تلاش مجدد") { getReady() }
-                    .show()
-            }
-            super.onFailure(reCall, e)
         }
     }
 }

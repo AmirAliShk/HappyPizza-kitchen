@@ -32,10 +32,7 @@ import okhttp3.Response;
  * add to your BuildGradle
  * implementation 'com.squareup.okhttp3:okhttp:3.10.0'
  * **************** version changes *******************
- *
  * @version 1.1.0 : added Interceptor for append header to all api
- * ***************** Readme *******************
- * @auther Amirreza Erfanian on 2018/01/12.
  */
 public class RequestHelper implements okhttp3.Callback {
 

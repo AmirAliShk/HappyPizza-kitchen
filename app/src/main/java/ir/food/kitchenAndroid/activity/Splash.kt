@@ -8,10 +8,8 @@ import androidx.core.content.ContextCompat
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ActivitySplashBinding
-import ir.food.kitchenAndroid.fragment.NotReadyOrdersFragment
-import ir.food.kitchenAndroid.fragment.RegisterFragment
-import ir.food.kitchenAndroid.fragment.VerificationFragment
-import ir.food.kitchenAndroid.helper.FragmentHelper
+import ir.food.kitchenAndroid.dialog.GeneralDialog
+import ir.food.kitchenAndroid.helper.KeyBoardHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.webServices.GetAppInfo
 import org.acra.ACRA
@@ -36,13 +34,30 @@ class Splash : AppCompatActivity() {
                 ContextCompat.getColor(MyApplication.context, R.color.background)
             window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
-        ACRA.getErrorReporter().putCustomData("LineCode",
+        ACRA.getErrorReporter().putCustomData(
+            "LineCode",
             MyApplication.prefManager.userCode.toString()
         )
-        ACRA.getErrorReporter().putCustomData("projectId", MyApplication.prefManager.pushId.toString())
+        ACRA.getErrorReporter()
+            .putCustomData("projectId", MyApplication.prefManager.pushId.toString())
         MyApplication.handler.postDelayed(
             GetAppInfo()::callAppInfoAPI, 500
         )
+    }
+
+    override fun onBackPressed() {
+        GeneralDialog()
+            .message("آیا از خروج خود اطمینان دارید؟")
+            .firstButton("بله") {
+                finish()
+            }
+            .secondButton("خیر") {}
+            .show()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        KeyBoardHelper.hideKeyboard()
     }
 
     override fun onResume() {

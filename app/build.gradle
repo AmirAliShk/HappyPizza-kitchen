@@ -51,9 +51,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'ch.acra:acra-http:5.6.1'
-
+    
     // Official Socket.io lib
-    implementation('io.socket:socket.io-client:2.0.0') {
+    implementation('io.socket:socket.io-client:1.0.0') {
         exclude group: 'org.json', module: 'json'
     }
 

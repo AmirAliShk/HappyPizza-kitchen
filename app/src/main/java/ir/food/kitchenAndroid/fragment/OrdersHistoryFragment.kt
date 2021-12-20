@@ -12,8 +12,8 @@ import ir.food.kitchenAndroid.databinding.FragmentOrdersHistoryBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.OrderHistoryModel
-import ir.food.kitchenAndroid.model.ReadyOrdersModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
+import ir.food.kitchenAndroid.push.AvaCrashReporter
 import org.json.JSONException
 import org.json.JSONObject
 import java.lang.Exception
@@ -70,6 +70,7 @@ class OrdersHistoryFragment : Fragment() {
                         .secondButton("تلاش مجدد") { getHistory() }
                         .show()
                     e.printStackTrace()
+                    AvaCrashReporter.send(e, "OrdersHistoryFragment class, historyCallBack")
                 }
             }
         }
