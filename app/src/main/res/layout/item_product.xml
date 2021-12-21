@@ -10,11 +10,11 @@
         android:id="@+id/productName"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginRight="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_10sdp"
         android:layout_weight="0.5"
         android:gravity="center_vertical"
         android:textColor="@color/black"
-        android:textSize="@dimen/_19sdp" />
+        android:textSize="@dimen/_14sdp" />
 
     <TextView
         android:id="@+id/size"
@@ -23,7 +23,7 @@
         android:layout_weight="0.5"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/_19sdp"
+        android:textSize="@dimen/_14sdp"
         android:visibility="gone" />
 
     <TextView
@@ -33,6 +33,6 @@
         android:layout_weight="0.5"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/_19sdp" />
+        android:textSize="@dimen/_14sdp" />
 
 </LinearLayout>

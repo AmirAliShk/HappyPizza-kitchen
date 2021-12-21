@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ir.food.kitchenAndroid.adapter.CartAdapter
@@ -52,7 +51,9 @@ class NotReadyOrdersFragment : Fragment() {
             parseDate(response)
         }
 
-        binding.txtTitle.typeface = MyApplication.IraSanSMedume
+        binding.txtOrder?.typeface  = MyApplication.IraSanSMedume
+        binding.txtQuantity?.typeface = MyApplication.IraSanSMedume
+        binding.txtSize?.typeface = MyApplication.IraSanSMedume
 
         binding.imgRefresh.setOnClickListener { getOrders() }
 
@@ -83,7 +84,6 @@ class NotReadyOrdersFragment : Fragment() {
     }
 
     private fun refresh() {
-        binding.avlRefresh.visibility = VISIBLE
 
         RequestHelper.builder(EndPoints.NOT_READY_ORDER)
             .listener(ordersCallBack)
@@ -98,7 +98,6 @@ class NotReadyOrdersFragment : Fragment() {
                         parseDate(args[0].toString())
                     } catch (e: JSONException) {
                         binding.vfOrders.displayedChild = 3
-                        binding.avlRefresh.visibility = GONE
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
                             .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -113,7 +112,6 @@ class NotReadyOrdersFragment : Fragment() {
             override fun onFailure(reCall: Runnable?, e: Exception?) {
                 MyApplication.handler.post {
                     binding.vfOrders.displayedChild = 3
-                    binding.avlRefresh.visibility = GONE
                 }
                 super.onFailure(reCall, e)
             }
@@ -207,7 +205,6 @@ class NotReadyOrdersFragment : Fragment() {
 //{"success":true,"message":"سفارش با موفقیت ارسال شد","data":{"GPS":{"coordinates":[33.29792,59.605933],"type":"Point"},"products":[{"_id":{"_id":"61091b0ca9335b389819e896","name":"مرغ و قارچ"},"quantity":1,"size":"large"}],"_id":"61092c9e4af8121f58108d97","customer":{"_id":"6107bd65e5bdcc11fd46bff2","mobile":"09105044033","family":"محمد جواد حیدری"},"address":"راهنمایی 24","status":{"name":"در حال اماده سازی","status":5},"description":"ساعت 12 تحویل داده شود","createdAt":"2021-08-03T11:46:38.117Z","__v":0,"cookId":"610a6fa3e5bdcc11fd46c0aa"}}
         val success = response.getBoolean("success")
         val message = response.getString("message")
-        binding.avlRefresh.visibility = GONE
         if (success) {
             cartModels = ArrayList()
             adapter = CartAdapter(cartModels)
@@ -239,12 +236,10 @@ class NotReadyOrdersFragment : Fragment() {
                 val date = dataObject.getString("createdAt")
 
                 binding.customerName.text = customerName
-                binding.time.text =
-                    StringHelper.toPersianDigits(
-                        DateHelper.parseFormatToStringNoDay(date) + "  " + StringHelper.toPersianDigits(
-                            DateHelper.parseFormat(date)
-                        )
-                    )
+                binding.time.text = StringHelper.toPersianDigits(
+                    DateHelper.parseFormat(date)
+                )
+
                 if (description.equals("")) {
                     binding.llDescription.visibility = GONE
                 } else {
@@ -252,7 +247,6 @@ class NotReadyOrdersFragment : Fragment() {
                     binding.description.text =
                         StringHelper.toPersianDigits(description)
                 }
-                binding.txtAddress.text = StringHelper.toPersianDigits(address)
             }
         } else {
             GeneralDialog()
@@ -261,7 +255,6 @@ class NotReadyOrdersFragment : Fragment() {
                 .secondButton("تلاش مجدد") { getOrders() }
                 .show()
             binding.vfOrders.displayedChild = 3
-            binding.avlRefresh.visibility = GONE
         }
     }
 

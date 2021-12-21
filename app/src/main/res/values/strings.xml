@@ -6,7 +6,7 @@
     <string name="name_family">نام و نام خانوادگی</string>
     <string name="orders">سفارش ها</string>
     <string name="not_ready">آماده نشده</string>
-    <string name="description">توضیحات</string>
+    <string name="description">توضیحات :</string>
     <string name="finish_get_ready">اتمام آماده سازی</string>
     <string name="address">آدرس :</string>
     <string name="ready">آماده شده</string>
@@ -20,7 +20,7 @@
     <string name="signUp">ثبت نام</string>
     <string name="mobile">موبایل</string>
     <string name="mobile_dot">موبایل :</string>
-    <string name="name">نام :</string>
+    <string name="name">نام مشتری :</string>
     <string name="email">ایمیل</string>
     <string name="order">سفارش</string>
     <string name="price">قیمت</string>

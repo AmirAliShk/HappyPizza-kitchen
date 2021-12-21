@@ -20,7 +20,7 @@ class CartAdapter(list: ArrayList<CartModel>) :
         val binding = ItemProductBinding.inflate(
             LayoutInflater.from(MyApplication.context), parent, false
         )
-        TypefaceUtil.overrideFonts(binding.root)
+        TypefaceUtil.overrideFonts(binding.root, MyApplication.IraSanSMedume)
         return ViewHolder(binding)
     }
 
