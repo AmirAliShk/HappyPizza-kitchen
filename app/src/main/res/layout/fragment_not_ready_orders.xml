@@ -9,13 +9,10 @@
     android:layoutDirection="rtl"
     android:orientation="vertical">
 
-
     <ViewFlipper
         android:id="@+id/vfOrders"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-
 
         <com.wang.avi.AVLoadingIndicatorView
             android:layout_width="40dp"
@@ -24,8 +21,6 @@
             android:layout_marginBottom="10dp"
             app:indicatorColor="@color/black"
             app:indicatorName="BallBeatIndicator" />
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -182,10 +177,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_margin="@dimen/_10sdp"
                 android:layout_weight="1"
                 android:gravity="bottom"
-                android:orientation="horizontal"
-                android:layout_margin="@dimen/_10sdp">
+                android:orientation="horizontal">
 
                 <ViewFlipper
                     android:id="@+id/vfSetReady"
@@ -284,6 +279,5 @@
         </LinearLayout>
 
     </ViewFlipper>
-
 
 </LinearLayout>

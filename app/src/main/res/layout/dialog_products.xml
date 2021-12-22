@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layoutDirection="rtl">
 
     <RelativeLayout
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,21 +31,21 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/_5sdp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:layout_marginRight="@dimen/_5sdp"
                     android:text="نوع"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/_15sdp" />
 
                 <RelativeLayout
                     android:layout_width="@dimen/_150sdp"
-                    android:background="@drawable/bg_item"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item">
 
                     <Spinner
                         android:id="@+id/spType"
-                        android:layout_width="@dimen/_150sdp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_8sdp"
                         tools:listitem="@layout/item_spinner" />
@@ -82,14 +82,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_item"
-                        android:textColor="@color/black"
-                        android:padding="@dimen/_5sdp" />
+                        android:padding="@dimen/_5sdp"
+                        android:textColor="@color/black" />
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="@dimen/_5sdp"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -100,10 +100,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/_5sdp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="تعداد"
-                        android:layout_marginRight="@dimen/_5sdp"
                         android:textColor="@color/darkGray"
                         android:textSize="@dimen/_15sdp" />
 
@@ -117,19 +117,19 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/transparent"
-                            android:padding="@dimen/_5sdp"
                             android:gravity="right"
+                            android:padding="@dimen/_5sdp"
                             android:textColor="@color/black" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="عدد"
-                            android:layout_centerVertical="true"
                             android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
                             android:paddingHorizontal="@dimen/_10sdp"
+                            android:text="عدد"
                             android:textColor="@color/darkGray"
-                            android:textSize="@dimen/_15sdp"/>
+                            android:textSize="@dimen/_15sdp" />
 
                     </RelativeLayout>
 
@@ -147,22 +147,22 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/_5sdp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="توضیحات"
-                    android:layout_marginRight="@dimen/_5sdp"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/_15sdp" />
 
                 <EditText
                     android:id="@+id/edtDesc"
                     android:layout_width="match_parent"
-                    android:padding="@dimen/_5sdp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item"
                     android:gravity="top|right"
                     android:lines="3"
-                    android:textColor="@color/black"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_item" />
+                    android:padding="@dimen/_5sdp"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 

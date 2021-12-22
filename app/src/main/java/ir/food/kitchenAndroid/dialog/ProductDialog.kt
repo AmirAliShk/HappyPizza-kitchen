@@ -3,16 +3,15 @@ package ir.food.kitchenAndroid.dialog
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.Spinner
-import android.widget.Toast
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.adapter.SpinnerAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.DialogProductsBinding
+import ir.food.kitchenAndroid.helper.KeyBoardHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.ProductModel
 import ir.food.kitchenAndroid.model.ProductsTypeModel
@@ -30,7 +29,7 @@ class ProductDialog {
     lateinit var spinner: Spinner
 
     interface ProductDialogInterface {
-        fun dismissListener(b:Boolean)
+        fun dismissListener(b: Boolean)
     }
 
     lateinit var pDialogInterface: ProductDialogInterface
@@ -93,7 +92,6 @@ class ProductDialog {
         }
 
         dialog.show()
-
     }
 
     private fun editProductType(
@@ -275,11 +273,10 @@ class ProductDialog {
     private fun dismiss() {
         try {
             dialog.dismiss()
+            KeyBoardHelper.hideKeyboard()
         } catch (e: Exception) {
             e.printStackTrace()
             AvaCrashReporter.send(e, "ProductDialog class, dismiss method")
         }
     }
-
-
 }

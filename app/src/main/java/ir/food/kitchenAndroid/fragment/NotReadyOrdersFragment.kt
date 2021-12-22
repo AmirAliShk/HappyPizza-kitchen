@@ -31,7 +31,7 @@ class NotReadyOrdersFragment : Fragment() {
     lateinit var cartModels: ArrayList<CartModel>
     lateinit var adapter: CartAdapter
     lateinit var orderId: String
-    private lateinit var timer: Timer
+    private var timer = Timer()
     lateinit var customerNum: String
     var tapTwice = false
     var lastFiveSecond: Long = 0
@@ -51,9 +51,9 @@ class NotReadyOrdersFragment : Fragment() {
             parseDate(response)
         }
 
-        binding.txtOrder?.typeface  = MyApplication.IraSanSMedume
-        binding.txtQuantity?.typeface = MyApplication.IraSanSMedume
-        binding.txtSize?.typeface = MyApplication.IraSanSMedume
+        binding.txtOrder.typeface = MyApplication.IraSanSMedume
+        binding.txtQuantity.typeface = MyApplication.IraSanSMedume
+        binding.txtSize.typeface = MyApplication.IraSanSMedume
 
         binding.imgRefresh.setOnClickListener { getOrders() }
 
@@ -84,7 +84,6 @@ class NotReadyOrdersFragment : Fragment() {
     }
 
     private fun refresh() {
-
         RequestHelper.builder(EndPoints.NOT_READY_ORDER)
             .listener(ordersCallBack)
             .get()
@@ -171,7 +170,6 @@ class NotReadyOrdersFragment : Fragment() {
         }
 
     private fun startGetOrdersTimer() {
-        timer = Timer()
         try {
             timer.scheduleAtFixedRate(object : TimerTask() {
                 override fun run() {
@@ -217,7 +215,7 @@ class NotReadyOrdersFragment : Fragment() {
                 for (i in 0 until products.length()) {
                     val productDetail: JSONObject = products.getJSONObject(i)
                     val productId = productDetail.getJSONObject("_id")
-                    var model = CartModel(
+                    val model = CartModel(
                         productId.getString("name"),
                         productDetail.getInt("quantity"),
                         productDetail.getString("size")
@@ -231,7 +229,6 @@ class NotReadyOrdersFragment : Fragment() {
                 val customer = dataObject.getJSONObject("customer")
                 customerNum = customer.getString("mobile")
                 val customerName = customer.getString("family")
-                val address = dataObject.getString("address")
                 val description = dataObject.getString("description")
                 val date = dataObject.getString("createdAt")
 
@@ -240,13 +237,9 @@ class NotReadyOrdersFragment : Fragment() {
                     DateHelper.parseFormat(date)
                 )
 
-                if (description.equals("")) {
-                    binding.llDescription.visibility = GONE
-                } else {
-                    binding.llDescription.visibility = VISIBLE
-                    binding.description.text =
-                        StringHelper.toPersianDigits(description)
-                }
+                binding.description.text =
+                    StringHelper.toPersianDigits(description)
+
             }
         } else {
             GeneralDialog()
