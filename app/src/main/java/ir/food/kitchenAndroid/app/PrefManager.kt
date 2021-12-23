@@ -137,4 +137,8 @@ class PrefManager {
 
     val products: String?
         get() = this.sharedPreferences.getString(PRODUCTS, "")
+
+    fun cleanPrefManger() {
+        sharedPreferences.edit().clear().apply()
+    }
 }

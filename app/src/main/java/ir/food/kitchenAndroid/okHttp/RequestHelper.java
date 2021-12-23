@@ -1,5 +1,6 @@
 package ir.food.kitchenAndroid.okHttp;
 
+import android.content.Intent;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -13,11 +14,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ir.food.kitchenAndroid.R;
+import ir.food.kitchenAndroid.activity.Splash;
 import ir.food.kitchenAndroid.app.EndPoints;
 import ir.food.kitchenAndroid.app.MyApplication;
-import ir.food.kitchenAndroid.fragment.VerificationFragment;
-import ir.food.kitchenAndroid.helper.FragmentHelper;
 import ir.food.kitchenAndroid.helper.StringHelper;
 import okhttp3.Call;
 import okhttp3.Headers;
@@ -32,6 +31,7 @@ import okhttp3.Response;
  * add to your BuildGradle
  * implementation 'com.squareup.okhttp3:okhttp:3.10.0'
  * **************** version changes *******************
+ *
  * @version 1.1.0 : added Interceptor for append header to all api
  */
 public class RequestHelper implements okhttp3.Callback {
@@ -358,7 +358,7 @@ public class RequestHelper implements okhttp3.Callback {
     }
 
     Call call;
-    Runnable runnable = () -> request();
+    Runnable runnable = this::request;
 
     private void requestSuccess(Object res) {
         if (listener != null) {
@@ -480,11 +480,9 @@ public class RequestHelper implements okhttp3.Callback {
 
     private void logout() {
         MyApplication.handler.post(() -> {
-            FragmentHelper
-                    .toFragment(MyApplication.currentActivity, new VerificationFragment())
-                    .setStatusBarColor(MyApplication.currentActivity.getResources().getColor(R.color.white))
-                    .setAddToBackStack(false)
-                    .replace();
+            MyApplication.currentActivity.finish();
+            MyApplication.prefManager.cleanPrefManger();
+            MyApplication.currentActivity.startActivity(new Intent(MyApplication.currentActivity, Splash.class));
         });
     }
 }

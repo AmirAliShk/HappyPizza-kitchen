@@ -33,7 +33,7 @@ class GetAppInfo {
                     MyApplication.currentActivity.contentResolver,
                     Settings.Secure.ANDROID_ID
                 )
-                var deviceInfo: JSONObject? = null
+                val deviceInfo: JSONObject? = null
                 deviceInfo?.put("MODEL", Build.MODEL);
                 deviceInfo?.put("HARDWARE", Build.HARDWARE);
                 deviceInfo?.put("BRAND", Build.BRAND);

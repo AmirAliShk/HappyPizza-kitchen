@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.*
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ir.food.kitchenAndroid.adapter.CartAdapter
@@ -236,10 +235,8 @@ class NotReadyOrdersFragment : Fragment() {
                 binding.time.text = StringHelper.toPersianDigits(
                     DateHelper.parseFormat(date)
                 )
-
                 binding.description.text =
                     StringHelper.toPersianDigits(description)
-
             }
         } else {
             GeneralDialog()

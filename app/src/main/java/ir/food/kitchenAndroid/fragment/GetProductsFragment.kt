@@ -51,7 +51,7 @@ class GetProductsFragment : Fragment() {
         } else {
             response = savedInstanceState.getString(KEY_LAST_DATA).toString()
             responsePType = savedInstanceState.getString(KEY_LAST_DATA_PTYPE).toString()
-            parseDate(response)
+            parseProducts(response)
         }
 
         return binding.root
@@ -104,7 +104,7 @@ class GetProductsFragment : Fragment() {
             MyApplication.handler.post {
                 try {
                     binding.vfProducts.displayedChild = 1
-                    parseDate(args[0].toString())
+                    parseProducts(args[0].toString())
                 } catch (e: JSONException) {
                     binding.vfProducts.displayedChild = 3
                     GeneralDialog()
@@ -137,7 +137,7 @@ class GetProductsFragment : Fragment() {
         outState.putString(KEY_LAST_DATA_PTYPE, responsePType)
     }
 
-    private fun parseDate(result: String) {
+    private fun parseProducts(result: String) {
         response = result
         val response = JSONObject(result)
 

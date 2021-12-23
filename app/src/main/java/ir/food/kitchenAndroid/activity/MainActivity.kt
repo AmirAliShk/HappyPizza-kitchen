@@ -70,14 +70,14 @@ class MainActivity : AppCompatActivity() {
         binding.imgLogout.setOnClickListener {
             GeneralDialog().message("ایا از خروج از حساب کاربری خود اطمینان دارید؟")
                 .firstButton("بله") {
-                    MyApplication.prefManager.authorization = ""
+                    MyApplication.currentActivity.finish()
+                    MyApplication.prefManager.cleanPrefManger()
                     MyApplication.currentActivity.startActivity(
                         Intent(
                             MyApplication.currentActivity,
                             Splash::class.java
                         )
                     )
-                    MyApplication.currentActivity.finish()
                 }
                 .secondButton("خیر") {}
                 .show()
