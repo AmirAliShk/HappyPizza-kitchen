@@ -162,25 +162,25 @@
         android:id="@+id/llDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_15sdp"
-        android:orientation="vertical">
+        android:layout_marginTop="@dimen/_5sdp"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingVertical="@dimen/_5sdp"
+            android:gravity="center_vertical"
             android:text="@string/description"
-            android:textSize="@dimen/_17sdp" />
+            android:textColor="@color/color_Titles"
+            android:textSize="@dimen/_15sdp" />
 
         <TextView
             android:id="@+id/txtDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/stroke_red"
-            android:paddingRight="10dp"
+            android:gravity="center_vertical"
+            android:padding="10dp"
             android:textColor="@color/black"
-            android:textSize="@dimen/_17sdp" />
+            android:textSize="@dimen/_20sdp" />
 
     </LinearLayout>
 

@@ -44,12 +44,12 @@ class NotReadyOrdersFragment : Fragment() {
         TypefaceUtil.overrideFonts(binding.root)
 
         if (savedInstanceState == null) {
-            startGetOrdersTimer()
         } else {
             response = savedInstanceState.getString(KEY_ORDER).toString()
             parseDate(response)
         }
 
+        startGetOrdersTimer()
         binding.txtOrder.typeface = MyApplication.IraSanSMedume
         binding.txtQuantity.typeface = MyApplication.IraSanSMedume
         binding.txtSize.typeface = MyApplication.IraSanSMedume
