@@ -50,8 +50,10 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
 
         if (model.description == "") {
             holder.binding.llDescription.visibility = View.GONE
-        } else
+        } else {
+            holder.binding.llDescription.visibility = View.VISIBLE
             holder.binding.txtDescription.text = model.description
+        }
 
         var icon = R.drawable.ic_coooking
         var color = R.color.cooking

@@ -4,29 +4,22 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.*
-import android.widget.AdapterView
+import android.widget.EditText
 import android.widget.Spinner
-import ir.food.kitchenAndroid.R
-import ir.food.kitchenAndroid.adapter.SpinnerAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.DialogProductsBinding
 import ir.food.kitchenAndroid.helper.KeyBoardHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.ProductModel
-import ir.food.kitchenAndroid.model.ProductsTypeModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.push.AvaCrashReporter
-import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
 class ProductDialog {
     lateinit var dialog: Dialog
     lateinit var binding: DialogProductsBinding
-    var typesModels: ArrayList<ProductsTypeModel> = ArrayList()
-    var productTypes: String = ""
-    lateinit var spinner: Spinner
 
     interface ProductDialogInterface {
         fun dismissListener(b: Boolean)
@@ -46,20 +39,17 @@ class ProductDialog {
         wlp?.width = WindowManager.LayoutParams.MATCH_PARENT
         dialog.window?.attributes = wlp
         dialog.setCancelable(false)
-        spinner = binding.spType
-        initProductTypeSpinner()
         binding.imgClose.setOnClickListener { dismiss() }
         this.pDialogInterface = pDialogInterface
-
+        setCursorEnd(binding.root)
         MyApplication.handler.postDelayed({
             if (type == 1) { // 1 mean edit
-                binding.spType.setSelection(getIndex(binding.spType, productModel.typeName))
-                binding.edtPName.setText(productModel.name)
+                binding.txtType.text = productModel.typeName
+                binding.edtPName.text = productModel.name
                 binding.edtQuantity.setText(productModel.supply.toString())
-                binding.edtDesc.setText(productModel.description)
+                binding.edtDesc.text = productModel.description
             }
         }, 100)
-
         binding.btnRegister.setOnClickListener {
             val message = if (type == 1) {
                 "آیا از ویرایش محصول اطمینان دارید؟"
@@ -70,45 +60,47 @@ class ProductDialog {
                 .message(message)
                 .firstButton("بله") {
                     if (type == 1) {
-                        editProductType(
-                            productModel.id,
-                            binding.edtQuantity.text.trim().toString(),
-                            binding.edtPName.text.toString(),
-                            binding.edtDesc.text.toString(),
-                            productTypes
-                        )
+                        editProductType(productModel.id, binding.edtQuantity.text.trim().toString())
                     } else {
-                        addProductType(
-                            productModel.id,
-                            binding.edtQuantity.text.trim().toString(),
-                            binding.edtPName.text.toString(),
-                            binding.edtDesc.text.toString(),
-                            productTypes
-                        )
+                        addProductType(productModel.id, binding.edtQuantity.text.trim().toString())
                     }
                 }
                 .secondButton("خیر") { dismiss() }
                 .show()
         }
-
         dialog.show()
     }
 
-    private fun editProductType(
-        id: String,
-        supply: String,
-        name: String,
-        description: String,
-        type: String
-    ) {
+    private fun setCursorEnd(v: View?) {
+        try {
+            if (v is ViewGroup) {
+                val vg = v
+                for (i in 0 until vg.childCount) {
+                    val child = vg.getChildAt(i)
+                    setCursorEnd(child)
+                }
+            } else if (v is EditText) {
+                val e = v
+                e.onFocusChangeListener = View.OnFocusChangeListener { view: View?, b: Boolean ->
+                    if (b) MyApplication.handler.postDelayed(
+                        { e.setSelection(e.text.length) },
+                        200
+                    )
+                }
+            }
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            AvaCrashReporter.send(e, "ProductDialog class, setCursorEnd method")
+            // ignore
+        }
+    }
+
+    private fun editProductType(id: String, supply: String) {
         binding.vfSubmit.displayedChild = 1
         RequestHelper.builder(EndPoints.EDIT_PRODUCTS)
             .listener(editProductTypeCallBack)
             .addParam("productId", id)
             .addParam("supply", supply)
-            .addParam("name", name)
-            .addParam("description", description)
-            .addParam("type", type)
             .put()
     }
 
@@ -161,20 +153,11 @@ class ProductDialog {
             }
         }
 
-    private fun addProductType(
-        id: String,
-        supply: String,
-        name: String,
-        description: String,
-        type: String
-    ) {
+    private fun addProductType(id: String, supply: String) {
         RequestHelper.builder(EndPoints.EDIT_PRODUCTS)
             .listener(editProductTypeCallBack)
             .addParam("productId", id)
             .addParam("supply", supply)
-            .addParam("name", name)
-            .addParam("description", description)
-            .addParam("type", type)
             .put()
     }
 
@@ -215,60 +198,6 @@ class ProductDialog {
                 super.onFailure(reCall, e)
             }
         }
-
-    private fun getIndex(spinner: Spinner, myString: String): Int {
-        for (i in 0 until spinner.count) {
-            if (spinner.getItemAtPosition(i).toString().equals(myString, ignoreCase = true)) {
-                return i
-            }
-        }
-        return 0
-    }
-
-    private fun initProductTypeSpinner() {
-        val typesList = ArrayList<String>()
-        try {
-            typesList.add(0, "نوع محصول")
-            val typesArr = JSONArray(MyApplication.prefManager.productList)
-            for (i in 0 until typesArr.length()) {
-                val types = ProductsTypeModel(
-                    typesArr.getJSONObject(i).getString("_id"),
-                    typesArr.getJSONObject(i).getString("name")
-                )
-                typesModels.add(types)
-
-                typesList.add(i + 1, typesArr.getJSONObject(i).getString("name"))
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            AvaCrashReporter.send(e, "ProductDialog class, initProductTypeSpinner method")
-        }
-        if (spinner == null) return
-
-        try {
-            spinner.adapter =
-                SpinnerAdapter(MyApplication.context, R.layout.item_spinner, typesList)
-            spinner.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        parent: AdapterView<*>?,
-                        view: View,
-                        position: Int,
-                        id: Long
-                    ) {
-                        if (position == 0) {
-                            productTypes = ""
-                            return
-                        }
-                        productTypes = typesModels[position - 1].id
-                    }
-
-                    override fun onNothingSelected(parent: AdapterView<*>?) {}
-                }
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-        }
-    }
 
     private fun dismiss() {
         try {
