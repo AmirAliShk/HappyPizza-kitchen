@@ -197,6 +197,7 @@ class RegisterFragment : Fragment() {
 
             override fun onFailure(reCall: Runnable?, e: Exception?) {
                 MyApplication.handler.post {
+                    binding.vfSignUp.displayedChild = 0
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .firstButton("باشه") { GeneralDialog().dismiss() }
