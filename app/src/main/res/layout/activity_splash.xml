@@ -9,21 +9,42 @@
     android:layoutDirection="rtl"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8" />
+
     <ImageView
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
-        android:paddingBottom="@dimen/_13sdp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:paddingBottom="@dimen/_10sdp"
         android:src="@drawable/ic_chef_happy_pizza" />
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
         android:src="@drawable/ic_happy_pizza" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.23"
+        android:gravity="center"
+        android:text="@string/chef_version"
+        android:textColor="#f49089"
+        android:textSize="@dimen/_18ssp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
         android:gravity="bottom"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/_30sdp">
