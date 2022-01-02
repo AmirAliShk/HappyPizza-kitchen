@@ -47,13 +47,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
                 DateHelper.parseFormat(model.createdAt)
             )
         holder.binding.txtAddress.text = model.address
-
-        if (model.description == "") {
-            holder.binding.llDescription.visibility = View.GONE
-        } else {
-            holder.binding.llDescription.visibility = View.VISIBLE
-            holder.binding.txtDescription.text = model.description
-        }
+        holder.binding.txtDescription.text = model.description
 
         var icon = R.drawable.ic_coooking
         var color = R.color.cooking

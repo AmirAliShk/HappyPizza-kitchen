@@ -32,7 +32,7 @@
                 android:layout_height="0dp"
                 android:layout_margin="@dimen/_10sdp"
                 android:layout_weight="1"
-                android:fillViewport="true"
+                android:fillViewport="false"
                 android:scrollbars="none">
 
                 <LinearLayout
@@ -45,8 +45,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_marginBottom="@dimen/_8sdp">
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:gravity="center">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -77,18 +77,17 @@
                             android:id="@+id/imgBack"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_25sdp"
-                            android:padding="@dimen/_5sdp"
                             android:layout_gravity="center"
                             android:layout_weight="0.20"
+                            android:padding="@dimen/_5sdp"
                             android:src="@drawable/ic_backgrye" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/_8sdp"
-                        android:layout_weight="1"
                         android:background="@drawable/pale_red"
                         android:orientation="vertical"
                         android:padding="@dimen/_5sdp">
@@ -137,7 +136,8 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/productList"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:divider="@null"
                             android:listSelector="#00ffffff"
                             android:paddingBottom="@dimen/_5sdp"

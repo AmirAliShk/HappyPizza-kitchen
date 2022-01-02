@@ -45,14 +45,8 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
             StringHelper.toPersianDigits(DateHelper.parseFormatToStringNoDay(model.createdAt)) + "  " + StringHelper.toPersianDigits(
                 DateHelper.parseFormat(model.createdAt)
             )
-
         holder.binding.txtAddress.text = model.address
-        if (model.description == "") {
-            holder.binding.llDescription.visibility = View.GONE
-        } else {
-            holder.binding.llDescription.visibility = View.VISIBLE
-            holder.binding.txtDescription.text = model.description
-        }
+        holder.binding.txtDescription.text = model.description
 
         var icon = R.drawable.ic_close
         var color = R.color.canceled
