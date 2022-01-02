@@ -108,17 +108,38 @@ class OrdersHistoryFragment : Fragment() {
                 val customer = orderDetails.getJSONObject("customer")
                 val status = orderDetails.getJSONObject("status")
 
-                val model = OrderHistoryModel(
-                    orderDetails.getJSONArray("products"),
-                    orderDetails.getString("_id"),
-                    customer.getString("family"),
-                    orderDetails.getString("address"),
-                    status.getString("name"),
-                    status.getInt("status"),
-                    orderDetails.getString("finishDate"),
-                    orderDetails.getString("description")
-                )
-                readyOrdersModels.add(model)
+                if (orderDetails.has("deliveryId")) {
+                    val deliveryId = orderDetails.getJSONObject("deliveryId")
+                    val model = OrderHistoryModel(
+                        orderDetails.getJSONArray("products"),
+                        orderDetails.getString("_id"),
+                        customer.getString("mobile"),
+                        customer.getString("family"),
+                        orderDetails.getString("address"),
+                        status.getString("name"),
+                        status.getInt("status"),
+                        orderDetails.getString("finishDate"),
+                        orderDetails.getString("description"),
+                        deliveryId.getString("family"),
+                        deliveryId.getString("mobile")
+                    )
+                    readyOrdersModels.add(model)
+                } else {
+                    val model = OrderHistoryModel(
+                        orderDetails.getJSONArray("products"),
+                        orderDetails.getString("_id"),
+                        customer.getString("mobile"),
+                        customer.getString("family"),
+                        orderDetails.getString("address"),
+                        status.getString("name"),
+                        status.getInt("status"),
+                        orderDetails.getString("finishDate"),
+                        orderDetails.getString("description"),
+                        "0",
+                        "0"
+                    )
+                    readyOrdersModels.add(model)
+                }
             }
             if (readyOrdersModels.size == 0) {
                 binding.vfHistory.displayedChild = 2

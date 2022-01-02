@@ -32,7 +32,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.23"
         android:gravity="center"
-        android:text="@string/chef_version"
+        android:text="@string/kitchen_version"
         android:textColor="#f49089"
         android:textSize="@dimen/_18ssp" />
 

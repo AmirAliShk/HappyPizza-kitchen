@@ -20,14 +20,27 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_100sdp" />
+            android:layout_height="@dimen/_43sdp" />
 
         <ImageView
             android:id="@+id/imgCall"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:background="@drawable/bg_green"
+            android:padding="@dimen/_7sdp"
+            android:src="@drawable/ic_call_answer" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_7sdp" />
+
+        <ImageView
+            android:id="@+id/imgCallDriver"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:background="@drawable/red"
             android:padding="@dimen/_7sdp"
             android:src="@drawable/ic_call_answer" />
 
@@ -88,12 +101,41 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.8"
                 android:gravity="center_vertical"
-                android:text="@string/name"
+                android:text="@string/customer_name"
                 android:textColor="@color/color_Titles"
                 android:textSize="@dimen/_17sdp" />
 
             <TextView
                 android:id="@+id/txtCustomerName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_17sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llDeliverName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_7sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical"
+                android:text="@string/deliver_name"
+                android:textColor="@color/color_Titles"
+                android:textSize="@dimen/_17sdp" />
+
+            <TextView
+                android:id="@+id/txtDeliverName"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"

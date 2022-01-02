@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
@@ -48,7 +50,15 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
             )
         holder.binding.txtAddress.text = model.address
         holder.binding.txtDescription.text = model.description
+        holder.binding.txtDeliverName.text = model.deliverName
 
+        if (model.statusCode == 2) {
+            holder.binding.llDeliverName.visibility = GONE
+            holder.binding.imgCallDriver.visibility = GONE
+        } else {
+            holder.binding.llDeliverName.visibility = VISIBLE
+            holder.binding.imgCallDriver.visibility = VISIBLE
+        }
         var icon = R.drawable.ic_coooking
         var color = R.color.cooking
         when (model.statusCode) {
@@ -91,6 +101,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
         holder.binding.orderList.adapter = adapter
 
         holder.binding.imgCall.setOnClickListener { CallDialog().show(model.customerMobile) }
+        holder.binding.imgCallDriver.setOnClickListener { CallDialog().show(model.deliverMobile!!) }
     }
 
     override fun getItemCount(): Int {

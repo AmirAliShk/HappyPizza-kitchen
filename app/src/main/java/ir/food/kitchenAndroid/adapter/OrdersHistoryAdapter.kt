@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ItemOrdersHistoryBinding
+import ir.food.kitchenAndroid.dialog.CallDialog
 import ir.food.kitchenAndroid.helper.DateHelper
 import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
@@ -47,6 +48,14 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
             )
         holder.binding.txtAddress.text = model.address
         holder.binding.txtDescription.text = model.description
+        holder.binding.txtDeliverName.text = model.deliverName
+        if (model.statusCode == 1) {
+            holder.binding.llDeliverName.visibility = View.GONE
+            holder.binding.imgCallDriver.visibility = View.GONE
+        } else {
+            holder.binding.llDeliverName.visibility = View.VISIBLE
+            holder.binding.imgCallDriver.visibility = View.VISIBLE
+        }
 
         var icon = R.drawable.ic_close
         var color = R.color.canceled
@@ -90,6 +99,9 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
             cartModels.add(model)
         }
         holder.binding.orderList.adapter = adapter
+
+        holder.binding.imgCall.setOnClickListener { CallDialog().show(model.customerMobile) }
+        holder.binding.imgCallDriver.setOnClickListener { CallDialog().show(model.deliverMobile) }
     }
 
     override fun getItemCount(): Int {

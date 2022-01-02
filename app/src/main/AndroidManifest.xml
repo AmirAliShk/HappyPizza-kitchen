@@ -16,6 +16,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.MainActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +25,7 @@
 
         <activity
             android:name=".activity.Splash"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

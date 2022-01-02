@@ -5,9 +5,11 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/bg_dialog.xml" value="0.31302083333333336" />
+        <entry key="app/src/main/res/drawable/bg_green.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/drawable/bg_item.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/bg_orders_header.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/bg_prepairing_header.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/bg_preparing_header.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/drawable/bg_red.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/bg_toast.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/field_background.xml" value="0.209375" />
@@ -26,6 +28,7 @@
         <entry key="app/src/main/res/drawable/ic_round_add_24.xml" value="0.25092592592592594" />
         <entry key="app/src/main/res/drawable/ic_round_done_24.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/pale_red.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/red.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/drawable/redd.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3484375" />
