@@ -79,28 +79,21 @@ class GetAppInfo {
                         val message = response.getString("message")
                         if (success) {
                             val data: JSONObject = response.getJSONObject("data")
-                            val status = data.getBoolean("status")
-                            MyApplication.prefManager.pushId = data.getInt("pushId")
-                            MyApplication.prefManager.userCode = data.getString("userId")
-                            MyApplication.prefManager.pushToken = data.getString("pushToken")
-                            val updateAvailable = data.getBoolean("update")
-                            val forceUpdate = data.getBoolean("isForce")
-                            val updateUrl = data.getString("updateUrl")
-                            MyApplication.prefManager.hired = data.getBoolean("hired")
+                            val statusMessage = data.getString("statusMessage")
 
-                            if (!MyApplication.prefManager.hired) {
-                                GeneralDialog()
-                                    .message("هنوز درخواست استخدام شما از سمت مدیر تایید نشده است")
-                                    .secondButton("خروج از برنامه") { MyApplication.currentActivity.finish() }
-                                    .show()
-                                return@post
-                            }
+                            if (data.getInt("userStatus") == 0) { // it means every thing is ok
 
-                            if (updateAvailable) {
-                                updatePart(forceUpdate, updateUrl)
-                                return@post
-                            }
-                            if (status) {
+                                MyApplication.prefManager.pushId = data.getInt("pushId")
+                                MyApplication.prefManager.userCode = data.getString("userId")
+                                MyApplication.prefManager.pushToken = data.getString("pushToken")
+                                val updateAvailable = data.getBoolean("update")
+                                val forceUpdate = data.getBoolean("isForce")
+                                val updateUrl = data.getString("updateUrl")
+
+                                if (updateAvailable) {
+                                    updatePart(forceUpdate, updateUrl)
+                                    return@post
+                                }
                                 MyApplication.currentActivity.startActivity(
                                     Intent(
                                         MyApplication.currentActivity,
@@ -108,7 +101,22 @@ class GetAppInfo {
                                     )
                                 )
                                 MyApplication.currentActivity.finish()
+
+                            } else if (data.getInt("userStatus") == 1 || data.getInt("userStatus") == 4) { // 1 = means use deleted so we logout..., and 4 = means the job changed.
+                                GeneralDialog()
+                                    .message(statusMessage)
+                                    .secondButton("بستن") {
+                                        MyApplication.prefManager.cleanPrefManger()
+                                        MyApplication.currentActivity.finish()
+                                    }
+                                    .show()
+                            } else {
+                                GeneralDialog()
+                                    .message(statusMessage)
+                                    .secondButton("بستن") { MyApplication.currentActivity.finish() }
+                                    .show()
                             }
+
                         } else {
                             GeneralDialog()
                                 .message(message)
