@@ -236,8 +236,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/_10sdp"
-            android:paddingVertical="@dimen/_4sdp"
-            android:visibility="gone">
+            android:paddingVertical="@dimen/_4sdp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -254,7 +253,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="@dimen/_16sdp" />
 
         </LinearLayout>
 
@@ -285,32 +284,67 @@
 
         </LinearLayout>
 
-        <ViewFlipper
-            android:id="@+id/vfSetReady"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_weight="4"
-            android:background="@drawable/red"
-            android:elevation="@dimen/_2sdp">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnPacked"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/bg_gray"
-                android:text="بسته بندی نشده"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_17sdp" />
+            <ViewFlipper
+                android:id="@+id/vfSetReady"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/red"
+                android:elevation="@dimen/_2sdp">
 
-            <com.wang.avi.AVLoadingIndicatorView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                app:indicatorColor="@color/white" />
+                <Button
+                    android:id="@+id/btnPacked"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_gray"
+                    android:text="بسته بندی نشده"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_17sdp" />
 
-        </ViewFlipper>
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    app:indicatorColor="@color/white" />
+
+            </ViewFlipper>
+
+            <ViewFlipper
+                android:id="@+id/vfCancelDeliver"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/red"
+                android:elevation="@dimen/_2sdp">
+
+                <Button
+                    android:id="@+id/btnCancelDeliver"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/transparent"
+                    android:text="لغو پیک"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_17sdp" />
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    app:indicatorColor="@color/white" />
+
+            </ViewFlipper>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

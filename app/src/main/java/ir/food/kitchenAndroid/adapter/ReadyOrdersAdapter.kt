@@ -3,7 +3,6 @@ package ir.food.kitchenAndroid.adapter
 import android.annotation.SuppressLint
 import android.os.Build
 import android.view.LayoutInflater
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
@@ -36,6 +35,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
     lateinit var cartModels: ArrayList<CartModel>
     lateinit var adapter: CartAdapter
     lateinit var vfSetReady: ViewFlipper
+    lateinit var vfCancelDeliver: ViewFlipper
     lateinit var btnPack: Button
     var orderId: String = ""
 
@@ -54,6 +54,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
         val model = models[position]
         btnPack = holder.binding.btnPacked
         vfSetReady = holder.binding.vfSetReady
+        vfCancelDeliver = holder.binding.vfCancelDeliver
         if (model.isPacked) {
             btnPack.setBackgroundResource(R.drawable.bg_green)
             btnPack.text = "بسته بندی شده"
@@ -65,6 +66,9 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
             btnPack.isEnabled = true
             vfSetReady.displayedChild = 0
         }
+        if (model.statusCode == 2) {
+            vfCancelDeliver.visibility = GONE
+        }
         holder.binding.txtStatus.text = model.statusName
         holder.binding.txtCustomerName.text = model.customerFamily
         holder.binding.txtTime.text =
@@ -74,7 +78,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
         holder.binding.txtAddress.text = model.address
         holder.binding.txtDescription.text = model.description
         holder.binding.txtDeliverName.text = model.deliverName
-        holder.binding.txtTotalPrice.text = model.totalPrice
+        holder.binding.txtTotalPrice.text = StringHelper.setComma(model.totalPrice) + " تومان"
 
         if (model.statusCode == 2) {
             holder.binding.llDeliverName.visibility = GONE
@@ -97,7 +101,6 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
         }
         var tapTwice = false
         holder.binding.btnPacked.setOnClickListener {
-            vfSetReady = holder.binding.vfSetReady
             orderId = model.id
             if (tapTwice) {
                 setPack()
@@ -138,6 +141,14 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
 
         holder.binding.imgCall.setOnClickListener { CallDialog().show(model.customerMobile) }
         holder.binding.imgCallDriver.setOnClickListener { CallDialog().show(model.deliverMobile) }
+        holder.binding.btnCancelDeliver.setOnClickListener {
+            if (tapTwice) {
+                cancelDeliver()
+            } else {
+                tapTwice = true
+                MyApplication.handler.postDelayed({ tapTwice = false }, 500)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -191,6 +202,55 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .secondButton("تلاش مجدد") { setPack() }
+                        .show()
+                }
+                super.onFailure(reCall, e)
+            }
+        }
+
+    private fun cancelDeliver() {
+        vfCancelDeliver.displayedChild = 1
+        RequestHelper.builder(EndPoints.CANCEL_DELIVER)
+            .addParam("orderId", orderId)
+            .listener(cancelDeliverCallBack)
+            .put()
+    }
+
+    private val cancelDeliverCallBack: RequestHelper.Callback =
+        object : RequestHelper.Callback() {
+            override fun onResponse(reCall: Runnable?, vararg args: Any?) {
+                MyApplication.handler.post {
+                    try {
+                        val response = JSONObject(args[0].toString())
+                        val success = response.getBoolean("success")
+                        val message = response.getString("message")
+                        if (success) {
+                            vfCancelDeliver.visibility = GONE
+                        } else {
+                            vfCancelDeliver.displayedChild = 0
+                            GeneralDialog()
+                                .message(message)
+                                .secondButton("تلاش مجدد") { cancelDeliver() }
+                                .show()
+                        }
+                    } catch (e: JSONException) {
+                        vfCancelDeliver.displayedChild = 0
+                        GeneralDialog()
+                            .message("خطایی پیش آمده دوباره امتحان کنید.")
+                            .secondButton("تلاش مجدد") { cancelDeliver() }
+                            .show()
+                        e.printStackTrace()
+                        AvaCrashReporter.send(e, "NotReadyOrderFragment class, readyCallBack")
+                    }
+                }
+            }
+
+            override fun onFailure(reCall: Runnable?, e: java.lang.Exception?) {
+                MyApplication.handler.post {
+                    vfCancelDeliver.displayedChild = 0
+                    GeneralDialog()
+                        .message("خطایی پیش آمده دوباره امتحان کنید.")
+                        .secondButton("تلاش مجدد") { cancelDeliver() }
                         .show()
                 }
                 super.onFailure(reCall, e)

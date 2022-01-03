@@ -33,6 +33,7 @@ class EndPoints {
         const val READY = ORDER + "ready"
         const val HISTORY = ORDER + "finished"
         const val PACKED = ORDER + "pack"
+        const val CANCEL_DELIVER = ORDER + "setFree"
         const val GET_PRODUCTS = WEBSERVICE_PATH + "product"
         const val EDIT_PRODUCTS = WEBSERVICE_PATH + "product"
         const val GET_PRODUCTS_TYPE = WEBSERVICE_PATH + "product/type"
