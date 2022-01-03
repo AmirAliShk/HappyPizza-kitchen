@@ -142,6 +142,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
         holder.binding.imgCall.setOnClickListener { CallDialog().show(model.customerMobile) }
         holder.binding.imgCallDriver.setOnClickListener { CallDialog().show(model.deliverMobile) }
         holder.binding.btnCancelDeliver.setOnClickListener {
+            orderId = model.id
             if (tapTwice) {
                 cancelDeliver()
             } else {

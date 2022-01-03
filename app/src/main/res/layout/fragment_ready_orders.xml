@@ -16,14 +16,20 @@
         android:baselineAligned="false"
         android:gravity="center_vertical">
 
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/loader"
+        <LinearLayout
+            android:id="@+id/llRefresh"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:layout_gravity="center"
-            android:padding="@dimen/_10sdp"
-            app:indicatorColor="@color/white"
-            app:indicatorName="BallBeatIndicator" />
+            android:gravity="right">
+
+            <ImageView
+                android:id="@+id/imgRefreshActionBar"
+                android:layout_width="?android:attr/actionBarSize"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:src="@drawable/ic_refresh_white" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txtTitle"

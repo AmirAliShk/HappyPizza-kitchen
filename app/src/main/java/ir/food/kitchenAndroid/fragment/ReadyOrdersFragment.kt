@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
+import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.adapter.ReadyOrdersAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
@@ -43,8 +45,15 @@ class ReadyOrdersFragment : Fragment() {
 
         binding.imgRefresh.setOnClickListener { getReady() }
 
+        binding.llRefresh?.setOnClickListener {
+            binding.imgRefreshActionBar?.startAnimation(AnimationUtils.loadAnimation(MyApplication.context, R.anim.rotate))
+            getReady()
+        }
+
         binding.imgRefreshFail.setOnClickListener { getReady() }
-        startGetOrdersTimer()
+
+        getReady()
+//        startGetOrdersTimer()
         return binding.root
     }
 
@@ -52,35 +61,7 @@ class ReadyOrdersFragment : Fragment() {
 //        super.onSaveInstanceState(outState)
 //        outState.putString(KEY_READY_ORDER, response)
 //    }
-
-    private fun startGetOrdersTimer() {
-        try {
-            timer.scheduleAtFixedRate(object : TimerTask() {
-                override fun run() {
-                    MyApplication.handler.post {
-                        Log.i("TAG", "run: start timer get ready order")
-                        getReady()
-                    }
-                }
-            }, 0, 10000)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            AvaCrashReporter.send(e, "NotReadyOrderFragment class, startGetOrdersTimer method")
-        }
-    }
-
-    private fun stopGetOrdersTimer() {
-        try {
-            Log.i("TAG", "stopGetOrdersTimer: stop timer")
-            timer.cancel()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            AvaCrashReporter.send(e, "NotReadyOrderFragment class, stopGetOrdersTimer method")
-        }
-    }
-
     private fun getReady() {
-        binding.loader?.visibility = View.VISIBLE
         RequestHelper.builder(EndPoints.READY)
             .listener(readyCallBack)
             .get()
@@ -89,7 +70,7 @@ class ReadyOrdersFragment : Fragment() {
     private val readyCallBack: RequestHelper.Callback = object : RequestHelper.Callback() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
-                binding.loader?.visibility = View.GONE
+                binding.imgRefreshActionBar?.clearAnimation()
                 try {
                     parseDate(args[0].toString())
                 } catch (e: JSONException) {
@@ -108,6 +89,7 @@ class ReadyOrdersFragment : Fragment() {
         override fun onFailure(reCall: Runnable?, e: Exception?) {
             MyApplication.handler.post {
                 binding.vfOrdersPage?.displayedChild = 2
+                binding.imgRefreshActionBar?.clearAnimation()
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
                     .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -189,6 +171,5 @@ class ReadyOrdersFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        stopGetOrdersTimer()
     }
 }
