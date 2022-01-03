@@ -18,6 +18,7 @@ class EndPoints {
         val PUSH_ADDRESS = "http://turbotaxi.ir:6060"
         const val ACRA_PATH = "http://turbotaxi.ir:6061/api/v1/crashReport"
         const val WEBSERVICE_PATH = "$IP:$APIPort/api/kitchen/v1/"
+        const val DELI_PATH = "$IP:$APIPort/api/kitchen/v1/delivery/"
         const val HAWKEYE_PATH = "$HAKWEYE_IP:$HAWKEYE_APIPort/api/user/v1/"
         const val HAWKEYE_LOGIN_PATH = "$HAKWEYE_IP:$HAWKEYE_APIPort/api/user/v1/login/phone/"
 
@@ -34,6 +35,7 @@ class EndPoints {
         const val GET_PRODUCTS = WEBSERVICE_PATH + "product"
         const val EDIT_PRODUCTS = WEBSERVICE_PATH + "product"
         const val GET_PRODUCTS_TYPE = WEBSERVICE_PATH + "product/type"
+        const val DELI_FINANCIAL = DELI_PATH + "financial"
 
         /******************************** refresh token Api  *****************************************/
         const val REFRESH_TOKEN = HAWKEYE_PATH + "token"
