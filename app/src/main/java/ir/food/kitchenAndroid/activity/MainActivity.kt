@@ -64,6 +64,12 @@ class MainActivity : AppCompatActivity() {
                 .add()
         }
 
+        binding.btnSending?.setOnClickListener {
+            FragmentHelper
+                .toFragment(MyApplication.currentActivity, SendingFragment())
+                .add()
+        }
+
         binding.btnCheckoutDeli?.setOnClickListener {
             FragmentHelper
                 .toFragment(MyApplication.currentActivity, CheckoutDeliFragment())

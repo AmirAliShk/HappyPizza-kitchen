@@ -12,7 +12,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/darkGray">
+        android:background="@color/darkGray"
+        android:baselineAligned="false"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/llRefresh"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:gravity="right">
+
+            <ImageView
+                android:id="@+id/imgRefreshActionBar"
+                android:layout_width="?android:attr/actionBarSize"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:src="@drawable/ic_refresh_white" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txtTitle"
@@ -20,10 +37,22 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="کل سفارشات"
+            android:text="درحال ارسال"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_16sdp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtDeliveryCount"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="match_parent"
+            android:layout_alignLeft="@id/imgBack"
+            android:layout_alignRight="@id/txtTitle"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18sdp"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/imgBack"
@@ -36,27 +65,19 @@
     </RelativeLayout>
 
     <ViewFlipper
-        android:id="@+id/vfHistory"
+        android:id="@+id/vfOrdersPage"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.wang.avi.AVLoadingIndicatorView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            app:indicatorColor="@color/black"
-            app:indicatorName="BallBeatIndicator" />
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/historyList"
+            android:id="@+id/readyList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#00ffffff"
             android:divider="@null"
             android:listSelector="#00ffffff"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_orders_history" />
+            tools:listitem="@layout/item_ready_orders" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="سفارشی موجود نیست."
+                android:text="سفارش آماده شده ای وجود ندارد."
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <ImageView
@@ -105,3 +126,4 @@
     </ViewFlipper>
 
 </LinearLayout>
+

@@ -31,6 +31,7 @@ class EndPoints {
         const val ORDER = WEBSERVICE_PATH + "order/"
         const val NOT_READY_ORDER = ORDER + "active"
         const val READY = ORDER + "ready"
+        const val SENDING = ORDER + "ready/sending"
         const val HISTORY = ORDER + "finished"
         const val PACKED = ORDER + "pack"
         const val CANCEL_DELIVER = ORDER + "setFree"
