@@ -17,6 +17,7 @@ import ir.food.kitchenAndroid.helper.KeyBoardHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.push.AvaCrashReporter
+import ir.food.kitchenAndroid.webServices.GetAppInfo
 import org.json.JSONException
 import org.json.JSONObject
 import java.lang.Exception
@@ -163,16 +164,12 @@ class RegisterFragment : Fragment() {
                             val data = response.getJSONObject("data")
                             val status = data.getBoolean("status")
                             if (status) {
+                                GeneralDialog().message(message).firstButton("باشه") {
+                                    GetAppInfo().callAppInfoAPI()
+                                }.show()
                                 MyApplication.prefManager.idToken = data.getString("idToken")
                                 MyApplication.prefManager.authorization =
                                     data.getString("accessToken")
-                                MyApplication.currentActivity.startActivity(
-                                    Intent(
-                                        MyApplication.currentActivity,
-                                        MainActivity::class.java
-                                    )
-                                )
-                                MyApplication.currentActivity.finish()
                             }
                         } else {
                             binding.vfSignUp.displayedChild = 0

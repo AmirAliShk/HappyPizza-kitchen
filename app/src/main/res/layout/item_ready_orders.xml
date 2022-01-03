@@ -157,9 +157,9 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_gravity="top|right"
                 android:layout_weight="0.5"
                 android:text="@string/address"
-                android:layout_gravity="top|right"
                 android:textColor="@color/color_Titles"
                 android:textSize="@dimen/_17sdp" />
 
@@ -167,8 +167,8 @@
                 android:id="@+id/txtAddress"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical|right"
                 android:layout_weight="2"
+                android:gravity="center_vertical|right"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_17sdp" />
 
@@ -236,7 +236,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/_10sdp"
-            android:paddingVertical="@dimen/_4sdp">
+            android:paddingVertical="@dimen/_4sdp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -287,8 +288,8 @@
         <ViewFlipper
             android:id="@+id/vfSetReady"
             android:layout_width="match_parent"
-            android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_height="@dimen/_40sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_weight="4"
             android:background="@drawable/red"
             android:elevation="@dimen/_2sdp">

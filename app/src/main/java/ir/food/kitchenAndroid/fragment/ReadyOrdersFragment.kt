@@ -63,9 +63,19 @@ class ReadyOrdersFragment : Fragment() {
                     }
                 }
             }, 0, 10000)
-        } catch (e: java.lang.Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
             AvaCrashReporter.send(e, "NotReadyOrderFragment class, startGetOrdersTimer method")
+        }
+    }
+
+    private fun stopGetOrdersTimer() {
+        try {
+            Log.i("TAG", "stopGetOrdersTimer: stop timer")
+            timer.cancel()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            AvaCrashReporter.send(e, "NotReadyOrderFragment class, stopGetOrdersTimer method")
         }
     }
 
@@ -123,7 +133,7 @@ class ReadyOrdersFragment : Fragment() {
                 val orderDetails: JSONObject = dataObject.getJSONObject(i)
                 val customer = orderDetails.getJSONObject("customer")
                 val status = orderDetails.getJSONObject("status")
-                binding.txtDeliveryCount?.text = "10"
+//                binding.txtDeliveryCount?.text = orderDetails.getString("freeDeliver")
                 if (orderDetails.has("deliveryId")) {
                     val deliveryId = orderDetails.getJSONObject("deliveryId")
                     val model = ReadyOrdersModel(
@@ -137,7 +147,9 @@ class ReadyOrdersFragment : Fragment() {
                         orderDetails.getString("createdAt"),
                         orderDetails.getString("description"),
                         deliveryId.getString("family"),
-                        deliveryId.getString("mobile")
+                        deliveryId.getString("mobile"),
+                        orderDetails.getBoolean("isPack"),
+                        orderDetails.getString("total")
                     )
                     readyOrdersModels.add(model)
                 } else {
@@ -152,11 +164,12 @@ class ReadyOrdersFragment : Fragment() {
                         orderDetails.getString("createdAt"),
                         orderDetails.getString("description"),
                         "0",
-                        "0"
+                        "0",
+                        orderDetails.getBoolean("isPack"),
+                        orderDetails.getString("total")
                     )
                     readyOrdersModels.add(model)
                 }
-
             }
             if (readyOrdersModels.size == 0) {
                 binding.vfOrdersPage?.displayedChild = 1
@@ -172,5 +185,10 @@ class ReadyOrdersFragment : Fragment() {
                 .show()
             binding.vfOrdersPage?.displayedChild = 2
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stopGetOrdersTimer()
     }
 }

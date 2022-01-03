@@ -52,7 +52,19 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = models[position]
-
+        btnPack = holder.binding.btnPacked
+        vfSetReady = holder.binding.vfSetReady
+        if (model.isPacked) {
+            btnPack.setBackgroundResource(R.drawable.bg_green)
+            btnPack.text = "بسته بندی شده"
+            btnPack.isEnabled = false
+            vfSetReady.displayedChild = 0
+        } else {
+            btnPack.setBackgroundResource(R.drawable.bg_gray)
+            btnPack.text = "بسته بندی نشده"
+            btnPack.isEnabled = true
+            vfSetReady.displayedChild = 0
+        }
         holder.binding.txtStatus.text = model.statusName
         holder.binding.txtCustomerName.text = model.customerFamily
         holder.binding.txtTime.text =
@@ -62,6 +74,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
         holder.binding.txtAddress.text = model.address
         holder.binding.txtDescription.text = model.description
         holder.binding.txtDeliverName.text = model.deliverName
+        holder.binding.txtTotalPrice.text = model.totalPrice
 
         if (model.statusCode == 2) {
             holder.binding.llDeliverName.visibility = GONE
@@ -93,8 +106,6 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
                 MyApplication.handler.postDelayed({ tapTwice = false }, 500)
             }
         }
-
-        holder.binding.txtTotalPrice.text = "change it"
 
         holder.binding.imgStatus.setImageResource(icon)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -135,7 +146,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
 
     private fun setPack() {
         vfSetReady.displayedChild = 1
-        RequestHelper.builder(EndPoints.READY)
+        RequestHelper.builder(EndPoints.PACKED)
             .addParam("orderId", orderId)
             .listener(packCallBack)
             .put()
@@ -146,12 +157,15 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
             override fun onResponse(reCall: Runnable?, vararg args: Any?) {
                 MyApplication.handler.post {
                     try {
+//                        {"success":true,"message":"سفارش با موفقیت بسته بندی شد"}
                         val response = JSONObject(args[0].toString())
                         val success = response.getBoolean("success")
                         val message = response.getString("message")
                         if (success) {
                             btnPack.setBackgroundResource(R.drawable.bg_green)
                             btnPack.text = "بسته بندی شده"
+                            btnPack.isEnabled = false
+                            vfSetReady.displayedChild = 0
                         } else {
                             vfSetReady.displayedChild = 0
                             GeneralDialog()
@@ -182,6 +196,4 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
                 super.onFailure(reCall, e)
             }
         }
-
-
 }

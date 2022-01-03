@@ -34,7 +34,7 @@ class PrefManager {
     private val REPETITION_TIME = "repetitionTime"
     private val KEY_ACTIVATION_REMAINING_TIME = "activationRemainingTime"
     private val PRODUCTS = "products"
-    private val HIRED = "hired"
+    private val ACTIVE_IN_QUEUE = "activeInQueue"
     private val PRODUCT_LIST = "productList"
 
     var productList: String?
@@ -44,10 +44,10 @@ class PrefManager {
             editor.commit()
         }
 
-    var hired: Boolean
-        get() = this.sharedPreferences.getBoolean(HIRED, false)
-        set(hired) {
-            editor.putBoolean(HIRED, hired)
+    var activeInQueue: Boolean
+        get() = this.sharedPreferences.getBoolean(ACTIVE_IN_QUEUE, false)
+        set(activeInQueue) {
+            editor.putBoolean(ACTIVE_IN_QUEUE, activeInQueue)
             editor.commit()
         }
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.adapter.CartAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
@@ -30,7 +31,7 @@ class NotReadyOrdersFragment : Fragment() {
     lateinit var cartModels: ArrayList<CartModel>
     lateinit var adapter: CartAdapter
     lateinit var orderId: String
-    private var timer = Timer()
+    private lateinit var timer: Timer
     lateinit var customerNum: String
     var tapTwice = false
     var lastFiveSecond: Long = 0
@@ -43,13 +44,25 @@ class NotReadyOrdersFragment : Fragment() {
         binding = FragmentNotReadyOrdersBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
 
-        if (savedInstanceState == null) {
-        } else {
+        if (savedInstanceState != null) {
             response = savedInstanceState.getString(KEY_ORDER).toString()
             parseDate(response)
         }
-
-        startGetOrdersTimer()
+        timer = Timer()
+        if (MyApplication.prefManager.activeInQueue) {
+            startGetOrdersTimer()
+            binding.txtEnable.setBackgroundResource(R.drawable.bg_green)
+            binding.txtDisable.setBackgroundResource(0)
+            binding.txtDisable.setTextColor(MyApplication.currentActivity.resources.getColor(R.color.black))
+            binding.txtEnable.setTextColor(MyApplication.currentActivity.resources.getColor(R.color.white))
+        } else {
+            stopGetOrdersTimer()
+            binding.txtEnable.setTextColor(MyApplication.currentActivity.resources.getColor(R.color.black))
+            binding.txtDisable.setTextColor(MyApplication.currentActivity.resources.getColor(R.color.white))
+            binding.txtEnable.setBackgroundResource(0)
+            binding.txtDisable.setBackgroundResource(R.drawable.bg_gray)
+            binding.vfOrders.displayedChild = 0
+        }
         binding.txtOrder.typeface = MyApplication.IraSanSMedume
         binding.txtQuantity.typeface = MyApplication.IraSanSMedume
         binding.txtSize.typeface = MyApplication.IraSanSMedume
@@ -62,20 +75,44 @@ class NotReadyOrdersFragment : Fragment() {
 
         binding.btnOrderReady.setOnClickListener {
             if (tapTwice) {
-                setReady()
+                if (MyApplication.prefManager.activeInQueue) {
+                    setReady()
+                } else {
+                    binding.vfOrders.displayedChild = 0
+                }
             } else {
                 tapTwice = true
-                MyApplication.handler.postDelayed({ tapTwice = false }, 300)
+                MyApplication.handler.postDelayed({ tapTwice = false }, 500)
             }
         }
 
         binding.imgCall.setOnClickListener { CallDialog().show(customerNum) }
 
+        binding.txtEnable.setOnClickListener {
+            startGetOrdersTimer()
+            MyApplication.prefManager.activeInQueue = true
+            binding.txtEnable.setBackgroundResource(R.drawable.bg_green)
+            binding.txtDisable.setBackgroundResource(0)
+            binding.txtDisable.setTextColor(MyApplication.currentActivity.resources.getColor(R.color.black))
+            binding.txtEnable.setTextColor(MyApplication.currentActivity.resources.getColor(R.color.white))
+        }
+
+        binding.txtDisable.setOnClickListener {
+            stopGetOrdersTimer()
+            MyApplication.prefManager.activeInQueue = false
+            binding.txtEnable.setTextColor(MyApplication.currentActivity.resources.getColor(R.color.black))
+            binding.txtDisable.setTextColor(MyApplication.currentActivity.resources.getColor(R.color.white))
+            binding.txtEnable.setBackgroundResource(0)
+            binding.txtDisable.setBackgroundResource(R.drawable.bg_gray)
+            binding.pendingNum.text = ""
+            binding.freeDeliver.text = ""
+        }
+
         return binding.root
     }
 
     private fun getOrders() {
-        binding.vfOrders.displayedChild = 0
+        binding.vfOrders.displayedChild = 1
         lastFiveSecond = Calendar.getInstance().timeInMillis + 5000
         RequestHelper.builder(EndPoints.NOT_READY_ORDER)
             .listener(ordersCallBack)
@@ -95,7 +132,7 @@ class NotReadyOrdersFragment : Fragment() {
                     try {
                         parseDate(args[0].toString())
                     } catch (e: JSONException) {
-                        binding.vfOrders.displayedChild = 3
+                        binding.vfOrders.displayedChild = 4
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
                             .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -109,7 +146,7 @@ class NotReadyOrdersFragment : Fragment() {
 
             override fun onFailure(reCall: Runnable?, e: Exception?) {
                 MyApplication.handler.post {
-                    binding.vfOrders.displayedChild = 3
+                    binding.vfOrders.displayedChild = 4
                 }
                 super.onFailure(reCall, e)
             }
@@ -169,6 +206,7 @@ class NotReadyOrdersFragment : Fragment() {
         }
 
     private fun startGetOrdersTimer() {
+        timer = Timer()
         try {
             timer.scheduleAtFixedRate(object : TimerTask() {
                 override fun run() {
@@ -207,10 +245,12 @@ class NotReadyOrdersFragment : Fragment() {
             adapter = CartAdapter(cartModels)
             val dataObject = response.getJSONObject("data")
             if (dataObject.toString() == "{}") {
-                binding.vfOrders.displayedChild = 2
+                binding.vfOrders.displayedChild = 3
+                binding.pendingNum.text = ""
             } else {
-                binding.vfOrders.displayedChild = 1
-                val products = dataObject.getJSONArray("products")
+                binding.vfOrders.displayedChild = 2
+                val cookOrder = dataObject.getJSONObject("cookOrder")
+                val products = cookOrder.getJSONArray("products")
                 for (i in 0 until products.length()) {
                     val productDetail: JSONObject = products.getJSONObject(i)
                     val productId = productDetail.getJSONObject("_id")
@@ -224,19 +264,21 @@ class NotReadyOrdersFragment : Fragment() {
                 }
                 binding.productList.adapter = adapter
 
-                orderId = dataObject.getString("_id")
-                val customer = dataObject.getJSONObject("customer")
+                orderId = cookOrder.getString("_id")
+                val customer = cookOrder.getJSONObject("customer")
                 customerNum = customer.getString("mobile")
                 val customerName = customer.getString("family")
-                val description = dataObject.getString("description")
-                val date = dataObject.getString("createdAt")
+                val description = cookOrder.getString("description")
+                val date = cookOrder.getString("createdAt")
 
                 binding.customerName.text = customerName
-                binding.time.text = StringHelper.toPersianDigits(
+                binding.registerTime.text = StringHelper.toPersianDigits(
                     DateHelper.parseFormat(date)
                 )
                 binding.description.text =
                     StringHelper.toPersianDigits(description)
+                binding.pendingNum.text = dataObject.getString("queueOrderCount")
+                binding.freeDeliver.text = dataObject.getString("queueOrderCount")
             }
         } else {
             GeneralDialog()
@@ -244,7 +286,7 @@ class NotReadyOrdersFragment : Fragment() {
                 .firstButton("باشه") { GeneralDialog().dismiss() }
                 .secondButton("تلاش مجدد") { getOrders() }
                 .show()
-            binding.vfOrders.displayedChild = 3
+            binding.vfOrders.displayedChild = 4
         }
     }
 
