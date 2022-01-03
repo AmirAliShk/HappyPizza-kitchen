@@ -12,10 +12,7 @@ import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ActivityMainBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
-import ir.food.kitchenAndroid.fragment.GetProductsFragment
-import ir.food.kitchenAndroid.fragment.NotReadyOrdersFragment
-import ir.food.kitchenAndroid.fragment.OrdersHistoryFragment
-import ir.food.kitchenAndroid.fragment.ReadyOrdersFragment
+import ir.food.kitchenAndroid.fragment.*
 import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.KeyBoardHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
@@ -64,6 +61,12 @@ class MainActivity : AppCompatActivity() {
         binding.btnProductsList.setOnClickListener {
             FragmentHelper
                 .toFragment(MyApplication.currentActivity, GetProductsFragment())
+                .add()
+        }
+
+        binding.btnCheckoutDeli?.setOnClickListener {
+            FragmentHelper
+                .toFragment(MyApplication.currentActivity, CheckoutDeliFragment())
                 .add()
         }
 

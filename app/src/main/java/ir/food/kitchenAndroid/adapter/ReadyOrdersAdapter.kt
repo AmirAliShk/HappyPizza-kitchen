@@ -94,7 +94,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
             }
         }
 
-        holder.binding.txtTotalPrice.text = "kdjlksj"
+        holder.binding.txtTotalPrice.text = "change it"
 
         holder.binding.imgStatus.setImageResource(icon)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -117,7 +117,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
         for (i in 0 until model.products.length()) {
             val productsDetail = model.products.getJSONObject(i)
             val model = CartModel(
-                "kjhjk",
+                productsDetail.getString("name"),
                 productsDetail.getInt("quantity"),
                 productsDetail.getString("size")
             )
