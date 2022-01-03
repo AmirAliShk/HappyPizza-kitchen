@@ -70,7 +70,7 @@ class ReadyOrdersFragment : Fragment() {
     }
 
     private fun getReady() {
-        binding.loader?.visibility =View.VISIBLE
+        binding.loader?.visibility = View.VISIBLE
         RequestHelper.builder(EndPoints.READY)
             .listener(readyCallBack)
             .get()
@@ -79,7 +79,7 @@ class ReadyOrdersFragment : Fragment() {
     private val readyCallBack: RequestHelper.Callback = object : RequestHelper.Callback() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
-                binding.loader?.visibility =View.GONE
+                binding.loader?.visibility = View.GONE
                 try {
                     parseDate(args[0].toString())
                 } catch (e: JSONException) {
@@ -123,6 +123,7 @@ class ReadyOrdersFragment : Fragment() {
                 val orderDetails: JSONObject = dataObject.getJSONObject(i)
                 val customer = orderDetails.getJSONObject("customer")
                 val status = orderDetails.getJSONObject("status")
+                binding.txtDeliveryCount?.text = "10"
                 if (orderDetails.has("deliveryId")) {
                     val deliveryId = orderDetails.getJSONObject("deliveryId")
                     val model = ReadyOrdersModel(
