@@ -13,7 +13,17 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/darkGray"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:gravity="center_vertical">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/loader"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center"
+            android:padding="@dimen/_10sdp"
+            app:indicatorColor="@color/white"
+            app:indicatorName="BallBeatIndicator" />
 
         <TextView
             android:id="@+id/txtTitle"
@@ -37,17 +47,9 @@
     </RelativeLayout>
 
     <ViewFlipper
-        android:id="@+id/vfOrders"
+        android:id="@+id/vfOrdersPage"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <com.wang.avi.AVLoadingIndicatorView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            app:indicatorColor="@color/black"
-            app:indicatorName="BallBeatIndicator" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/readyList"

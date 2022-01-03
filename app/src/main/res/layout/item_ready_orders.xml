@@ -110,7 +110,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|right"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_17sdp" />
 
@@ -159,6 +159,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:text="@string/address"
+                android:layout_gravity="top|right"
                 android:textColor="@color/color_Titles"
                 android:textSize="@dimen/_17sdp" />
 
@@ -166,6 +167,7 @@
                 android:id="@+id/txtAddress"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical|right"
                 android:layout_weight="2"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_17sdp" />

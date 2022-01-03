@@ -1,6 +1,7 @@
 package ir.food.kitchenAndroid.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +18,15 @@ import ir.food.kitchenAndroid.push.AvaCrashReporter
 import org.json.JSONException
 import org.json.JSONObject
 import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ReadyOrdersFragment : Fragment() {
 
     lateinit var binding: FragmentReadyOrdersBinding
     private lateinit var response: String
     private val KEY_READY_ORDER = "lastReadyOrder"
+    private var timer = Timer()
 
     var readyOrdersModels: ArrayList<ReadyOrdersModel> = ArrayList()
     var adapter: ReadyOrdersAdapter = ReadyOrdersAdapter(readyOrdersModels)
@@ -40,24 +44,33 @@ class ReadyOrdersFragment : Fragment() {
         binding.imgRefresh.setOnClickListener { getReady() }
 
         binding.imgRefreshFail.setOnClickListener { getReady() }
-
-        if (savedInstanceState == null) {
-            getReady()
-        } else {
-            response = savedInstanceState.getString(KEY_READY_ORDER).toString()
-            parseDate(response)
-        }
-
+        startGetOrdersTimer()
         return binding.root
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(KEY_READY_ORDER, response)
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//        outState.putString(KEY_READY_ORDER, response)
+//    }
+
+    private fun startGetOrdersTimer() {
+        try {
+            timer.scheduleAtFixedRate(object : TimerTask() {
+                override fun run() {
+                    MyApplication.handler.post {
+                        Log.i("TAG", "run: start timer get ready order")
+                        getReady()
+                    }
+                }
+            }, 0, 10000)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            AvaCrashReporter.send(e, "NotReadyOrderFragment class, startGetOrdersTimer method")
+        }
     }
 
     private fun getReady() {
-        binding.vfOrders.displayedChild = 0
+        binding.loader?.visibility =View.VISIBLE
         RequestHelper.builder(EndPoints.READY)
             .listener(readyCallBack)
             .get()
@@ -66,11 +79,11 @@ class ReadyOrdersFragment : Fragment() {
     private val readyCallBack: RequestHelper.Callback = object : RequestHelper.Callback() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
+                binding.loader?.visibility =View.GONE
                 try {
-                    binding.vfOrders.displayedChild = 1
                     parseDate(args[0].toString())
                 } catch (e: JSONException) {
-                    binding.vfOrders.displayedChild = 3
+                    binding.vfOrdersPage?.displayedChild = 2
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -84,7 +97,7 @@ class ReadyOrdersFragment : Fragment() {
 
         override fun onFailure(reCall: Runnable?, e: Exception?) {
             MyApplication.handler.post {
-                binding.vfOrders.displayedChild = 3
+                binding.vfOrdersPage?.displayedChild = 2
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
                     .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -96,6 +109,7 @@ class ReadyOrdersFragment : Fragment() {
     }
 
     private fun parseDate(result: String) {
+        readyOrdersModels.clear()
         response = result
         val response = JSONObject(result)
 
@@ -144,9 +158,9 @@ class ReadyOrdersFragment : Fragment() {
 
             }
             if (readyOrdersModels.size == 0) {
-                binding.vfOrders.displayedChild = 2
+                binding.vfOrdersPage?.displayedChild = 1
             } else {
-                binding.vfOrders.displayedChild = 1
+                binding.vfOrdersPage?.displayedChild = 0
             }
             binding.readyList.adapter = adapter
         } else {
@@ -155,7 +169,7 @@ class ReadyOrdersFragment : Fragment() {
                 .firstButton("باشه") { GeneralDialog().dismiss() }
                 .secondButton("تلاش مجدد") { getReady() }
                 .show()
-            binding.vfOrders.displayedChild = 3
+            binding.vfOrdersPage?.displayedChild = 2
         }
     }
 }

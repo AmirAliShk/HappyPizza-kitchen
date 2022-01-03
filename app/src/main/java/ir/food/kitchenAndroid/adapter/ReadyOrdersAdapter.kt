@@ -117,7 +117,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
         for (i in 0 until model.products.length()) {
             val productsDetail = model.products.getJSONObject(i)
             val model = CartModel(
-                productsDetail.getString("name"),
+                "kjhjk",
                 productsDetail.getInt("quantity"),
                 productsDetail.getString("size")
             )
@@ -126,7 +126,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
         holder.binding.orderList.adapter = adapter
 
         holder.binding.imgCall.setOnClickListener { CallDialog().show(model.customerMobile) }
-        holder.binding.imgCallDriver.setOnClickListener { CallDialog().show(model.deliverMobile!!) }
+        holder.binding.imgCallDriver.setOnClickListener { CallDialog().show(model.deliverMobile) }
     }
 
     override fun getItemCount(): Int {
