@@ -14,6 +14,7 @@ import ir.food.kitchenAndroid.databinding.FragmentNotReadyOrdersBinding
 import ir.food.kitchenAndroid.dialog.CallDialog
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.DateHelper
+import ir.food.kitchenAndroid.helper.SoundHelper
 import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.CartModel
@@ -35,6 +36,7 @@ class NotReadyOrdersFragment : Fragment() {
     lateinit var customerNum: String
     var tapTwice = false
     var lastFiveSecond: Long = 0
+    var cookId = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -251,6 +253,7 @@ class NotReadyOrdersFragment : Fragment() {
                 } else {
                     binding.vfOrders.displayedChild = 2
                     val cookOrder = dataObject.getJSONObject("cookOrder")
+
                     binding.txtStationName.text =
                         cookOrder.getJSONObject("station").getString("description")
                     val products = cookOrder.getJSONArray("products")
@@ -268,6 +271,11 @@ class NotReadyOrdersFragment : Fragment() {
                     binding.productList.adapter = adapter
 
                     orderId = cookOrder.getString("_id")
+                    if (cookId != orderId) {
+                        SoundHelper.ringing(MyApplication.context, R.raw.notification, false)
+                    }
+
+                    cookId = orderId
                     val customer = cookOrder.getJSONObject("customer")
                     customerNum = customer.getString("mobile")
                     val customerName = customer.getString("family")
