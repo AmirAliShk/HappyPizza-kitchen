@@ -123,7 +123,7 @@ class OrdersHistoryFragment : Fragment() {
                             orderDetails.getString("address"),
                             status.getString("name"),
                             status.getInt("status"),
-                            orderDetails.getString("finishDate"),
+                            orderDetails.getString("createdAt"),
                             orderDetails.getString("description"),
                             deliveryId.getString("family"),
                             deliveryId.getString("mobile")
@@ -138,7 +138,7 @@ class OrdersHistoryFragment : Fragment() {
                             orderDetails.getString("address"),
                             status.getString("name"),
                             status.getInt("status"),
-                            orderDetails.getString("finishDate"),
+                            orderDetails.getString("createdAt"),
                             orderDetails.getString("description"),
                             "0",
                             "0"
