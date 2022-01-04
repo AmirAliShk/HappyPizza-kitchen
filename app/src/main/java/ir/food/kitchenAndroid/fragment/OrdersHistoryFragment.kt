@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
+import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.adapter.OrdersHistoryAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
@@ -22,7 +24,6 @@ class OrdersHistoryFragment : Fragment() {
 
     lateinit var binding: FragmentOrdersHistoryBinding
     private lateinit var response: String
-    private val KEY_HISTORY = "lastHistory"
     var readyOrdersModels: ArrayList<OrderHistoryModel> = ArrayList()
     var adapter: OrdersHistoryAdapter = OrdersHistoryAdapter(readyOrdersModels)
 
@@ -36,22 +37,28 @@ class OrdersHistoryFragment : Fragment() {
         binding.txtTitle.typeface = MyApplication.IraSanSMedume
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
 
-        binding.imgRefresh.setOnClickListener { getHistory() }
+        callList()
 
-        binding.imgRefreshFail.setOnClickListener { getHistory() }
+        binding.imgRefresh.setOnClickListener { callList() }
 
-        if (savedInstanceState == null) {
-            getHistory()
-        } else {
-            response = savedInstanceState.getString(KEY_HISTORY).toString()
-            parseDate(response)
-        }
+        binding.imgRefreshFail.setOnClickListener { callList() }
+
+        binding.llRefresh.setOnClickListener {callList() }
 
         return binding.root
     }
 
+    private fun callList(){
+        binding.imgRefreshActionBar.startAnimation(
+            AnimationUtils.loadAnimation(
+                MyApplication.context,
+                R.anim.rotate
+            )
+        )
+        getHistory()
+    }
+
     private fun getHistory() {
-        binding.vfHistory.displayedChild = 0
         RequestHelper.builder(EndPoints.HISTORY)
             .listener(historyCallBack)
             .get()
@@ -60,10 +67,11 @@ class OrdersHistoryFragment : Fragment() {
     private val historyCallBack: RequestHelper.Callback = object : RequestHelper.Callback() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
+                binding.imgRefreshActionBar?.clearAnimation()
                 try {
                     parseDate(args[0].toString())
                 } catch (e: JSONException) {
-                    binding.vfHistory.displayedChild = 3
+                    binding.vfHistory.displayedChild = 2
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -77,7 +85,8 @@ class OrdersHistoryFragment : Fragment() {
 
         override fun onFailure(reCall: Runnable?, e: Exception?) {
             MyApplication.handler.post {
-                binding.vfHistory.displayedChild = 3
+                binding.vfHistory.displayedChild = 2
+                binding.imgRefreshActionBar.clearAnimation()
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
                     .firstButton("باشه") { GeneralDialog().dismiss() }
@@ -88,72 +97,73 @@ class OrdersHistoryFragment : Fragment() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(KEY_HISTORY, response)
-    }
-
     private fun parseDate(result: String) {
-        response = result
-        val response = JSONObject(result)
+        try {
+            response = result
+            val response = JSONObject(result)
 // {"success":true,"message":"سفارشات با موفقیت ارسال شد","data":[{"products":[{"name":"مرغ و قارچ","quantity":1}],"_id":"61092c9e4af8121f58108d97","customer":{"mobile":"09105044033","family":"محمد جواد حیدری"},"address":"راهنمایی 24","status":{"name":"در حال پخت","status":2},"createdAt":"2021-08-03T11:46:38.117Z"},{"products":[{"name":"مرغ و قارچ","quantity":1},{"name":"سس کچاپ","quantity":2}],"_id":"61092c9e4af8121f58108d98","customer":{"mobile":"09105044033","family":"محمد جواد حیدری"},"address":"راهنمایی 24","status":{"name":"در حال پخت","status":2},"createdAt":"2021-08-03T11:46:38.117Z"}]}
-        val success = response.getBoolean("success")
-        val message = response.getString("message")
+            val success = response.getBoolean("success")
+            val message = response.getString("message")
 
-        if (success) {
-            val dataObject = response.getJSONArray("data")
+            if (success) {
+                val dataObject = response.getJSONArray("data")
 
-            for (i in 0 until dataObject.length()) {
-                val orderDetails: JSONObject = dataObject.getJSONObject(i)
-                val customer = orderDetails.getJSONObject("customer")
-                val status = orderDetails.getJSONObject("status")
+                for (i in 0 until dataObject.length()) {
+                    val orderDetails: JSONObject = dataObject.getJSONObject(i)
+                    val customer = orderDetails.getJSONObject("customer")
+                    val status = orderDetails.getJSONObject("status")
 
-                if (orderDetails.has("deliveryId")) {
-                    val deliveryId = orderDetails.getJSONObject("deliveryId")
-                    val model = OrderHistoryModel(
-                        orderDetails.getJSONArray("products"),
-                        orderDetails.getString("_id"),
-                        customer.getString("mobile"),
-                        customer.getString("family"),
-                        orderDetails.getString("address"),
-                        status.getString("name"),
-                        status.getInt("status"),
-                        orderDetails.getString("finishDate"),
-                        orderDetails.getString("description"),
-                        deliveryId.getString("family"),
-                        deliveryId.getString("mobile")
-                    )
-                    readyOrdersModels.add(model)
-                } else {
-                    val model = OrderHistoryModel(
-                        orderDetails.getJSONArray("products"),
-                        orderDetails.getString("_id"),
-                        customer.getString("mobile"),
-                        customer.getString("family"),
-                        orderDetails.getString("address"),
-                        status.getString("name"),
-                        status.getInt("status"),
-                        orderDetails.getString("finishDate"),
-                        orderDetails.getString("description"),
-                        "0",
-                        "0"
-                    )
-                    readyOrdersModels.add(model)
+                    if (orderDetails.has("deliveryId")) {
+                        val deliveryId = orderDetails.getJSONObject("deliveryId")
+                        val model = OrderHistoryModel(
+                            orderDetails.getJSONArray("products"),
+                            orderDetails.getString("_id"),
+                            customer.getString("mobile"),
+                            customer.getString("family"),
+                            orderDetails.getString("address"),
+                            status.getString("name"),
+                            status.getInt("status"),
+                            orderDetails.getString("finishDate"),
+                            orderDetails.getString("description"),
+                            deliveryId.getString("family"),
+                            deliveryId.getString("mobile")
+                        )
+                        readyOrdersModels.add(model)
+                    } else {
+                        val model = OrderHistoryModel(
+                            orderDetails.getJSONArray("products"),
+                            orderDetails.getString("_id"),
+                            customer.getString("mobile"),
+                            customer.getString("family"),
+                            orderDetails.getString("address"),
+                            status.getString("name"),
+                            status.getInt("status"),
+                            orderDetails.getString("finishDate"),
+                            orderDetails.getString("description"),
+                            "0",
+                            "0"
+                        )
+                        readyOrdersModels.add(model)
+                    }
                 }
-            }
-            if (readyOrdersModels.size == 0) {
-                binding.vfHistory.displayedChild = 2
+                if (readyOrdersModels.size == 0) {
+                    binding.vfHistory.displayedChild = 1
+                } else {
+                    binding.vfHistory.displayedChild = 0
+                }
+                binding.historyList.adapter = adapter
             } else {
-                binding.vfHistory.displayedChild = 1
+                GeneralDialog()
+                    .message(message)
+                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .secondButton("تلاش مجدد") { getHistory() }
+                    .show()
+                binding.vfHistory.displayedChild = 2
             }
-            binding.historyList.adapter = adapter
-        } else {
-            GeneralDialog()
-                .message(message)
-                .firstButton("باشه") { GeneralDialog().dismiss() }
-                .secondButton("تلاش مجدد") { getHistory() }
-                .show()
-            binding.vfHistory.displayedChild = 3
-        }
+        } catch (e: Exception) {
+        binding.vfHistory.displayedChild = 2
+        binding.imgRefreshActionBar.clearAnimation()
+        e.printStackTrace()
+    }
     }
 }

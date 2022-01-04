@@ -43,24 +43,27 @@ class ReadyOrdersFragment : Fragment() {
         binding.txtTitle.typeface = MyApplication.IraSanSMedume
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
 
-        binding.imgRefresh.setOnClickListener { getReady() }
+        callList()
 
-        binding.llRefresh?.setOnClickListener {
-            binding.imgRefreshActionBar?.startAnimation(AnimationUtils.loadAnimation(MyApplication.context, R.anim.rotate))
-            getReady()
-        }
+        binding.imgRefresh.setOnClickListener {callList() }
 
-        binding.imgRefreshFail.setOnClickListener { getReady() }
+        binding.llRefresh?.setOnClickListener {callList() }
 
-        getReady()
-//        startGetOrdersTimer()
+        binding.imgRefreshFail.setOnClickListener { callList() }
+
         return binding.root
     }
 
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        outState.putString(KEY_READY_ORDER, response)
-//    }
+    private fun callList() {
+        binding.imgRefreshActionBar?.startAnimation(
+            AnimationUtils.loadAnimation(
+                MyApplication.context,
+                R.anim.rotate
+            )
+        )
+        getReady()
+    }
+
     private fun getReady() {
         RequestHelper.builder(EndPoints.READY)
             .listener(readyCallBack)
@@ -101,75 +104,77 @@ class ReadyOrdersFragment : Fragment() {
     }
 
     private fun parseDate(result: String) {
-        readyOrdersModels.clear()
-        response = result
-        val response = JSONObject(result)
+        try {
+            readyOrdersModels.clear()
+            response = result
+            val response = JSONObject(result)
 
-        val success = response.getBoolean("success")
-        val message = response.getString("message")
+            val success = response.getBoolean("success")
+            val message = response.getString("message")
 
-        if (success) {
-            val dataObject = response.getJSONArray("data")
+            if (success) {
+                val dataObject = response.getJSONArray("data")
 
-            for (i in 0 until dataObject.length()) {
-                val orderDetails: JSONObject = dataObject.getJSONObject(i)
-                val customer = orderDetails.getJSONObject("customer")
-                val status = orderDetails.getJSONObject("status")
+                for (i in 0 until dataObject.length()) {
+                    val orderDetails: JSONObject = dataObject.getJSONObject(i)
+                    val customer = orderDetails.getJSONObject("customer")
+                    val status = orderDetails.getJSONObject("status")
 //                binding.txtDeliveryCount?.text = orderDetails.getString("freeDeliver")
-                if (orderDetails.has("deliveryId")) {
-                    val deliveryId = orderDetails.getJSONObject("deliveryId")
-                    val model = ReadyOrdersModel(
-                        orderDetails.getJSONArray("products"),
-                        orderDetails.getString("_id"),
-                        customer.getString("mobile"),
-                        customer.getString("family"),
-                        orderDetails.getString("address"),
-                        status.getString("name"),
-                        status.getInt("status"),
-                        orderDetails.getString("createdAt"),
-                        orderDetails.getString("description"),
-                        deliveryId.getString("family"),
-                        deliveryId.getString("mobile"),
-                        orderDetails.getBoolean("isPack"),
-                        orderDetails.getString("total")
-                    )
-                    readyOrdersModels.add(model)
-                } else {
-                    val model = ReadyOrdersModel(
-                        orderDetails.getJSONArray("products"),
-                        orderDetails.getString("_id"),
-                        customer.getString("mobile"),
-                        customer.getString("family"),
-                        orderDetails.getString("address"),
-                        status.getString("name"),
-                        status.getInt("status"),
-                        orderDetails.getString("createdAt"),
-                        orderDetails.getString("description"),
-                        "0",
-                        "0",
-                        orderDetails.getBoolean("isPack"),
-                        orderDetails.getString("total")
-                    )
-                    readyOrdersModels.add(model)
+                    if (orderDetails.has("deliveryId")) {
+                        val deliveryId = orderDetails.getJSONObject("deliveryId")
+                        val model = ReadyOrdersModel(
+                            orderDetails.getJSONArray("products"),
+                            orderDetails.getString("_id"),
+                            customer.getString("mobile"),
+                            customer.getString("family"),
+                            orderDetails.getString("address"),
+                            status.getString("name"),
+                            status.getInt("status"),
+                            orderDetails.getString("createdAt"),
+                            orderDetails.getString("description"),
+                            deliveryId.getString("family"),
+                            deliveryId.getString("mobile"),
+                            orderDetails.getBoolean("isPack"),
+                            orderDetails.getString("total")
+                        )
+                        readyOrdersModels.add(model)
+                    } else {
+                        val model = ReadyOrdersModel(
+                            orderDetails.getJSONArray("products"),
+                            orderDetails.getString("_id"),
+                            customer.getString("mobile"),
+                            customer.getString("family"),
+                            orderDetails.getString("address"),
+                            status.getString("name"),
+                            status.getInt("status"),
+                            orderDetails.getString("createdAt"),
+                            orderDetails.getString("description"),
+                            "0",
+                            "0",
+                            orderDetails.getBoolean("isPack"),
+                            orderDetails.getString("total")
+                        )
+                        readyOrdersModels.add(model)
+                    }
                 }
-            }
-            if (readyOrdersModels.size == 0) {
-                binding.vfOrdersPage?.displayedChild = 1
+                if (readyOrdersModels.size == 0) {
+                    binding.vfOrdersPage?.displayedChild = 1
+                } else {
+                    binding.vfOrdersPage?.displayedChild = 0
+                }
+                binding.readyList.adapter = adapter
             } else {
-                binding.vfOrdersPage?.displayedChild = 0
+                GeneralDialog()
+                    .message(message)
+                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .secondButton("تلاش مجدد") { getReady() }
+                    .show()
+                binding.vfOrdersPage?.displayedChild = 2
             }
-            binding.readyList.adapter = adapter
-        } else {
-            GeneralDialog()
-                .message(message)
-                .firstButton("باشه") { GeneralDialog().dismiss() }
-                .secondButton("تلاش مجدد") { getReady() }
-                .show()
+        } catch (e: Exception) {
             binding.vfOrdersPage?.displayedChild = 2
+            binding.imgRefreshActionBar?.clearAnimation()
+            e.printStackTrace()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 }

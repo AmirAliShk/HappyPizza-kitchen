@@ -43,18 +43,25 @@ class SendingFragment : Fragment() {
         binding.txtTitle.typeface = MyApplication.IraSanSMedume
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
 
-        binding.imgRefresh.setOnClickListener { getSending() }
+        callList()
 
-        binding.llRefresh?.setOnClickListener {
-            binding.imgRefreshActionBar?.startAnimation(AnimationUtils.loadAnimation(MyApplication.context, R.anim.rotate))
-            getSending()
-        }
+        binding.imgRefresh.setOnClickListener {callList()}
 
-        binding.imgRefreshFail.setOnClickListener { getSending() }
+        binding.llRefresh?.setOnClickListener {callList()}
 
-        getSending()
+        binding.imgRefreshFail.setOnClickListener {callList()}
 
         return binding.root
+    }
+
+    private fun callList(){
+        binding.imgRefreshActionBar?.startAnimation(
+            AnimationUtils.loadAnimation(
+                MyApplication.context,
+                R.anim.rotate
+            )
+        )
+        getSending()
     }
 
     private fun getSending() {
@@ -97,20 +104,21 @@ class SendingFragment : Fragment() {
     }
 
     private fun parseDate(result: String) {
-        readyOrdersModels.clear()
-        response = result
-        val response = JSONObject(result)
+        try {
+            readyOrdersModels.clear()
+            response = result
+            val response = JSONObject(result)
 
-        val success = response.getBoolean("success")
-        val message = response.getString("message")
+            val success = response.getBoolean("success")
+            val message = response.getString("message")
 
-        if (success) {
-            val dataObject = response.getJSONArray("data")
+            if (success) {
+                val dataObject = response.getJSONArray("data")
 
-            for (i in 0 until dataObject.length()) {
-                val orderDetails: JSONObject = dataObject.getJSONObject(i)
-                val customer = orderDetails.getJSONObject("customer")
-                val status = orderDetails.getJSONObject("status")
+                for (i in 0 until dataObject.length()) {
+                    val orderDetails: JSONObject = dataObject.getJSONObject(i)
+                    val customer = orderDetails.getJSONObject("customer")
+                    val status = orderDetails.getJSONObject("status")
 //                binding.txtDeliveryCount?.text = orderDetails.getString("freeDeliver")
 //                if (orderDetails.has("deliveryId")) {
                     val deliveryId = orderDetails.getJSONObject("deliveryId")
@@ -131,21 +139,25 @@ class SendingFragment : Fragment() {
                     )
                     readyOrdersModels.add(model)
 //                }
-            }
-            if (readyOrdersModels.size == 0) {
-                binding.vfOrdersPage?.displayedChild = 1
+                }
+                if (readyOrdersModels.size == 0) {
+                    binding.vfOrdersPage?.displayedChild = 1
+                } else {
+                    binding.vfOrdersPage?.displayedChild = 0
+                }
+                binding.readyList.adapter = adapter
             } else {
-                binding.vfOrdersPage?.displayedChild = 0
+                GeneralDialog()
+                    .message(message)
+                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .secondButton("تلاش مجدد") { getSending() }
+                    .show()
+                binding.vfOrdersPage?.displayedChild = 2
             }
-            binding.readyList.adapter = adapter
-        } else {
-            GeneralDialog()
-                .message(message)
-                .firstButton("باشه") { GeneralDialog().dismiss() }
-                .secondButton("تلاش مجدد") { getSending() }
-                .show()
+        } catch (e: Exception) {
             binding.vfOrdersPage?.displayedChild = 2
+            binding.imgRefreshActionBar?.clearAnimation()
+            e.printStackTrace()
         }
     }
-
 }
