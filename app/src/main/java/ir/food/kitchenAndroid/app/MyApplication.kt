@@ -35,7 +35,7 @@ class MyApplication : Application() {
         val IRANSANS_BOLD = "fonts/IRANSANSMOBILE_BOLD.TTF"
         val IRANSANS_MEDUME = "fonts/IRANSANSMOBILE_MEDIUM.TTF"
         val IRANSANS_LIGHT = "fonts/IRANSANSMOBILE_LIGHT.TTF"
-        val SOUND = "android.resource://ir.team_x.ariana.driver/";
+        val SOUND = "android.resource://ir.food.kitchenAndroid/";
         lateinit var iranSance: Typeface
         lateinit var IraSanSMedume: Typeface
         lateinit var IraSanSBold: Typeface

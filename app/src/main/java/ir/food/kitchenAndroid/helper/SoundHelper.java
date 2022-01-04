@@ -9,11 +9,6 @@ import androidx.annotation.RawRes;
 
 import ir.food.kitchenAndroid.app.MyApplication;
 
-
-/**
- * Created by mohsen on 18/10/2016.
- */
-
 public class SoundHelper {
 
   public static void ringing(Context context, int ringTown,boolean ringing) {
