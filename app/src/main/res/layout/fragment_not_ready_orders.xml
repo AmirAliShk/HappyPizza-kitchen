@@ -201,26 +201,6 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center"
                                 android:paddingLeft="@dimen/_5sdp"
-                                android:text="زمان قبول : "
-                                android:textColor="@color/color_Titles"
-                                android:textSize="@dimen/_13sdp"
-                                android:visibility="gone" />
-
-                            <TextView
-                                android:id="@+id/acceptTime"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="0.30"
-                                android:gravity="center"
-                                android:textColor="@color/color_Titles"
-                                android:textSize="@dimen/_15sdp"
-                                android:visibility="gone" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:paddingLeft="@dimen/_5sdp"
                                 android:text="زمان ثبت سفارش : "
                                 android:textColor="@color/color_Titles"
                                 android:textSize="@dimen/_13sdp" />
@@ -231,6 +211,24 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.30"
                                 android:gravity="right"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_15sdp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:paddingLeft="@dimen/_5sdp"
+                                android:text="زمان قبول : "
+                                android:textColor="@color/color_Titles"
+                                android:textSize="@dimen/_13sdp" />
+
+                            <TextView
+                                android:id="@+id/txtAcceptTime"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.30"
+                                android:gravity="center"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_15sdp" />
 

@@ -253,9 +253,6 @@ class NotReadyOrdersFragment : Fragment() {
                 } else {
                     binding.vfOrders.displayedChild = 2
                     val cookOrder = dataObject.getJSONObject("cookOrder")
-
-                    binding.txtStationName.text =
-                        cookOrder.getJSONObject("station").getString("description")
                     val products = cookOrder.getJSONArray("products")
                     for (i in 0 until products.length()) {
                         val productDetail: JSONObject = products.getJSONObject(i)
@@ -265,7 +262,6 @@ class NotReadyOrdersFragment : Fragment() {
                             productDetail.getInt("quantity"),
                             productDetail.getString("size")
                         )
-
                         cartModels.add(model)
                     }
                     binding.productList.adapter = adapter
@@ -282,12 +278,11 @@ class NotReadyOrdersFragment : Fragment() {
                     val description = cookOrder.getString("description")
                     val date = cookOrder.getString("createdAt")
 
+                    binding.txtAcceptTime.text = StringHelper.toPersianDigits(DateHelper.parseFormat(cookOrder.getString("chefAccepterOrderDate")))
+                    binding.txtStationName.text = cookOrder.getJSONObject("station").getString("description")
                     binding.customerName.text = customerName
-                    binding.registerTime.text = StringHelper.toPersianDigits(
-                        DateHelper.parseFormat(date)
-                    )
-                    binding.description.text =
-                        StringHelper.toPersianDigits(description)
+                    binding.registerTime.text = StringHelper.toPersianDigits(DateHelper.parseFormat(date))
+                    binding.description.text = StringHelper.toPersianDigits(description)
                     binding.pendingNum.text = dataObject.getString("queueOrderCount")
                     binding.freeDeliver.text = dataObject.getString("queueOrderCount")
                 }
