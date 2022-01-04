@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.adapter.ProductsAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
@@ -22,18 +24,7 @@ class GetProductsFragment : Fragment() {
     lateinit var binding: FragmentGetProductsBinding
     private lateinit var response: String
     private lateinit var responsePType: String
-    private val KEY_LAST_DATA = "lastData"
-    private val KEY_LAST_DATA_PTYPE = "lastDatePType"
-    var productModels: ArrayList<ProductModel> = ArrayList()
-    var adapter: ProductsAdapter =
-        ProductsAdapter(productModels, object : ProductsAdapter.ProductAdapterInterface {
-            override fun dismissListener(b: Boolean) {
-                if (b) {
-                    productModels.clear()
-                    getProducts()
-                }
-            }
-        })
+    lateinit var productModels: ArrayList<ProductModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,17 +36,25 @@ class GetProductsFragment : Fragment() {
             MyApplication.currentActivity.onBackPressed()
         }
 
-        if (savedInstanceState == null) {
-            getProducts()
-            getProductsType()
-        } else {
-            response = savedInstanceState.getString(KEY_LAST_DATA).toString()
-            responsePType = savedInstanceState.getString(KEY_LAST_DATA_PTYPE).toString()
-            parseProducts(response)
+        callList()
+
+        binding.llRefresh.setOnClickListener {
+            callList()
         }
 
         return binding.root
     }
+
+    private fun callList() {
+        binding.imgRefreshActionBar.startAnimation(
+            AnimationUtils.loadAnimation(
+                MyApplication.context,
+                R.anim.rotate
+            )
+        )
+        getProducts()
+    }
+
 
     private fun getProductsType() {
         RequestHelper.builder(EndPoints.GET_PRODUCTS_TYPE)
@@ -102,6 +101,7 @@ class GetProductsFragment : Fragment() {
     private val productsCallBack: RequestHelper.Callback = object : RequestHelper.Callback() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
+                binding.imgRefreshActionBar.clearAnimation()
                 try {
                     binding.vfProducts.displayedChild = 1
                     parseProducts(args[0].toString())
@@ -120,6 +120,7 @@ class GetProductsFragment : Fragment() {
 
         override fun onFailure(reCall: Runnable?, e: Exception?) {
             MyApplication.handler.post {
+                binding.imgRefreshActionBar.clearAnimation()
                 binding.vfProducts.displayedChild = 3
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
@@ -131,48 +132,50 @@ class GetProductsFragment : Fragment() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(KEY_LAST_DATA, response)
-        outState.putString(KEY_LAST_DATA_PTYPE, responsePType)
-    }
-
     private fun parseProducts(result: String) {
-        response = result
-        val response = JSONObject(result)
+        try {
+            productModels = ArrayList()
+            var adapter = ProductsAdapter(productModels, object : ProductsAdapter.ProductAdapterInterface { override fun dismissListener(b: Boolean) {} })
+            response = result
+            val response = JSONObject(result)
 
-        val success = response.getBoolean("success")
-        val message = response.getString("message")
+            val success = response.getBoolean("success")
+            val message = response.getString("message")
 
-        if (success) {
-            val dataObject = response.getJSONArray("data")
+            if (success) {
+                val dataObject = response.getJSONArray("data")
 
-            for (i in 0 until dataObject.length()) {
-                val objProduct: JSONObject = dataObject.getJSONObject(i)
-                val model = ProductModel(
-                    objProduct.getString("_id"),
-                    objProduct.getString("name"),
-                    objProduct.getString("description"),
-                    objProduct.getInt("supply"),
-                    objProduct.getString("updatedAt"),
-                    objProduct.getString("typeName"),
-                    objProduct.getString("typeId")
-                )
-                productModels.add(model)
-            }
-            if (productModels.size == 0) {
-                binding.vfProducts.displayedChild = 2
+                for (i in 0 until dataObject.length()) {
+                    val objProduct: JSONObject = dataObject.getJSONObject(i)
+                    val model = ProductModel(
+                        objProduct.getString("_id"),
+                        objProduct.getString("name"),
+                        objProduct.getString("description"),
+                        objProduct.getInt("supply"),
+                        objProduct.getString("updatedAt"),
+                        objProduct.getString("typeName"),
+                        objProduct.getString("typeId")
+                    )
+                    productModels.add(model)
+                }
+                if (productModels.size == 0) {
+                    binding.vfProducts.displayedChild = 2
+                } else {
+                    binding.vfProducts.displayedChild = 1
+                }
+                binding.listProducts.adapter = adapter
             } else {
-                binding.vfProducts.displayedChild = 1
+                GeneralDialog()
+                    .message(message)
+                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .secondButton("تلاش مجدد") { getProducts() }
+                    .show()
+                binding.vfProducts.displayedChild = 3
             }
-            binding.listProducts.adapter = adapter
-        } else {
-            GeneralDialog()
-                .message(message)
-                .firstButton("باشه") { GeneralDialog().dismiss() }
-                .secondButton("تلاش مجدد") { getProducts() }
-                .show()
-            binding.vfProducts.displayedChild = 3
+
+        } catch (e: Exception) {
+            binding.imgRefreshActionBar.clearAnimation()
+            e.printStackTrace()
         }
     }
 

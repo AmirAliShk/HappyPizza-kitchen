@@ -315,33 +315,6 @@
 
             </ViewFlipper>
 
-            <ViewFlipper
-                android:id="@+id/vfCancelDeliver"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:layout_weight="1"
-                android:background="@drawable/red"
-                android:elevation="@dimen/_2sdp">
-
-                <Button
-                    android:id="@+id/btnCancelDeliver"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@color/transparent"
-                    android:text="لغو پیک"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_17sdp" />
-
-                <com.wang.avi.AVLoadingIndicatorView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    app:indicatorColor="@color/white" />
-
-            </ViewFlipper>
-
         </LinearLayout>
 
 

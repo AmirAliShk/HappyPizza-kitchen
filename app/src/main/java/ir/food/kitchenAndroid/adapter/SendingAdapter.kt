@@ -37,7 +37,7 @@ class SendingAdapter(list: ArrayList<ReadyOrdersModel>) :
     lateinit var adapter: CartAdapter
     lateinit var vfCancelDeliver: ViewFlipper
     var orderId: String = ""
-    var tapTwice = false
+    var clickedPos = -1
 
     class ViewHolder(val binding: ItemSendingBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -104,14 +104,15 @@ class SendingAdapter(list: ArrayList<ReadyOrdersModel>) :
         holder.binding.imgCall.setOnClickListener { CallDialog().show(model.customerMobile) }
         holder.binding.imgCallDriver.setOnClickListener { CallDialog().show(model.deliverMobile) }
         holder.binding.btnCancelDeliver.setOnClickListener {
+            clickedPos = position
             vfCancelDeliver = holder.binding.vfCancelDeliver
             orderId = model.id
-            if (tapTwice) {
-                cancelDeliver()
-            } else {
-                tapTwice = true
-                MyApplication.handler.postDelayed({ tapTwice = false }, 500)
-            }
+            GeneralDialog()
+                .message("آیا از لغو پیک اطمینان دارید؟")
+                .firstButton("بله") { cancelDeliver() }
+                .secondButton("خیر") {}
+                .show()
+
         }
     }
 
@@ -131,27 +132,28 @@ class SendingAdapter(list: ArrayList<ReadyOrdersModel>) :
         object : RequestHelper.Callback() {
             override fun onResponse(reCall: Runnable?, vararg args: Any?) {
                 MyApplication.handler.post {
+                    vfCancelDeliver.displayedChild = 0
                     try {
                         val response = JSONObject(args[0].toString())
                         val success = response.getBoolean("success")
                         val message = response.getString("message")
                         if (success) {
-                            vfCancelDeliver.visibility = GONE
+                            models.remove(models[clickedPos])
+                            notifyDataSetChanged()
                         } else {
-                            vfCancelDeliver.displayedChild = 0
                             GeneralDialog()
                                 .message(message)
                                 .secondButton("تلاش مجدد") { cancelDeliver() }
                                 .show()
                         }
                     } catch (e: JSONException) {
-                        vfCancelDeliver.displayedChild = 0
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
+                            .firstButton("بستن") { }
                             .secondButton("تلاش مجدد") { cancelDeliver() }
                             .show()
                         e.printStackTrace()
-                        AvaCrashReporter.send(e, "NotReadyOrderFragment class, readyCallBack")
+                        AvaCrashReporter.send(e, "SendingAdapter class, readyCallBack")
                     }
                 }
             }
@@ -162,6 +164,7 @@ class SendingAdapter(list: ArrayList<ReadyOrdersModel>) :
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .secondButton("تلاش مجدد") { cancelDeliver() }
+                        .firstButton("بستن") { }
                         .show()
                 }
                 super.onFailure(reCall, e)

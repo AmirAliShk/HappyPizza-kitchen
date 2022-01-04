@@ -15,6 +15,22 @@
         android:background="@color/darkGray"
         android:baselineAligned="false">
 
+        <LinearLayout
+            android:id="@+id/llRefresh"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:gravity="right">
+
+            <ImageView
+                android:id="@+id/imgRefreshActionBar"
+                android:layout_width="?android:attr/actionBarSize"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:src="@drawable/ic_refresh_white" />
+
+        </LinearLayout>
+
+
         <TextView
             android:id="@+id/txtTitle"
             android:layout_width="wrap_content"

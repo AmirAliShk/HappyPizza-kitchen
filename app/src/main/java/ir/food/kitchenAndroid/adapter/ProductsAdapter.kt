@@ -49,7 +49,10 @@ class ProductsAdapter(list: ArrayList<ProductModel>, listener: ProductAdapterInt
             )
         holder.binding.imgEdit.setOnClickListener {
             ProductDialog().show(model, 1, object : ProductDialog.ProductDialogInterface {
-                override fun dismissListener(b: Boolean) {
+                override fun dismissListener(b: Boolean, value: String) {
+                    if (b) {
+                        holder.binding.txtQuantity.text = "$value  عدد  "
+                    }
                     pAdapterInterface.dismissListener(b)
                 }
             })

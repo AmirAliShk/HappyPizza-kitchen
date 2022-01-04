@@ -20,9 +20,10 @@ import org.json.JSONObject
 class ProductDialog {
     lateinit var dialog: Dialog
     lateinit var binding: DialogProductsBinding
+    var pCount = ""
 
     interface ProductDialogInterface {
-        fun dismissListener(b: Boolean)
+        fun dismissListener(b: Boolean, value: String)
     }
 
     lateinit var pDialogInterface: ProductDialogInterface
@@ -97,6 +98,7 @@ class ProductDialog {
 
     private fun editProductType(id: String, supply: String) {
         binding.vfSubmit.displayedChild = 1
+        pCount = supply
         RequestHelper.builder(EndPoints.EDIT_PRODUCTS)
             .listener(editProductTypeCallBack)
             .addParam("productId", id)
@@ -119,7 +121,7 @@ class ProductDialog {
                             GeneralDialog()
                                 .message(message)
                                 .firstButton("باشه") {
-                                    pDialogInterface.dismissListener(true)
+                                    pDialogInterface.dismissListener(true, pCount)
                                     GeneralDialog().dismiss()
                                 }
                                 .show()
