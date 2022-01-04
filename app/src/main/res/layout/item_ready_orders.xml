@@ -294,7 +294,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_weight="1"
-                android:background="@drawable/red"
+                android:background="@drawable/bg_gray"
                 android:elevation="@dimen/_2sdp">
 
                 <Button
@@ -302,8 +302,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/bg_gray"
                     android:text="بسته بندی نشده"
+                    android:background="@color/transparent"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_17sdp" />
 

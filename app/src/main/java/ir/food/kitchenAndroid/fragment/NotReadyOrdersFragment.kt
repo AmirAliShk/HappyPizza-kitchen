@@ -303,6 +303,7 @@ class NotReadyOrdersFragment : Fragment() {
 
     override fun onDestroy() {
         stopGetOrdersTimer()
+        MyApplication.prefManager.activeInQueue = false
         super.onDestroy()
     }
 }

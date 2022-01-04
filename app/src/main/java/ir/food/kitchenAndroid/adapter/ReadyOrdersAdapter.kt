@@ -52,22 +52,19 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = models[position]
-        btnPack = holder.binding.btnPacked
-        vfSetReady = holder.binding.vfSetReady
-        vfCancelDeliver = holder.binding.vfCancelDeliver
         if (model.isPacked) {
-            btnPack.setBackgroundResource(R.drawable.bg_green)
-            btnPack.text = "بسته بندی شده"
-            btnPack.isEnabled = false
-            vfSetReady.displayedChild = 0
+            holder.binding.vfSetReady.setBackgroundResource(R.drawable.bg_green)
+            holder.binding.btnPacked.text = "بسته بندی شده"
+            holder.binding.btnPacked.isEnabled = false
+            holder.binding.vfSetReady.displayedChild = 0
         } else {
-            btnPack.setBackgroundResource(R.drawable.bg_gray)
-            btnPack.text = "بسته بندی نشده"
-            btnPack.isEnabled = true
-            vfSetReady.displayedChild = 0
+            holder.binding.vfSetReady.setBackgroundResource(R.drawable.bg_gray)
+            holder.binding.btnPacked.text = "بسته بندی نشده"
+            holder.binding.btnPacked.isEnabled = true
+            holder.binding.vfSetReady.displayedChild = 0
         }
         if (model.statusCode == 2) {
-            vfCancelDeliver.visibility = GONE
+            holder.binding.vfCancelDeliver.visibility = GONE
         }
         holder.binding.txtStatus.text = model.statusName
         holder.binding.txtCustomerName.text = model.customerFamily
@@ -101,6 +98,8 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
         }
         var tapTwice = false
         holder.binding.btnPacked.setOnClickListener {
+            btnPack = holder.binding.btnPacked
+            vfSetReady = holder.binding.vfSetReady
             orderId = model.id
             if (tapTwice) {
                 setPack()
@@ -142,6 +141,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
         holder.binding.imgCall.setOnClickListener { CallDialog().show(model.customerMobile) }
         holder.binding.imgCallDriver.setOnClickListener { CallDialog().show(model.deliverMobile) }
         holder.binding.btnCancelDeliver.setOnClickListener {
+            vfCancelDeliver = holder.binding.vfCancelDeliver
             orderId = model.id
             if (tapTwice) {
                 cancelDeliver()
@@ -174,7 +174,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
                         val success = response.getBoolean("success")
                         val message = response.getString("message")
                         if (success) {
-                            btnPack.setBackgroundResource(R.drawable.bg_green)
+                            vfSetReady.setBackgroundResource(R.drawable.bg_green)
                             btnPack.text = "بسته بندی شده"
                             btnPack.isEnabled = false
                             vfSetReady.displayedChild = 0
