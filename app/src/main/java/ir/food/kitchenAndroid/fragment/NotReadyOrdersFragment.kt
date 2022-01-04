@@ -251,6 +251,8 @@ class NotReadyOrdersFragment : Fragment() {
                 } else {
                     binding.vfOrders.displayedChild = 2
                     val cookOrder = dataObject.getJSONObject("cookOrder")
+                    binding.txtStationName.text =
+                        cookOrder.getJSONObject("station").getString("description")
                     val products = cookOrder.getJSONArray("products")
                     for (i in 0 until products.length()) {
                         val productDetail: JSONObject = products.getJSONObject(i)
