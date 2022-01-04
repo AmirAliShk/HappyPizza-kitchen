@@ -49,26 +49,106 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
         holder.binding.txtAddress.text = model.address
         holder.binding.txtDescription.text = model.description
         holder.binding.txtDeliverName.text = model.deliverName
-        if (model.statusCode == 1) {
-            holder.binding.llDeliverName.visibility = View.GONE
-            holder.binding.imgCallDriver.visibility = View.GONE
-        } else {
-            holder.binding.llDeliverName.visibility = View.VISIBLE
-            holder.binding.imgCallDriver.visibility = View.VISIBLE
-        }
 
         var icon = R.drawable.ic_close
         var color = R.color.canceled
         when (model.statusCode) {
-            1 -> {
+            0 -> { // pending
+                holder.binding.llDeliverName.visibility = View.GONE
+                holder.binding.imgCallDriver.visibility = View.GONE
+                icon = R.drawable.ic_waiting
+                color = R.color.waiting
+                holder.binding.txtStatus.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.black
+                    )
+                )
+                holder.binding.txtTime.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.black
+                    )
+                )
+            }
+            5 -> { // preparing, 6 waiting for checkout, 7 calculate
+                holder.binding.llDeliverName.visibility = View.GONE
+                holder.binding.imgCallDriver.visibility = View.GONE
+                icon = R.drawable.ic_chef
+                color = R.color.preparing
+                holder.binding.txtStatus.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
+                holder.binding.txtTime.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
+            }
+            2 -> { // cooking
+                holder.binding.llDeliverName.visibility = View.GONE
+                holder.binding.imgCallDriver.visibility = View.GONE
+                icon = R.drawable.ic_coooking
+                color = R.color.cooking
+                holder.binding.txtStatus.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
+                holder.binding.txtTime.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
+            }
+            3 -> { // sending
+                holder.binding.llDeliverName.visibility = View.VISIBLE
+                holder.binding.imgCallDriver.visibility = View.VISIBLE
+                icon = R.drawable.ic_delivery
+                color = R.color.delivery
+                holder.binding.txtStatus.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
+                holder.binding.txtTime.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
+            }
+            1 -> { // cancel
                 icon = R.drawable.ic_close
                 color = R.color.canceled
+                holder.binding.txtStatus.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
+                holder.binding.txtTime.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
             }
-            4 -> {
+            4 -> { // finish
+                holder.binding.llDeliverName.visibility = View.VISIBLE
+                holder.binding.imgCallDriver.visibility = View.VISIBLE
                 icon = R.drawable.ic_round_done_24
                 color = R.color.finished
+                holder.binding.txtStatus.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
+                holder.binding.txtTime.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
             }
         }
+
         holder.binding.imgStatus.setImageResource(icon)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val header =

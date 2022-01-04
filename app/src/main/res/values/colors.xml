@@ -20,5 +20,6 @@
     <color name="finished">#43a047</color>
     <color name="canceled">#e53935</color>
     <color name="transparent">#00E53935</color>
+    <color name="waiting">#ffeb3b</color>
 
 </resources>
