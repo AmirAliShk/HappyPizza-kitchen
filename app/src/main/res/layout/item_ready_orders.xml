@@ -302,7 +302,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="بسته بندی نشده"
+                    android:text="اتمام بسته بندی"
                     android:background="@color/transparent"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_17sdp" />

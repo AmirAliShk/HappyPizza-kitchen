@@ -3,6 +3,7 @@ package ir.food.kitchenAndroid.adapter
 import android.annotation.SuppressLint
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
@@ -53,13 +54,10 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = models[position]
         if (model.isPacked) {
-            holder.binding.vfSetReady.setBackgroundResource(R.drawable.bg_green)
-            holder.binding.btnPacked.text = "بسته بندی شده"
-            holder.binding.btnPacked.isEnabled = false
-            holder.binding.vfSetReady.displayedChild = 0
+            holder.binding.vfSetReady.visibility = GONE
         } else {
+            holder.binding.vfSetReady.visibility = VISIBLE
             holder.binding.vfSetReady.setBackgroundResource(R.drawable.bg_gray)
-            holder.binding.btnPacked.text = "بسته بندی نشده"
             holder.binding.btnPacked.isEnabled = true
             holder.binding.vfSetReady.displayedChild = 0
         }
@@ -174,10 +172,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
                         val success = response.getBoolean("success")
                         val message = response.getString("message")
                         if (success) {
-                            vfSetReady.setBackgroundResource(R.drawable.bg_green)
-                            btnPack.text = "بسته بندی شده"
-                            btnPack.isEnabled = false
-                            vfSetReady.displayedChild = 0
+                            vfSetReady.visibility = GONE
                         } else {
                             vfSetReady.displayedChild = 0
                             GeneralDialog()
