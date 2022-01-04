@@ -32,5 +32,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="kitchen_version">نسخه آشپزخانه</string>
     <string name="deliver_name">نام پیک :</string>
+    <string name="location_delivery">موقعیت پیک</string>
 
 </resources>

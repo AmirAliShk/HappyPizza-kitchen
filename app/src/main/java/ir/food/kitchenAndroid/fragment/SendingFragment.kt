@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
+import com.google.android.gms.maps.model.LatLng
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.adapter.ReadyOrdersAdapter
 import ir.food.kitchenAndroid.adapter.SendingAdapter
@@ -16,7 +17,7 @@ import ir.food.kitchenAndroid.databinding.FragmentReadyOrdersBinding
 import ir.food.kitchenAndroid.databinding.FragmentSendingBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.TypefaceUtil
-import ir.food.kitchenAndroid.model.ReadyOrdersModel
+import ir.food.kitchenAndroid.model.SendingOrdersModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.push.AvaCrashReporter
 import org.json.JSONException
@@ -30,7 +31,7 @@ class SendingFragment : Fragment() {
     lateinit var binding: FragmentSendingBinding
     private lateinit var response: String
 
-    var readyOrdersModels: ArrayList<ReadyOrdersModel> = ArrayList()
+    var readyOrdersModels: ArrayList<SendingOrdersModel> = ArrayList()
     var adapter: SendingAdapter = SendingAdapter(readyOrdersModels)
 
     override fun onCreateView(
@@ -122,7 +123,7 @@ class SendingFragment : Fragment() {
 //                binding.txtDeliveryCount?.text = orderDetails.getString("freeDeliver")
 //                if (orderDetails.has("deliveryId")) {
                     val deliveryId = orderDetails.getJSONObject("deliveryId")
-                    val model = ReadyOrdersModel(
+                    val model = SendingOrdersModel(
                         orderDetails.getJSONArray("products"),
                         orderDetails.getString("_id"),
                         customer.getString("mobile"),
@@ -135,7 +136,10 @@ class SendingFragment : Fragment() {
                         deliveryId.getString("family"),
                         deliveryId.getString("mobile"),
                         orderDetails.getBoolean("isPack"),
-                        orderDetails.getString("total")
+                        orderDetails.getString("total"),
+                        orderDetails.getString("deliveryAcceptedTime"),
+                        LatLng(36.299067,59.572335)
+//                        LatLng(orderDetails.getJSONObject("deliveryLocation").getDouble("lat"), orderDetails.getJSONObject("deliveryLocation").getDouble("lng")) //TODO uncomment this BY SHOKO
                     )
                     readyOrdersModels.add(model)
 //                }

@@ -11,6 +11,7 @@ import android.widget.ViewFlipper
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.model.LatLng
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
@@ -18,17 +19,19 @@ import ir.food.kitchenAndroid.databinding.ItemReadyOrdersBinding
 import ir.food.kitchenAndroid.databinding.ItemSendingBinding
 import ir.food.kitchenAndroid.dialog.CallDialog
 import ir.food.kitchenAndroid.dialog.GeneralDialog
+import ir.food.kitchenAndroid.fragment.DeliverLocationFragment
 import ir.food.kitchenAndroid.helper.DateHelper
+import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.CartModel
-import ir.food.kitchenAndroid.model.ReadyOrdersModel
+import ir.food.kitchenAndroid.model.SendingOrdersModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.push.AvaCrashReporter
 import org.json.JSONException
 import org.json.JSONObject
 
-class SendingAdapter(list: ArrayList<ReadyOrdersModel>) :
+class SendingAdapter(list: ArrayList<SendingOrdersModel>) :
     RecyclerView.Adapter<SendingAdapter.ViewHolder>() {
 
     private val models = list
@@ -57,6 +60,11 @@ class SendingAdapter(list: ArrayList<ReadyOrdersModel>) :
         holder.binding.txtTime.text =
             StringHelper.toPersianDigits(DateHelper.parseFormatToStringNoDay(model.createdAt)) + "  " + StringHelper.toPersianDigits(
                 DateHelper.parseFormat(model.createdAt)
+            ) 
+        
+        holder.binding.txtAcceptTime.text =
+            StringHelper.toPersianDigits(DateHelper.parseFormatToStringNoDay(model.acceptTime)) + "  " + StringHelper.toPersianDigits(
+                DateHelper.parseFormat(model.acceptTime)
             )
         holder.binding.txtAddress.text = model.address
         holder.binding.txtDescription.text = model.description
@@ -114,6 +122,15 @@ class SendingAdapter(list: ArrayList<ReadyOrdersModel>) :
                 .show()
 
         }
+
+        holder.binding.btnDeliverLocation.setOnClickListener {
+            FragmentHelper.toFragment(
+                MyApplication.currentActivity,
+                DeliverLocationFragment(orderId, model.location)
+            )
+                .add()
+        }
+
     }
 
     override fun getItemCount(): Int {
