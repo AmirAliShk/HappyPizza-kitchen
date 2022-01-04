@@ -235,58 +235,64 @@ class NotReadyOrdersFragment : Fragment() {
     }
 
     private fun parseDate(result: String) {
-        response = result
-        val response = JSONObject(result)
+        try {
+            response = result
+            val response = JSONObject(result)
 //{"success":true,"message":"سفارش با موفقیت ارسال شد","data":{"GPS":{"coordinates":[33.29792,59.605933],"type":"Point"},"products":[{"_id":{"_id":"61091b0ca9335b389819e896","name":"مرغ و قارچ"},"quantity":1,"size":"large"}],"_id":"61092c9e4af8121f58108d97","customer":{"_id":"6107bd65e5bdcc11fd46bff2","mobile":"09105044033","family":"محمد جواد حیدری"},"address":"راهنمایی 24","status":{"name":"در حال اماده سازی","status":5},"description":"ساعت 12 تحویل داده شود","createdAt":"2021-08-03T11:46:38.117Z","__v":0,"cookId":"610a6fa3e5bdcc11fd46c0aa"}}
-        val success = response.getBoolean("success")
-        val message = response.getString("message")
-        if (success) {
-            cartModels = ArrayList()
-            adapter = CartAdapter(cartModels)
-            val dataObject = response.getJSONObject("data")
-            if (dataObject.toString() == "{}") {
-                binding.vfOrders.displayedChild = 3
-                binding.pendingNum.text = ""
-            } else {
-                binding.vfOrders.displayedChild = 2
-                val cookOrder = dataObject.getJSONObject("cookOrder")
-                val products = cookOrder.getJSONArray("products")
-                for (i in 0 until products.length()) {
-                    val productDetail: JSONObject = products.getJSONObject(i)
-                    val productId = productDetail.getJSONObject("_id")
-                    val model = CartModel(
-                        productId.getString("name"),
-                        productDetail.getInt("quantity"),
-                        productDetail.getString("size")
+            val success = response.getBoolean("success")
+            val message = response.getString("message")
+            if (success) {
+                cartModels = ArrayList()
+                adapter = CartAdapter(cartModels)
+                val dataObject = response.getJSONObject("data")
+                if (dataObject.toString() == "{}") {
+                    binding.vfOrders.displayedChild = 3
+                    binding.pendingNum.text = ""
+                } else {
+                    binding.vfOrders.displayedChild = 2
+                    val cookOrder = dataObject.getJSONObject("cookOrder")
+                    val products = cookOrder.getJSONArray("products")
+                    for (i in 0 until products.length()) {
+                        val productDetail: JSONObject = products.getJSONObject(i)
+                        val productId = productDetail.getJSONObject("_id")
+                        val model = CartModel(
+                            productId.getString("name"),
+                            productDetail.getInt("quantity"),
+                            productDetail.getString("size")
+                        )
+
+                        cartModels.add(model)
+                    }
+                    binding.productList.adapter = adapter
+
+                    orderId = cookOrder.getString("_id")
+                    val customer = cookOrder.getJSONObject("customer")
+                    customerNum = customer.getString("mobile")
+                    val customerName = customer.getString("family")
+                    val description = cookOrder.getString("description")
+                    val date = cookOrder.getString("createdAt")
+
+                    binding.customerName.text = customerName
+                    binding.registerTime.text = StringHelper.toPersianDigits(
+                        DateHelper.parseFormat(date)
                     )
-
-                    cartModels.add(model)
+                    binding.description.text =
+                        StringHelper.toPersianDigits(description)
+                    binding.pendingNum.text = dataObject.getString("queueOrderCount")
+                    binding.freeDeliver.text = dataObject.getString("queueOrderCount")
                 }
-                binding.productList.adapter = adapter
-
-                orderId = cookOrder.getString("_id")
-                val customer = cookOrder.getJSONObject("customer")
-                customerNum = customer.getString("mobile")
-                val customerName = customer.getString("family")
-                val description = cookOrder.getString("description")
-                val date = cookOrder.getString("createdAt")
-
-                binding.customerName.text = customerName
-                binding.registerTime.text = StringHelper.toPersianDigits(
-                    DateHelper.parseFormat(date)
-                )
-                binding.description.text =
-                    StringHelper.toPersianDigits(description)
-                binding.pendingNum.text = dataObject.getString("queueOrderCount")
-                binding.freeDeliver.text = dataObject.getString("queueOrderCount")
+            } else {
+                GeneralDialog()
+                    .message(message)
+                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .secondButton("تلاش مجدد") { getOrders() }
+                    .show()
+                binding.vfOrders.displayedChild = 4
             }
-        } else {
-            GeneralDialog()
-                .message(message)
-                .firstButton("باشه") { GeneralDialog().dismiss() }
-                .secondButton("تلاش مجدد") { getOrders() }
-                .show()
-            binding.vfOrders.displayedChild = 4
+
+        } catch (e: java.lang.Exception) {
+            binding.vfSetReady.displayedChild = 0
+            e.printStackTrace()
         }
     }
 
