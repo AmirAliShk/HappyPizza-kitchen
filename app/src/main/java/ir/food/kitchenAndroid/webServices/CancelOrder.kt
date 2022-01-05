@@ -17,9 +17,11 @@ class CancelOrder {
 
     fun callCancelAPI(orderId: String, listener: CancelOrder) {
         this.listener = listener
-        RequestHelper.builder(EndPoints.SENDING)
+        RequestHelper.builder(EndPoints.ORDER)
             .listener(cancelOrderCallBack)
-            .get()
+            .addParam("orderId", orderId)
+            .addParam("reason", " ")
+            .delete()
     }
 
     private val cancelOrderCallBack: RequestHelper.Callback =
