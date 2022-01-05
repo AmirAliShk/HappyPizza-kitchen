@@ -160,14 +160,17 @@ class SendingAdapter(list: ArrayList<SendingOrdersModel>) :
                         } else {
                             GeneralDialog()
                                 .message(message)
+                                .firstButton("بستن") { GeneralDialog().dismiss() }
                                 .secondButton("تلاش مجدد") { cancelDeliver() }
+                                .cancelable(false)
                                 .show()
                         }
                     } catch (e: JSONException) {
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
-                            .firstButton("بستن") { }
+                            .firstButton("بستن") { GeneralDialog().dismiss() }
                             .secondButton("تلاش مجدد") { cancelDeliver() }
+                            .cancelable(false)
                             .show()
                         e.printStackTrace()
                         AvaCrashReporter.send(e, "SendingAdapter class, readyCallBack")
@@ -180,8 +183,9 @@ class SendingAdapter(list: ArrayList<SendingOrdersModel>) :
                     vfCancelDeliver.displayedChild = 0
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
+                        .firstButton("بستن") { GeneralDialog().dismiss() }
                         .secondButton("تلاش مجدد") { cancelDeliver() }
-                        .firstButton("بستن") { }
+                        .cancelable(false)
                         .show()
                 }
                 super.onFailure(reCall, e)

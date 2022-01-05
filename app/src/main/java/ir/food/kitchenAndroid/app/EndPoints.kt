@@ -3,24 +3,12 @@ package ir.food.kitchenAndroid.app
 class EndPoints {
     companion object {
         /*TODO : check apis and ports before release*/
-        const val IP =
-            "http://happypizza.ir"
-//      "http://192.168.1.145"
-
-        const val HAKWEYE_IP =
-            "http://happypizza.ir"
-//      "http://192.168.1.145"
-
-        const val APIPort = "3010"
-
-        const val HAWKEYE_APIPort = "1890"
-
-        val PUSH_ADDRESS = "http://turbotaxi.ir:6060"
-        const val ACRA_PATH = "http://turbotaxi.ir:6061/api/v1/crashReport"
-        const val WEBSERVICE_PATH = "$IP:$APIPort/api/kitchen/v1/"
-        const val DELI_PATH = "$IP:$APIPort/api/kitchen/v1/delivery/"
-        const val HAWKEYE_PATH = "$HAKWEYE_IP:$HAWKEYE_APIPort/api/user/v1/"
-        const val HAWKEYE_LOGIN_PATH = "$HAKWEYE_IP:$HAWKEYE_APIPort/api/user/v1/login/phone/"
+        const val IP = "http://happypizza.ir:3010"
+        const val HAKWEYE_IP = "http://happypizza.ir:1890"
+        const val WEBSERVICE_PATH = "$IP/api/kitchen/v1/"
+        const val DELI_PATH = "$IP/api/kitchen/v1/delivery/"
+        const val HAWKEYE_PATH = "$HAKWEYE_IP/api/user/v1/"
+        const val HAWKEYE_LOGIN_PATH = "$HAKWEYE_IP/api/user/v1/login/phone/"
 
         /******************************** Base Api  *****************************************/
         const val APP_INFO = WEBSERVICE_PATH + "app/info"

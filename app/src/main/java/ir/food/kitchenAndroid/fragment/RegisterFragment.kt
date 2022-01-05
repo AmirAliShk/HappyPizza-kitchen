@@ -104,16 +104,18 @@ class RegisterFragment : Fragment() {
                         binding.vfSendCode.displayedChild = 0
                         GeneralDialog()
                             .message(message)
-                            .firstButton("باشه") { GeneralDialog().dismiss() }
+                            .firstButton("بستن") { GeneralDialog().dismiss() }
                             .secondButton("تلاش مجدد") { sendCode() }
+                            .cancelable(false)
                             .show()
                     }
                 } catch (e: JSONException) {
                     binding.vfSendCode.displayedChild = 0
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
-                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .firstButton("بستن") { GeneralDialog().dismiss() }
                         .secondButton("تلاش مجدد") { sendCode() }
+                        .cancelable(false)
                         .show()
                     e.printStackTrace()
                     AvaCrashReporter.send(e, "RegisterFragment class, sendCodeCallBack")
@@ -126,8 +128,9 @@ class RegisterFragment : Fragment() {
                 binding.vfSendCode.displayedChild = 0
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
-                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .firstButton("بستن") { GeneralDialog().dismiss() }
                     .secondButton("تلاش مجدد") { sendCode() }
+                    .cancelable(false)
                     .show()
             }
             super.onFailure(reCall, e)
@@ -175,16 +178,18 @@ class RegisterFragment : Fragment() {
                             binding.vfSignUp.displayedChild = 0
                             GeneralDialog()
                                 .message(message)
-                                .firstButton("باشه") { GeneralDialog().dismiss() }
+                                .firstButton("بستن") { GeneralDialog().dismiss() }
                                 .secondButton("تلاش مجدد") { register() }
+                                .cancelable(false)
                                 .show()
                         }
                     } catch (e: JSONException) {
                         binding.vfSignUp.displayedChild = 0
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
-                            .firstButton("باشه") { GeneralDialog().dismiss() }
+                            .firstButton("بستن") { GeneralDialog().dismiss() }
                             .secondButton("تلاش مجدد") { register() }
+                            .cancelable(false)
                             .show()
                         e.printStackTrace()
                         AvaCrashReporter.send(e, "RegisterFragment class, registerCallBack")
@@ -197,8 +202,9 @@ class RegisterFragment : Fragment() {
                     binding.vfSignUp.displayedChild = 0
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
-                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .firstButton("بستن") { GeneralDialog().dismiss() }
                         .secondButton("تلاش مجدد") { register() }
+                        .cancelable(false)
                         .show()
                 }
                 super.onFailure(reCall, e)

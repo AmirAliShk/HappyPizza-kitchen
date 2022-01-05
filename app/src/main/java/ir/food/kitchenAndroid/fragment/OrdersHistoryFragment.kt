@@ -74,8 +74,9 @@ class OrdersHistoryFragment : Fragment() {
                     binding.vfHistory.displayedChild = 2
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
-                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .firstButton("بستن") { GeneralDialog().dismiss() }
                         .secondButton("تلاش مجدد") { getHistory() }
+                        .cancelable(false)
                         .show()
                     e.printStackTrace()
                     AvaCrashReporter.send(e, "OrdersHistoryFragment class, historyCallBack")
@@ -89,8 +90,9 @@ class OrdersHistoryFragment : Fragment() {
                 binding.imgRefreshActionBar.clearAnimation()
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
-                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .firstButton("بستن") { GeneralDialog().dismiss() }
                     .secondButton("تلاش مجدد") { getHistory() }
+                    .cancelable(false)
                     .show()
             }
             super.onFailure(reCall, e)
@@ -155,8 +157,9 @@ class OrdersHistoryFragment : Fragment() {
             } else {
                 GeneralDialog()
                     .message(message)
-                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .firstButton("بستن") { GeneralDialog().dismiss() }
                     .secondButton("تلاش مجدد") { getHistory() }
+                    .cancelable(false)
                     .show()
                 binding.vfHistory.displayedChild = 2
             }

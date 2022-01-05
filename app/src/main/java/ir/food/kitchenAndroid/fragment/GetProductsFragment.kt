@@ -70,8 +70,9 @@ class GetProductsFragment : Fragment() {
                 } catch (e: JSONException) {
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
-                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .firstButton("بستن") { GeneralDialog().dismiss() }
                         .secondButton("تلاش مجدد") { getProductsType() }
+                        .cancelable(false)
                         .show()
                     e.printStackTrace()
                     AvaCrashReporter.send(e, "GetProductsFragment class, productsTypeCallBack")
@@ -83,8 +84,9 @@ class GetProductsFragment : Fragment() {
             MyApplication.handler.post {
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
-                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .firstButton("بستن") { GeneralDialog().dismiss() }
                     .secondButton("تلاش مجدد") { getProductsType() }
+                    .cancelable(false)
                     .show()
             }
             super.onFailure(reCall, e)
@@ -109,8 +111,9 @@ class GetProductsFragment : Fragment() {
                     binding.vfProducts.displayedChild = 3
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
-                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .firstButton("بستن") { GeneralDialog().dismiss() }
                         .secondButton("تلاش مجدد") { getProducts() }
+                        .cancelable(false)
                         .show()
                     e.printStackTrace()
                     AvaCrashReporter.send(e, "GetProductsFragment class, productsCallBack")
@@ -124,8 +127,9 @@ class GetProductsFragment : Fragment() {
                 binding.vfProducts.displayedChild = 3
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
-                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .firstButton("بستن") { GeneralDialog().dismiss() }
                     .secondButton("تلاش مجدد") { getProducts() }
+                    .cancelable(false)
                     .show()
             }
             super.onFailure(reCall, e)
@@ -190,8 +194,9 @@ class GetProductsFragment : Fragment() {
         } else {
             GeneralDialog()
                 .message(message)
-                .firstButton("باشه") { GeneralDialog().dismiss() }
-                .secondButton("تلاش مجدد") { getProductsType() }
+                .firstButton("بستن") { GeneralDialog().dismiss() }
+                .secondButton("تلاش مجدد") { getProducts() }
+                .cancelable(false)
                 .show()
         }
     }

@@ -120,15 +120,17 @@ class GetAppInfo {
                         } else {
                             GeneralDialog()
                                 .message(message)
-                                .firstButton("باشه") { GeneralDialog().dismiss() }
+                                .firstButton("بستن") { GeneralDialog().dismiss() }
                                 .secondButton("تلاش مجدد") { callAppInfoAPI() }
+                                .cancelable(false)
                                 .show()
                         }
                     } catch (e: JSONException) {
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
-                            .firstButton("باشه") { GeneralDialog().dismiss() }
+                            .firstButton("بستن") { GeneralDialog().dismiss() }
                             .secondButton("تلاش مجدد") { callAppInfoAPI() }
+                            .cancelable(false)
                             .show()
                         e.printStackTrace()
                         AvaCrashReporter.send(e, "GetAppInfo class, appInfoCallBack")
@@ -140,8 +142,9 @@ class GetAppInfo {
                 MyApplication.handler.post {
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
-                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .firstButton("بستن") { GeneralDialog().dismiss() }
                         .secondButton("تلاش مجدد") { callAppInfoAPI() }
+                        .cancelable(false)
                         .show()
                 }
                 super.onFailure(reCall, e)

@@ -165,16 +165,18 @@ class VerificationFragment : Fragment() {
                         } else {
                             GeneralDialog()
                                 .message(message)
-                                .firstButton("باشه") { GeneralDialog().dismiss() }
+                                .firstButton("بستن") { GeneralDialog().dismiss() }
                                 .secondButton("تلاش مجدد") { login() }
+                                .cancelable(false)
                                 .show()
                         }
                     } catch (e: JSONException) {
                         binding.vfLogin.displayedChild = 0
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
-                            .firstButton("باشه") { GeneralDialog().dismiss() }
+                            .firstButton("بستن") { GeneralDialog().dismiss() }
                             .secondButton("تلاش مجدد") { login() }
+                            .cancelable(false)
                             .show()
                         e.printStackTrace()
                         AvaCrashReporter.send(e, "VerificationFragment class, loginCallBack")
@@ -187,8 +189,9 @@ class VerificationFragment : Fragment() {
                     binding.vfLogin.displayedChild = 0
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
-                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .firstButton("بستن") { GeneralDialog().dismiss() }
                         .secondButton("تلاش مجدد") { login() }
+                        .cancelable(false)
                         .show()
                 }
                 super.onFailure(reCall, e)

@@ -80,8 +80,9 @@ class ReadyOrdersFragment : Fragment() {
                     binding.vfOrdersPage?.displayedChild = 2
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
-                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .firstButton("بستن") { GeneralDialog().dismiss() }
                         .secondButton("تلاش مجدد") { getReady() }
+                        .cancelable(false)
                         .show()
                     e.printStackTrace()
                     AvaCrashReporter.send(e, "ReadyOrdersFragment class, readyCallBack")
@@ -95,8 +96,9 @@ class ReadyOrdersFragment : Fragment() {
                 binding.imgRefreshActionBar?.clearAnimation()
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
-                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .firstButton("بستن") { GeneralDialog().dismiss() }
                     .secondButton("تلاش مجدد") { getReady() }
+                    .cancelable(false)
                     .show()
             }
             super.onFailure(reCall, e)
@@ -166,8 +168,9 @@ class ReadyOrdersFragment : Fragment() {
             } else {
                 GeneralDialog()
                     .message(message)
-                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .firstButton("بستن") { GeneralDialog().dismiss() }
                     .secondButton("تلاش مجدد") { getReady() }
+                    .cancelable(false)
                     .show()
                 binding.vfOrdersPage?.displayedChild = 2
             }

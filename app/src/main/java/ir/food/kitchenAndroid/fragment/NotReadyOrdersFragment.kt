@@ -137,8 +137,9 @@ class NotReadyOrdersFragment : Fragment() {
                         binding.vfOrders.displayedChild = 4
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
-                            .firstButton("باشه") { GeneralDialog().dismiss() }
+                            .firstButton("بستن") { GeneralDialog().dismiss() }
                             .secondButton("تلاش مجدد") { getOrders() }
+                            .cancelable(false)
                             .show()
                         e.printStackTrace()
                         AvaCrashReporter.send(e, "NotReadyOrdersFragment class, ordersCallBack")
@@ -185,8 +186,9 @@ class NotReadyOrdersFragment : Fragment() {
                         binding.vfSetReady.displayedChild = 0
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
-                            .firstButton("باشه") { GeneralDialog().dismiss() }
+                            .firstButton("بستن") { GeneralDialog().dismiss() }
                             .secondButton("تلاش مجدد") { setReady() }
+                            .cancelable(false)
                             .show()
                         e.printStackTrace()
                         AvaCrashReporter.send(e, "NotReadyOrderFragment class, readyCallBack")
@@ -199,8 +201,9 @@ class NotReadyOrdersFragment : Fragment() {
                     binding.vfSetReady.displayedChild = 0
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
-                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .firstButton("بستن") { GeneralDialog().dismiss() }
                         .secondButton("تلاش مجدد") { setReady() }
+                        .cancelable(false)
                         .show()
                 }
                 super.onFailure(reCall, e)
@@ -289,8 +292,9 @@ class NotReadyOrdersFragment : Fragment() {
             } else {
                 GeneralDialog()
                     .message(message)
-                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .firstButton("بستن") { GeneralDialog().dismiss() }
                     .secondButton("تلاش مجدد") { getOrders() }
+                    .cancelable(false)
                     .show()
                 binding.vfOrders.displayedChild = 4
             }

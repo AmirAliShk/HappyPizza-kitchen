@@ -48,7 +48,7 @@ class SendingFragment : Fragment() {
 
         binding.imgRefresh.setOnClickListener {callList()}
 
-        binding.llRefresh?.setOnClickListener {callList()}
+        binding.llRefresh.setOnClickListener {callList()}
 
         binding.imgRefreshFail.setOnClickListener {callList()}
 
@@ -56,7 +56,7 @@ class SendingFragment : Fragment() {
     }
 
     private fun callList(){
-        binding.imgRefreshActionBar?.startAnimation(
+        binding.imgRefreshActionBar.startAnimation(
             AnimationUtils.loadAnimation(
                 MyApplication.context,
                 R.anim.rotate
@@ -74,15 +74,16 @@ class SendingFragment : Fragment() {
     private val sendingCallBack: RequestHelper.Callback = object : RequestHelper.Callback() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
-                binding.imgRefreshActionBar?.clearAnimation()
+                binding.imgRefreshActionBar.clearAnimation()
                 try {
                     parseDate(args[0].toString())
                 } catch (e: JSONException) {
-                    binding.vfOrdersPage?.displayedChild = 2
+                    binding.vfOrdersPage.displayedChild = 2
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
-                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .firstButton("بستن") { GeneralDialog().dismiss() }
                         .secondButton("تلاش مجدد") { getSending() }
+                        .cancelable(false)
                         .show()
                     e.printStackTrace()
                     AvaCrashReporter.send(e, "SendingFragment class, readyCallBack")
@@ -92,12 +93,13 @@ class SendingFragment : Fragment() {
 
         override fun onFailure(reCall: Runnable?, e: Exception?) {
             MyApplication.handler.post {
-                binding.vfOrdersPage?.displayedChild = 2
-                binding.imgRefreshActionBar?.clearAnimation()
+                binding.vfOrdersPage.displayedChild = 2
+                binding.imgRefreshActionBar.clearAnimation()
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
-                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .firstButton("بستن") { GeneralDialog().dismiss() }
                     .secondButton("تلاش مجدد") { getSending() }
+                    .cancelable(false)
                     .show()
             }
             super.onFailure(reCall, e)
@@ -145,22 +147,23 @@ class SendingFragment : Fragment() {
 //                }
                 }
                 if (readyOrdersModels.size == 0) {
-                    binding.vfOrdersPage?.displayedChild = 1
+                    binding.vfOrdersPage.displayedChild = 1
                 } else {
-                    binding.vfOrdersPage?.displayedChild = 0
+                    binding.vfOrdersPage.displayedChild = 0
                 }
                 binding.readyList.adapter = adapter
             } else {
                 GeneralDialog()
                     .message(message)
-                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .firstButton("بستن") { GeneralDialog().dismiss() }
                     .secondButton("تلاش مجدد") { getSending() }
+                    .cancelable(false)
                     .show()
-                binding.vfOrdersPage?.displayedChild = 2
+                binding.vfOrdersPage.displayedChild = 2
             }
         } catch (e: Exception) {
-            binding.vfOrdersPage?.displayedChild = 2
-            binding.imgRefreshActionBar?.clearAnimation()
+            binding.vfOrdersPage.displayedChild = 2
+            binding.imgRefreshActionBar.clearAnimation()
             e.printStackTrace()
         }
     }

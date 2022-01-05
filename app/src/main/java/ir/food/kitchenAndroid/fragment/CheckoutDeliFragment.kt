@@ -50,13 +50,13 @@ class CheckoutDeliFragment : Fragment() {
                 try {
                     val response = JSONObject(args[0].toString())
 
-
                 } catch (e: JSONException) {
                     binding.vfCheckout?.displayedChild = 3
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
-                        .firstButton("باشه") { GeneralDialog().dismiss() }
+                        .firstButton("بستن") { GeneralDialog().dismiss() }
                         .secondButton("تلاش مجدد") { getList() }
+                        .cancelable(false)
                         .show()
                     e.printStackTrace()
                     AvaCrashReporter.send(e, "ReadyOrdersFragment class, readyCallBack")
@@ -69,8 +69,9 @@ class CheckoutDeliFragment : Fragment() {
                 binding.vfCheckout?.displayedChild = 3
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
-                    .firstButton("باشه") { GeneralDialog().dismiss() }
+                    .firstButton("بستن") { GeneralDialog().dismiss() }
                     .secondButton("تلاش مجدد") { getList() }
+                    .cancelable(false)
                     .show()
             }
             super.onFailure(reCall, e)

@@ -129,6 +129,7 @@ class ProductDialog {
                             GeneralDialog()
                                 .message(message)
                                 .secondButton("باشه") { GeneralDialog().dismiss() }
+                                .cancelable(false)
                                 .show()
                         }
 
@@ -137,6 +138,7 @@ class ProductDialog {
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
                             .secondButton("باشه") { GeneralDialog().dismiss() }
+                            .cancelable(false)
                             .show()
                         e.printStackTrace()
                     }
@@ -149,6 +151,7 @@ class ProductDialog {
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .secondButton("باشه") { GeneralDialog().dismiss() }
+                        .cancelable(false)
                         .show()
                 }
                 super.onFailure(reCall, e)
@@ -177,6 +180,7 @@ class ProductDialog {
                             GeneralDialog()
                                 .message(message)
                                 .secondButton("باشه") { GeneralDialog().dismiss() }
+                                .cancelable(false)
                                 .show()
                         }
 
@@ -184,6 +188,7 @@ class ProductDialog {
                         GeneralDialog()
                             .message("خطایی پیش آمده دوباره امتحان کنید.")
                             .secondButton("باشه") { GeneralDialog().dismiss() }
+                            .cancelable(false)
                             .show()
                         e.printStackTrace()
                     }
@@ -195,6 +200,7 @@ class ProductDialog {
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .secondButton("باشه") { GeneralDialog().dismiss() }
+                        .cancelable(false)
                         .show()
                 }
                 super.onFailure(reCall, e)

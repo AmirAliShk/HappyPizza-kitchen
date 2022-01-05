@@ -155,14 +155,17 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
                             vfSetReady.displayedChild = 0
                             GeneralDialog()
                                 .message(message)
+                                .firstButton("بستن") { GeneralDialog().dismiss() }
                                 .secondButton("تلاش مجدد") { setPack() }
+                                .cancelable(false)
                                 .show()
                         }
                     } catch (e: JSONException) {
                         vfSetReady.displayedChild = 0
                         GeneralDialog()
-                            .message("خطایی پیش آمده دوباره امتحان کنید.")
+                            .firstButton("بستن") { GeneralDialog().dismiss() }
                             .secondButton("تلاش مجدد") { setPack() }
+                            .cancelable(false)
                             .show()
                         e.printStackTrace()
                         AvaCrashReporter.send(e, "NotReadyOrderFragment class, readyCallBack")
@@ -174,8 +177,9 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
                 MyApplication.handler.post {
                     vfSetReady.displayedChild = 0
                     GeneralDialog()
-                        .message("خطایی پیش آمده دوباره امتحان کنید.")
+                        .firstButton("بستن") { GeneralDialog().dismiss() }
                         .secondButton("تلاش مجدد") { setPack() }
+                        .cancelable(false)
                         .show()
                 }
                 super.onFailure(reCall, e)
