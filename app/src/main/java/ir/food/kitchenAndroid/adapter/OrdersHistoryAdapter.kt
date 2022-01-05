@@ -60,6 +60,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
         when (model.statusCode) {
             0 -> { // pending
 //                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.vfCancelOrder.visibility=View.VISIBLE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE
                 icon = R.drawable.ic_waiting_black
@@ -77,6 +78,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
             }
             1 -> { // cancel
 //                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.vfCancelOrder.visibility=View.GONE
                 icon = R.drawable.ic_close
                 color = R.color.canceled
                 holder.binding.txtStatus.setTextColor(
@@ -92,6 +94,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
             }
             2 -> { // cooking
 //                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.vfCancelOrder.visibility=View.VISIBLE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE
                 icon = R.drawable.ic_coooking
@@ -109,6 +112,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
             }
             3 -> { // sending
 //                holder.binding.btnDeliverLocation.visibility = View.VISIBLE
+                holder.binding.vfCancelOrder.visibility=View.VISIBLE
                 holder.binding.llDeliverName.visibility = View.VISIBLE
                 holder.binding.imgCallDriver.visibility = View.VISIBLE
                 icon = R.drawable.ic_delivery
@@ -126,6 +130,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
             }
             4 -> { // finish
 //                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.vfCancelOrder.visibility=View.VISIBLE
                 holder.binding.llDeliverName.visibility = View.VISIBLE
                 holder.binding.imgCallDriver.visibility = View.VISIBLE
                 icon = R.drawable.ic_round_done_24
@@ -143,6 +148,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
             }
             5 -> { // preparing
 //                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.vfCancelOrder.visibility=View.VISIBLE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE
                 icon = R.drawable.ic_chef
@@ -177,6 +183,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
             }
             7 -> { //  7 calculated
 //                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.vfCancelOrder.visibility=View.GONE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE
                 icon = R.drawable.ic_payment
