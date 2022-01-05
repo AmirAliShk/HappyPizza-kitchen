@@ -29,6 +29,7 @@ import ir.food.kitchenAndroid.model.SendingOrdersModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.push.AvaCrashReporter
 import ir.food.kitchenAndroid.webServices.CancelOrder
+import ir.food.kitchenAndroid.webServices.FinishOrder
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -123,6 +124,34 @@ class SendingAdapter(list: ArrayList<SendingOrdersModel>) :
                 .show()
 
         }
+
+        holder.binding.btnFinishOrder.setOnClickListener {
+            GeneralDialog()
+                .message("ایا از اتمام سفارش اطمینان دارید؟")
+                .firstButton("بله") {
+                    holder.binding.vfFinishOrder.displayedChild = 1
+                    FinishOrder().callFinishAPI(model.id,object : FinishOrder.FinishOrder{
+                        @SuppressLint("NotifyDataSetChanged")
+                        override fun onSuccess(b: Boolean) {
+                            holder.binding.vfFinishOrder.displayedChild = 0
+                            if (b){
+                                models.removeAt(position)
+                                notifyDataSetChanged()
+                            }else{
+                                GeneralDialog()
+                                    .message("مشکلی پیش آمده، لطفا مجدد امتحان کنید")
+                                    .firstButton("بستن") { GeneralDialog().dismiss() }
+                                    .cancelable(false)
+                                    .show()
+                            }
+                        }
+                    })
+                }
+                .secondButton("خیر") { }
+                .cancelable(false)
+                .show()
+        }
+
 
         holder.binding.btnCancelOrder.setOnClickListener {
             GeneralDialog()

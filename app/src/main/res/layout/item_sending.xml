@@ -369,8 +369,6 @@
 
             </ViewFlipper>
 
-
-
             <Button
                 android:id="@+id/btnDeliverLocation"
                 android:layout_width="0dp"
@@ -386,6 +384,33 @@
 
         </LinearLayout>
 
+        <ViewFlipper
+            android:id="@+id/vfFinishOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_green"
+            android:elevation="@dimen/_2sdp">
+
+            <Button
+                android:id="@+id/btnFinishOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="اتمام سفارش"
+                android:background="@color/transparent"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_17sdp" />
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                app:indicatorColor="@color/white" />
+
+        </ViewFlipper>
 
     </LinearLayout>
 

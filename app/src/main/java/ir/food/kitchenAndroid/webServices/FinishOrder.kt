@@ -7,22 +7,22 @@ import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.push.AvaCrashReporter
 import org.json.JSONObject
 
-class CancelOrder {
+class FinishOrder {
 
-    interface CancelOrder {
+    interface FinishOrder {
         fun onSuccess(b: Boolean)
     }
 
-    lateinit var listener: CancelOrder
+    lateinit var listener: FinishOrder
 
-    fun callCancelAPI(orderId: String, listener: CancelOrder) {
+    fun callFinishAPI(orderId: String, listener: FinishOrder) {
         this.listener = listener
         RequestHelper.builder(EndPoints.SENDING)
-            .listener(cancelOrderCallBack)
+            .listener(finishCallBack)
             .get()
     }
 
-    private val cancelOrderCallBack: RequestHelper.Callback =
+    private val finishCallBack: RequestHelper.Callback =
         object : RequestHelper.Callback() {
             override fun onResponse(reCall: Runnable?, vararg args: Any?) {
                 MyApplication.handler.post {
@@ -38,7 +38,7 @@ class CancelOrder {
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
-                        AvaCrashReporter.send(e, "CancelOrder class, CallBack")
+                        AvaCrashReporter.send(e, "FinishOrder class, callBack")
                     }
                 }
             }

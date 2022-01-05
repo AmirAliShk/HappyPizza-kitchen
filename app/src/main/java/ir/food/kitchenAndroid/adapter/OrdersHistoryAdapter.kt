@@ -61,7 +61,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
 //                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE
-                icon = R.drawable.ic_waiting
+                icon = R.drawable.ic_waiting_black
                 color = R.color.waiting
                 holder.binding.txtStatus.setTextColor(
                     MyApplication.currentActivity.resources.getColor(
@@ -140,12 +140,46 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
                     )
                 )
             }
-            5 -> { // preparing, 6 waiting for checkout, 7 calculate
+            5 -> { // preparing
 //                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE
                 icon = R.drawable.ic_chef
                 color = R.color.preparing
+                holder.binding.txtStatus.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
+                holder.binding.txtTime.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
+            }
+            6 -> { // 6 waiting for pay
+//                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.llDeliverName.visibility = View.GONE
+                holder.binding.imgCallDriver.visibility = View.GONE
+                icon = R.drawable.ic_refresh_white
+                color = R.color.color_Titles
+                holder.binding.txtStatus.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
+                holder.binding.txtTime.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
+            }
+            7 -> { //  7 calculated
+//                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.llDeliverName.visibility = View.GONE
+                holder.binding.imgCallDriver.visibility = View.GONE
+                icon = R.drawable.ic_baseline_attach_money_24
+                color = R.color.calculated
                 holder.binding.txtStatus.setTextColor(
                     MyApplication.currentActivity.resources.getColor(
                         R.color.white

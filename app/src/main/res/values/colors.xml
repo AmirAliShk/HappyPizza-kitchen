@@ -17,6 +17,7 @@
     <color name="cooking">#ff5722</color>
     <color name="delivery">#1e88e5</color>
     <color name="preparing">#ffb300</color>
+    <color name="calculated">#673ab7</color>
     <color name="finished">#43a047</color>
     <color name="canceled">#e53935</color>
     <color name="transparent">#00E53935</color>
