@@ -1,3 +1,9 @@
 package ir.food.kitchenAndroid.model
 
-data class CheckoutDeliModel(val name: String, val quantity: Int, val size: String)
+data class CheckoutDeliModel(
+    val deliId: String,
+    val deliName: String,
+    val totalPrice: String,
+    val totalOnline: String,
+    val remainder: String
+)

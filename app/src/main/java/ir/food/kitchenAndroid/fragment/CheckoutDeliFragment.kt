@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ir.food.kitchenAndroid.R
+import ir.food.kitchenAndroid.adapter.CheckoutDeliAdapter
+import ir.food.kitchenAndroid.adapter.ReadyOrdersAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentCheckoutDeliBinding
@@ -23,6 +25,7 @@ import java.lang.Exception
 class CheckoutDeliFragment : Fragment() {
     lateinit var binding: FragmentCheckoutDeliBinding
     var checkoutModels: ArrayList<CheckoutDeliModel> = ArrayList()
+    var adapter: CheckoutDeliAdapter = CheckoutDeliAdapter(checkoutModels)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +41,7 @@ class CheckoutDeliFragment : Fragment() {
     }
 
     private fun getList() {
-        binding.vfCheckout?.displayedChild = 0
+        binding.vfCheckout.displayedChild = 0
         RequestHelper.builder(EndPoints.DELI_FINANCIAL)
             .listener(checkoutCallBack)
             .get()
@@ -50,8 +53,41 @@ class CheckoutDeliFragment : Fragment() {
                 try {
                     val response = JSONObject(args[0].toString())
 
+                    val success = response.getBoolean("success")
+                    val message = response.getString("message")
+
+                    if (success) {
+                        val dataObject = response.getJSONArray("data")
+                        for (i in 0 until dataObject.length()) {
+                            val dataObj: JSONObject = dataObject.getJSONObject(i)
+                            val model = CheckoutDeliModel(
+                                dataObj.getString("id"),
+                                dataObj.getString("id"),
+                                dataObj.getString("id"),
+                                dataObj.getString("id"),
+                                dataObj.getString("id")
+                            )
+                            checkoutModels.add(model)
+                        }
+                        if (checkoutModels.size == 0) {
+                            binding.vfCheckout.displayedChild = 2
+                        } else {
+                            binding.vfCheckout.displayedChild = 1
+                            binding.listCheckout.adapter = adapter
+                        }
+
+                    } else {
+                        binding.vfCheckout.displayedChild = 3
+                        GeneralDialog()
+                            .message(message)
+                            .firstButton("بستن") { GeneralDialog().dismiss() }
+                            .secondButton("تلاش مجدد") { getList() }
+                            .cancelable(false)
+                            .show()
+                    }
+
                 } catch (e: JSONException) {
-                    binding.vfCheckout?.displayedChild = 3
+                    binding.vfCheckout.displayedChild = 3
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .firstButton("بستن") { GeneralDialog().dismiss() }
@@ -59,14 +95,14 @@ class CheckoutDeliFragment : Fragment() {
                         .cancelable(false)
                         .show()
                     e.printStackTrace()
-                    AvaCrashReporter.send(e, "ReadyOrdersFragment class, readyCallBack")
+                    AvaCrashReporter.send(e, "CheckoutDeliFragment class, readyCallBack")
                 }
             }
         }
 
         override fun onFailure(reCall: Runnable?, e: Exception?) {
             MyApplication.handler.post {
-                binding.vfCheckout?.displayedChild = 3
+                binding.vfCheckout.displayedChild = 3
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
                     .firstButton("بستن") { GeneralDialog().dismiss() }

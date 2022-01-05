@@ -45,9 +45,9 @@ class ReadyOrdersFragment : Fragment() {
 
         callList()
 
-        binding.imgRefresh.setOnClickListener {callList() }
+        binding.imgRefresh.setOnClickListener { callList() }
 
-        binding.llRefresh?.setOnClickListener {callList() }
+        binding.llRefresh?.setOnClickListener { callList() }
 
         binding.imgRefreshFail.setOnClickListener { callList() }
 
@@ -163,8 +163,8 @@ class ReadyOrdersFragment : Fragment() {
                     binding.vfOrdersPage?.displayedChild = 1
                 } else {
                     binding.vfOrdersPage?.displayedChild = 0
+                    binding.readyList.adapter = adapter
                 }
-                binding.readyList.adapter = adapter
             } else {
                 GeneralDialog()
                     .message(message)
