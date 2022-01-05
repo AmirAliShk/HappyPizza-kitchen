@@ -18,6 +18,7 @@ import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ItemReadyOrdersBinding
 import ir.food.kitchenAndroid.databinding.ItemSendingBinding
 import ir.food.kitchenAndroid.dialog.CallDialog
+import ir.food.kitchenAndroid.dialog.CancelDialogOrder
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.fragment.DeliverLocationFragment
 import ir.food.kitchenAndroid.helper.DateHelper
@@ -154,30 +155,20 @@ class SendingAdapter(list: ArrayList<SendingOrdersModel>) :
 
 
         holder.binding.btnCancelOrder.setOnClickListener {
-            GeneralDialog()
-                .message("ایا از لغو سفارش اطمینان دارید؟")
-                .firstButton("بله") {
-                    holder.binding.vfCancelOrder.displayedChild = 1
-                    CancelOrder().callCancelAPI(model.id, object : CancelOrder.CancelOrder {
-                        @SuppressLint("NotifyDataSetChanged")
-                        override fun onSuccess(b: Boolean) {
-                            holder.binding.vfCancelOrder.displayedChild = 0
-                            if (b) {
-                                models.removeAt(position)
-                                notifyDataSetChanged()
-                            } else {
-                                GeneralDialog()
-                                    .message("مشکلی پیش آمده، لطفا مجدد امتحان کنید")
-                                    .firstButton("بستن") { GeneralDialog().dismiss() }
-                                    .cancelable(false)
-                                    .show()
-                            }
-                        }
-                    })
+            CancelDialogOrder().show(model.id, object : CancelDialogOrder.CancelOrderDialog {
+                override fun onSuccess(b: Boolean) {
+                    if (b) {
+                        models.removeAt(holder.adapterPosition)
+                        notifyDataSetChanged()
+                    } else {
+                        GeneralDialog()
+                            .message("مشکلی پیش آمده، لطفا مجدد امتحان کنید")
+                            .firstButton("بستن") { GeneralDialog().dismiss() }
+                            .cancelable(false)
+                            .show()
+                    }
                 }
-                .secondButton("خیر") { }
-                .cancelable(false)
-                .show()
+            })
         }
 
         holder.binding.btnDeliverLocation.setOnClickListener {

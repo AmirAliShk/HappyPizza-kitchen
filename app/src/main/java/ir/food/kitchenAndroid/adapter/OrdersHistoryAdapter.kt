@@ -210,57 +210,20 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
         }
 
         holder.binding.btnCancelOrder.setOnClickListener {
-            GeneralDialog()
-                .message("ایا از لغو سفارش اطمینان دارید؟")
-                .firstButton("بله") {
-                    holder.binding.vfCancelOrder.displayedChild = 1
-                    CancelOrder().callCancelAPI(model.id, object : CancelOrder.CancelOrder{
-                        @SuppressLint("NotifyDataSetChanged")
-                        override fun onSuccess(b: Boolean) {
-                            holder.binding.vfCancelOrder.displayedChild = 0
-                            if (b){
-//                                holder.binding.btnDeliverLocation.visibility = View.GONE
-                                holder.binding.vfCancelOrder.visibility=View.GONE
-                                holder.binding.imgStatus.setImageResource(R.drawable.ic_close)
-                                holder.binding.txtStatus.text = "لغو شده"
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                    val header =
-                                        AppCompatResources.getDrawable(MyApplication.context, R.drawable.bg_orders_header)
-                                    holder.binding.llHeaderStatus.background = header
-                                    DrawableCompat.setTint(
-                                        header!!,
-                                        MyApplication.currentActivity.resources.getColor( R.color.canceled)
-                                    )
-                                } else {
-                                    holder.binding.llHeaderStatus.setBackgroundColor(
-                                        MyApplication.currentActivity.resources.getColor(
-                                            R.color.canceled
-                                        )
-                                    )
-                                }
-                                holder.binding.txtStatus.setTextColor(
-                                    MyApplication.currentActivity.resources.getColor(
-                                        R.color.white
-                                    )
-                                )
-                                holder.binding.txtTime.setTextColor(
-                                    MyApplication.currentActivity.resources.getColor(
-                                        R.color.white
-                                    )
-                                )
-                            }else{
-                                GeneralDialog()
-                                    .message("مشکلی پیش آمده، لطفا مجدد امتحان کنید")
-                                    .firstButton("بستن") { GeneralDialog().dismiss() }
-                                    .cancelable(false)
-                                    .show()
-                            }
-                        }
-                    })
+            CancelDialogOrder().show(model.id, object : CancelDialogOrder.CancelOrderDialog {
+                override fun onSuccess(b: Boolean) {
+                    if (b) {
+                        models.removeAt(holder.adapterPosition)
+                        notifyDataSetChanged()
+                    } else {
+                        GeneralDialog()
+                            .message("مشکلی پیش آمده، لطفا مجدد امتحان کنید")
+                            .firstButton("بستن") { GeneralDialog().dismiss() }
+                            .cancelable(false)
+                            .show()
+                    }
                 }
-                .secondButton("خیر") { }
-                .cancelable(false)
-                .show()
+            })
         }
 
         holder.binding.imgStatus.setImageResource(icon)

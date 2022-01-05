@@ -49,11 +49,10 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:paddingLeft="15dp"
-                android:paddingTop="10dp"
                 android:paddingRight="15dp">
 
                 <EditText
-                    android:id="@+id/edtAddress"
+                    android:id="@+id/edtReason"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
@@ -73,7 +72,7 @@
                 android:id="@+id/vfCancelOrder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_margin="@dimen/_10sdp"
                 android:layout_weight="1"
                 android:background="@drawable/red"
                 android:elevation="@dimen/_2sdp">
@@ -95,6 +94,7 @@
                     app:indicatorColor="@color/white" />
 
             </ViewFlipper>
+
         </LinearLayout>
 
         <ImageView

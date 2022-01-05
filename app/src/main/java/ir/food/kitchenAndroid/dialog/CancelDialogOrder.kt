@@ -4,11 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.view.*
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.graphics.drawable.DrawableCompat
-import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.DialogCancelOrderBinding
 import ir.food.kitchenAndroid.helper.KeyBoardHelper
@@ -21,7 +17,14 @@ class CancelDialogOrder {
     lateinit var dialog: Dialog
     lateinit var binding: DialogCancelOrderBinding
 
-    fun show(orderId: String) {
+    interface CancelOrderDialog {
+        fun onSuccess(b: Boolean)
+    }
+
+    lateinit var listener: CancelOrderDialog
+
+
+    fun show(orderId: String, listener: CancelOrderDialog) {
         dialog = Dialog(MyApplication.currentActivity)
         dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
         binding = DialogCancelOrderBinding.inflate(LayoutInflater.from(MyApplication.context))
@@ -34,6 +37,8 @@ class CancelDialogOrder {
         dialog.window?.attributes = wlp
         dialog.setCancelable(true)
 
+        this.listener = listener
+
         binding.imgClose.setOnClickListener {
             MyApplication.handler.postDelayed({
                 dismiss()
@@ -41,56 +46,30 @@ class CancelDialogOrder {
             }, 200)
         }
 
-//        binding.btnCancelOrder.setOnClickListener {
-//
-//            binding.vfCancelOrder.displayedChild = 1
-//            CancelOrder().callCancelAPI(orderId, object : CancelOrder.CancelOrder {
-//                @SuppressLint("NotifyDataSetChanged")
-//                override fun onSuccess(b: Boolean) {
-//                    binding.vfCancelOrder.displayedChild = 0
-//                    if (b) {
-////                                holder.binding.btnDeliverLocation.visibility = View.GONE
-//                        holder.binding.vfCancelOrder.visibility = View.GONE
-//                        holder.binding.imgStatus.setImageResource(R.drawable.ic_close)
-//                        holder.binding.txtStatus.text = "لغو شده"
-//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                            val header =
-//                                AppCompatResources.getDrawable(
-//                                    MyApplication.context,
-//                                    R.drawable.bg_orders_header
-//                                )
-//                            holder.binding.llHeaderStatus.background = header
-//                            DrawableCompat.setTint(
-//                                header!!,
-//                                MyApplication.currentActivity.resources.getColor(R.color.canceled)
-//                            )
-//                        } else {
-//                            holder.binding.llHeaderStatus.setBackgroundColor(
-//                                MyApplication.currentActivity.resources.getColor(
-//                                    R.color.canceled
-//                                )
-//                            )
-//                        }
-//                        holder.binding.txtStatus.setTextColor(
-//                            MyApplication.currentActivity.resources.getColor(
-//                                R.color.white
-//                            )
-//                        )
-//                        holder.binding.txtTime.setTextColor(
-//                            MyApplication.currentActivity.resources.getColor(
-//                                R.color.white
-//                            )
-//                        )
-//                    } else {
-//                        GeneralDialog()
-//                            .message("مشکلی پیش آمده، لطفا مجدد امتحان کنید")
-//                            .firstButton("بستن") { GeneralDialog().dismiss() }
-//                            .cancelable(false)
-//                            .show()
-//                    }
-//                }
-//            })
-//        }
+        binding.btnCancelOrder.setOnClickListener {
+            
+            if(binding.edtReason.text.trim().isEmpty()){
+                binding.edtReason.error = "دلیل کنسلی را بنویسید"
+                return@setOnClickListener
+            }
+
+            GeneralDialog()
+                .message("ایا از لغو سفارش اطمینان دارید؟")
+                .firstButton("بله") {
+                    binding.vfCancelOrder.displayedChild = 1
+                    CancelOrder().callCancelAPI(orderId,binding.edtReason.text.trim().toString() , object : CancelOrder.CancelOrder {
+                        @SuppressLint("NotifyDataSetChanged")
+                        override fun onSuccess(b: Boolean) {
+                            binding.vfCancelOrder.displayedChild = 0
+                            listener.onSuccess(b)
+                            dismiss()
+                        }
+                    })
+                }
+                .secondButton("خیر") { }
+                .cancelable(false)
+                .show()
+        }
 
         dialog.show()
     }

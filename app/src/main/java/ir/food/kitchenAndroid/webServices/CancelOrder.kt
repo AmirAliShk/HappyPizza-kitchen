@@ -15,12 +15,12 @@ class CancelOrder {
 
     lateinit var listener: CancelOrder
 
-    fun callCancelAPI(orderId: String, listener: CancelOrder) {
+    fun callCancelAPI(orderId: String, reason:String, listener: CancelOrder) {
         this.listener = listener
         RequestHelper.builder(EndPoints.ORDER)
             .listener(cancelOrderCallBack)
             .addParam("orderId", orderId)
-            .addParam("reason", " ")
+            .addParam("reason",reason.trim())
             .delete()
     }
 
