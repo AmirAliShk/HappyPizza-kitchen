@@ -254,6 +254,18 @@
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btnDeliverLocation"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_blue"
+            android:text="@string/location_delivery"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_17sdp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
 </RelativeLayout>

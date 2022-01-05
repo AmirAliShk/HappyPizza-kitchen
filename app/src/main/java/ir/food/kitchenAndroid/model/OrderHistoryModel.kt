@@ -1,5 +1,6 @@
 package ir.food.kitchenAndroid.model
 
+import com.google.android.gms.maps.model.LatLng
 import org.json.JSONArray
 
 data class OrderHistoryModel(
@@ -13,5 +14,6 @@ data class OrderHistoryModel(
     val createdAt: String,
     val description: String,
     val deliverName: String,
-    val deliverMobile: String
+    val deliverMobile: String,
+    val location : LatLng
 )

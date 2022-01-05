@@ -12,7 +12,9 @@ import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ItemOrdersHistoryBinding
 import ir.food.kitchenAndroid.dialog.CallDialog
+import ir.food.kitchenAndroid.fragment.DeliverLocationFragment
 import ir.food.kitchenAndroid.helper.DateHelper
+import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.OrderHistoryModel
@@ -54,6 +56,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
         var color = R.color.canceled
         when (model.statusCode) {
             0 -> { // pending
+                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE
                 icon = R.drawable.ic_waiting
@@ -69,11 +72,10 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
                     )
                 )
             }
-            5 -> { // preparing, 6 waiting for checkout, 7 calculate
-                holder.binding.llDeliverName.visibility = View.GONE
-                holder.binding.imgCallDriver.visibility = View.GONE
-                icon = R.drawable.ic_chef
-                color = R.color.preparing
+            1 -> { // cancel
+                holder.binding.btnDeliverLocation.visibility = View.GONE
+                icon = R.drawable.ic_close
+                color = R.color.canceled
                 holder.binding.txtStatus.setTextColor(
                     MyApplication.currentActivity.resources.getColor(
                         R.color.white
@@ -86,6 +88,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
                 )
             }
             2 -> { // cooking
+                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE
                 icon = R.drawable.ic_coooking
@@ -102,6 +105,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
                 )
             }
             3 -> { // sending
+                holder.binding.btnDeliverLocation.visibility = View.VISIBLE
                 holder.binding.llDeliverName.visibility = View.VISIBLE
                 holder.binding.imgCallDriver.visibility = View.VISIBLE
                 icon = R.drawable.ic_delivery
@@ -117,21 +121,8 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
                     )
                 )
             }
-            1 -> { // cancel
-                icon = R.drawable.ic_close
-                color = R.color.canceled
-                holder.binding.txtStatus.setTextColor(
-                    MyApplication.currentActivity.resources.getColor(
-                        R.color.white
-                    )
-                )
-                holder.binding.txtTime.setTextColor(
-                    MyApplication.currentActivity.resources.getColor(
-                        R.color.white
-                    )
-                )
-            }
             4 -> { // finish
+                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.llDeliverName.visibility = View.VISIBLE
                 holder.binding.imgCallDriver.visibility = View.VISIBLE
                 icon = R.drawable.ic_round_done_24
@@ -147,6 +138,31 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
                     )
                 )
             }
+            5 -> { // preparing, 6 waiting for checkout, 7 calculate
+                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.llDeliverName.visibility = View.GONE
+                holder.binding.imgCallDriver.visibility = View.GONE
+                icon = R.drawable.ic_chef
+                color = R.color.preparing
+                holder.binding.txtStatus.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
+                holder.binding.txtTime.setTextColor(
+                    MyApplication.currentActivity.resources.getColor(
+                        R.color.white
+                    )
+                )
+            }
+        }
+
+        holder.binding.btnDeliverLocation.setOnClickListener {
+            FragmentHelper.toFragment(
+                MyApplication.currentActivity,
+                DeliverLocationFragment(model.location)
+            )
+                .add()
         }
 
         holder.binding.imgStatus.setImageResource(icon)

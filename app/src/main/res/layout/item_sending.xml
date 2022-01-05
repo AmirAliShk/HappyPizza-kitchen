@@ -312,7 +312,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_30sdp"
             android:orientation="horizontal">
 
             <ViewFlipper
@@ -345,8 +345,7 @@
             <Button
                 android:id="@+id/btnDeliverLocation"
                 android:layout_width="0dp"
-                android:visibility="gone"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_blue"

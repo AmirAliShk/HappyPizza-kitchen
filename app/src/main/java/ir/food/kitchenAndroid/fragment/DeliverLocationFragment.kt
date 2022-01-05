@@ -20,7 +20,7 @@ import ir.food.kitchenAndroid.helper.DateHelper
 import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 
-class DeliverLocationFragment(id: String, location: LatLng) : Fragment(),
+class DeliverLocationFragment(location: LatLng) : Fragment(),
     OnMapReadyCallback {
 
     lateinit var binding: FragmentDeliverLocationBinding

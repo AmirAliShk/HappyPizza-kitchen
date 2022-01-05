@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
+import com.google.android.gms.maps.model.LatLng
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.adapter.OrdersHistoryAdapter
 import ir.food.kitchenAndroid.app.EndPoints
@@ -43,12 +44,12 @@ class OrdersHistoryFragment : Fragment() {
 
         binding.imgRefreshFail.setOnClickListener { callList() }
 
-        binding.llRefresh.setOnClickListener {callList() }
+        binding.llRefresh.setOnClickListener { callList() }
 
         return binding.root
     }
 
-    private fun callList(){
+    private fun callList() {
         binding.imgRefreshActionBar.startAnimation(
             AnimationUtils.loadAnimation(
                 MyApplication.context,
@@ -128,7 +129,9 @@ class OrdersHistoryFragment : Fragment() {
                             orderDetails.getString("createdAt"),
                             orderDetails.getString("description"),
                             deliveryId.getString("family"),
-                            deliveryId.getString("mobile")
+                            deliveryId.getString("mobile"),
+                            LatLng(36.299067, 59.572335)
+//                        LatLng(orderDetails.getJSONObject("deliveryLocation").getDouble("lat"), orderDetails.getJSONObject("deliveryLocation").getDouble("lng")) //TODO uncomment this
                         )
                         readyOrdersModels.add(model)
                     } else {
@@ -143,7 +146,8 @@ class OrdersHistoryFragment : Fragment() {
                             orderDetails.getString("createdAt"),
                             orderDetails.getString("description"),
                             "0",
-                            "0"
+                            "0",
+                            LatLng(0.0, 0.0)
                         )
                         readyOrdersModels.add(model)
                     }
@@ -164,9 +168,9 @@ class OrdersHistoryFragment : Fragment() {
                 binding.vfHistory.displayedChild = 2
             }
         } catch (e: Exception) {
-        binding.vfHistory.displayedChild = 2
-        binding.imgRefreshActionBar.clearAnimation()
-        e.printStackTrace()
-    }
+            binding.vfHistory.displayedChild = 2
+            binding.imgRefreshActionBar.clearAnimation()
+            e.printStackTrace()
+        }
     }
 }

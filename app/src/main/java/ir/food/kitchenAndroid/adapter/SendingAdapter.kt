@@ -126,7 +126,7 @@ class SendingAdapter(list: ArrayList<SendingOrdersModel>) :
         holder.binding.btnDeliverLocation.setOnClickListener {
             FragmentHelper.toFragment(
                 MyApplication.currentActivity,
-                DeliverLocationFragment(orderId, model.location)
+                DeliverLocationFragment(model.location)
             )
                 .add()
         }
