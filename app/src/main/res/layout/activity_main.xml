@@ -214,7 +214,6 @@
             android:id="@+id/btnCheckoutDeli"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:visibility="gone"
             android:layout_marginHorizontal="@dimen/_40sdp"
             android:layout_marginBottom="@dimen/_17sdp"
             android:layout_weight="1"
@@ -226,7 +225,7 @@
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_32sdp"
                 android:layout_gravity="center"
-                android:padding="@dimen/_32sdp"
+                android:padding="@dimen/_3sdp"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:src="@drawable/ic_baseline_fact_check_24" />
 

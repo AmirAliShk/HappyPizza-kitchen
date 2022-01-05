@@ -24,6 +24,7 @@ class CheckoutDeliAdapter(list: ArrayList<CheckoutDeliModel>) :
     private val models = list
     var deliId = ""
     lateinit var viewFlipper: ViewFlipper
+    var pos = -1
 
     class ViewHolder(val binding: ItemCheckoutBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -31,7 +32,7 @@ class CheckoutDeliAdapter(list: ArrayList<CheckoutDeliModel>) :
         val binding = ItemCheckoutBinding.inflate(
             LayoutInflater.from(MyApplication.context), parent, false
         )
-        TypefaceUtil.overrideFonts(binding.root, MyApplication.IraSanSMedume)
+        TypefaceUtil.overrideFonts(binding.root, MyApplication.iranSance)
         return ViewHolder(binding)
     }
 
@@ -47,7 +48,7 @@ class CheckoutDeliAdapter(list: ArrayList<CheckoutDeliModel>) :
         holder.binding.btnCheckoutDeli.setOnClickListener {
             deliId = model.deliId
             viewFlipper = holder.binding.vfCheckout
-
+            pos=position
             GeneralDialog()
                 .message("آیا از تسویه پیک اطمینان دارید؟")
                 .firstButton("بله") { checkoutDeli() }
@@ -63,9 +64,9 @@ class CheckoutDeliAdapter(list: ArrayList<CheckoutDeliModel>) :
 
     private fun checkoutDeli() {
         viewFlipper.displayedChild = 1
-        RequestHelper.builder(EndPoints.CANCEL_DELIVER)
+        RequestHelper.builder(EndPoints.CHECKOUT_DELI)
             .listener(checkoutDeliCallBack)
-            .addPath(deliId)
+            .addParam("deliveryId", deliId)
             .put()
     }
 
@@ -79,7 +80,14 @@ class CheckoutDeliAdapter(list: ArrayList<CheckoutDeliModel>) :
                         val success = response.getBoolean("success")
                         val message = response.getString("message")
                         if (success) {
-
+                            GeneralDialog()
+                                .message(message)
+                                .firstButton("باشه") {
+                                    models.removeAt(pos)
+                                    notifyDataSetChanged()
+                                }
+                                .cancelable(false)
+                                .show()
                         } else {
                             GeneralDialog()
                                 .message(message)

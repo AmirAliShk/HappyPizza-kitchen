@@ -125,9 +125,9 @@
         <ViewFlipper
             android:id="@+id/vfCheckout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginVertical="@dimen/_5sdp"
             android:background="@drawable/bg_green"
             android:elevation="@dimen/_2sdp">
 

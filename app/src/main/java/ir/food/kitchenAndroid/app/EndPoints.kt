@@ -6,6 +6,7 @@ class EndPoints {
         const val IP = "http://happypizza.ir:3010"
         const val HAKWEYE_IP = "http://happypizza.ir:1890"
         const val WEBSERVICE_PATH = "$IP/api/kitchen/v1/"
+        const val CHECKOUT = "$IP/api/kitchen/v1/checkout/"
         const val DELI_PATH = "$IP/api/kitchen/v1/delivery/"
         const val HAWKEYE_PATH = "$HAKWEYE_IP/api/user/v1/"
         const val HAWKEYE_LOGIN_PATH = "$HAKWEYE_IP/api/user/v1/login/phone/"
@@ -27,6 +28,8 @@ class EndPoints {
         const val EDIT_PRODUCTS = WEBSERVICE_PATH + "product"
         const val GET_PRODUCTS_TYPE = WEBSERVICE_PATH + "product/type"
         const val DELI_FINANCIAL = DELI_PATH + "financial"
+        const val CHECKOUT_DELI = CHECKOUT + "delivery"
+
 
         /******************************** refresh token Api  *****************************************/
         const val REFRESH_TOKEN = HAWKEYE_PATH + "token"

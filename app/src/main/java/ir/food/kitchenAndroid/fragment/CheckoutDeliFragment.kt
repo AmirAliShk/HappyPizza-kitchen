@@ -57,25 +57,28 @@ class CheckoutDeliFragment : Fragment() {
                     val message = response.getString("message")
 
                     if (success) {
-                        val dataObject = response.getJSONArray("data")
-                        for (i in 0 until dataObject.length()) {
-                            val dataObj: JSONObject = dataObject.getJSONObject(i)
-                            val model = CheckoutDeliModel(
-                                dataObj.getString("id"),
-                                dataObj.getString("id"),
-                                dataObj.getString("id"),
-                                dataObj.getString("id"),
-                                dataObj.getString("id")
-                            )
-                            checkoutModels.add(model)
+                        val dataObject = response.getJSONObject("data")
+                        val status = dataObject.getBoolean("status")
+                        if (status) {
+                            val deliveryFinancial = dataObject.getJSONArray("deliveryFinancial")
+                            for (i in 0 until deliveryFinancial.length()) {
+                                val dataObj: JSONObject = deliveryFinancial.getJSONObject(i)
+                                val model = CheckoutDeliModel(
+                                    dataObj.getString("_id"),
+                                    dataObj.getString("name"),
+                                    dataObj.getString("totalSaleAmount"),
+                                    dataObj.getString("totalPaidOnline"),
+                                    dataObj.getString("totalRemainingAmount")
+                                )
+                                checkoutModels.add(model)
+                            }
+                            if (checkoutModels.size == 0) {
+                                binding.vfCheckout.displayedChild = 2
+                            } else {
+                                binding.vfCheckout.displayedChild = 1
+                                binding.listCheckout.adapter = adapter
+                            }
                         }
-                        if (checkoutModels.size == 0) {
-                            binding.vfCheckout.displayedChild = 2
-                        } else {
-                            binding.vfCheckout.displayedChild = 1
-                            binding.listCheckout.adapter = adapter
-                        }
-
                     } else {
                         binding.vfCheckout.displayedChild = 3
                         GeneralDialog()
