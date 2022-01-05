@@ -44,6 +44,7 @@
         <entry key="app/src/main/res/layout/bg_deli_location_btn.xml" value="0.3770833333333333" />
         <entry key="app/src/main/res/layout/cancelable_loder.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/dialog_call.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/dialog_cancel_order.xml" value="0.3770833333333333" />
         <entry key="app/src/main/res/layout/dialog_edit_products.xml" value="0.29791666666666666" />
         <entry key="app/src/main/res/layout/dialog_general.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/dialog_products.xml" value="0.3484375" />
