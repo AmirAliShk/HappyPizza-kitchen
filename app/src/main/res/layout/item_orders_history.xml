@@ -254,17 +254,53 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnDeliverLocation"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_blue"
-            android:text="@string/location_delivery"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_17sdp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ViewFlipper
+                android:id="@+id/vfCancelOrder"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/red"
+                android:elevation="@dimen/_2sdp">
+
+                <Button
+                    android:id="@+id/btnCancelOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="لغو سفارش"
+                    android:background="@color/transparent"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_17sdp" />
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    app:indicatorColor="@color/white" />
+
+            </ViewFlipper>
+
+
+            <Button
+                android:id="@+id/btnDeliverLocation"
+                android:layout_width="0dp"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_blue"
+                android:text="@string/location_delivery"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_17sdp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

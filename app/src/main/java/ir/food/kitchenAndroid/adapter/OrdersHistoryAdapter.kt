@@ -12,6 +12,7 @@ import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ItemOrdersHistoryBinding
 import ir.food.kitchenAndroid.dialog.CallDialog
+import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.fragment.DeliverLocationFragment
 import ir.food.kitchenAndroid.helper.DateHelper
 import ir.food.kitchenAndroid.helper.FragmentHelper
@@ -19,6 +20,7 @@ import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.OrderHistoryModel
 import ir.food.kitchenAndroid.model.CartModel
+import ir.food.kitchenAndroid.webServices.CancelOrder
 
 class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
     RecyclerView.Adapter<OrdersHistoryAdapter.ViewHolder>() {
@@ -56,7 +58,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
         var color = R.color.canceled
         when (model.statusCode) {
             0 -> { // pending
-                holder.binding.btnDeliverLocation.visibility = View.GONE
+//                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE
                 icon = R.drawable.ic_waiting
@@ -73,7 +75,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
                 )
             }
             1 -> { // cancel
-                holder.binding.btnDeliverLocation.visibility = View.GONE
+//                holder.binding.btnDeliverLocation.visibility = View.GONE
                 icon = R.drawable.ic_close
                 color = R.color.canceled
                 holder.binding.txtStatus.setTextColor(
@@ -88,7 +90,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
                 )
             }
             2 -> { // cooking
-                holder.binding.btnDeliverLocation.visibility = View.GONE
+//                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE
                 icon = R.drawable.ic_coooking
@@ -105,7 +107,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
                 )
             }
             3 -> { // sending
-                holder.binding.btnDeliverLocation.visibility = View.VISIBLE
+//                holder.binding.btnDeliverLocation.visibility = View.VISIBLE
                 holder.binding.llDeliverName.visibility = View.VISIBLE
                 holder.binding.imgCallDriver.visibility = View.VISIBLE
                 icon = R.drawable.ic_delivery
@@ -122,7 +124,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
                 )
             }
             4 -> { // finish
-                holder.binding.btnDeliverLocation.visibility = View.GONE
+//                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.llDeliverName.visibility = View.VISIBLE
                 holder.binding.imgCallDriver.visibility = View.VISIBLE
                 icon = R.drawable.ic_round_done_24
@@ -139,7 +141,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
                 )
             }
             5 -> { // preparing, 6 waiting for checkout, 7 calculate
-                holder.binding.btnDeliverLocation.visibility = View.GONE
+//                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE
                 icon = R.drawable.ic_chef
@@ -163,6 +165,60 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
                 DeliverLocationFragment(model.location)
             )
                 .add()
+        }
+
+        holder.binding.btnCancelOrder.setOnClickListener {
+            GeneralDialog()
+                .message("ایا از لغو سفارش اطمینان دارید؟")
+                .firstButton("بله") {
+                    holder.binding.vfCancelOrder.displayedChild = 1
+                    CancelOrder().callCancelAPI(model.id, object : CancelOrder.CancelOrder{
+                        @SuppressLint("NotifyDataSetChanged")
+                        override fun onSuccess(b: Boolean) {
+                            holder.binding.vfCancelOrder.displayedChild = 0
+                            if (b){
+//                                holder.binding.btnDeliverLocation.visibility = View.GONE
+                                holder.binding.vfCancelOrder.visibility=View.GONE
+                                holder.binding.imgStatus.setImageResource(R.drawable.ic_close)
+                                holder.binding.txtStatus.text = "لغو شده"
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    val header =
+                                        AppCompatResources.getDrawable(MyApplication.context, R.drawable.bg_orders_header)
+                                    holder.binding.llHeaderStatus.background = header
+                                    DrawableCompat.setTint(
+                                        header!!,
+                                        MyApplication.currentActivity.resources.getColor( R.color.canceled)
+                                    )
+                                } else {
+                                    holder.binding.llHeaderStatus.setBackgroundColor(
+                                        MyApplication.currentActivity.resources.getColor(
+                                            R.color.canceled
+                                        )
+                                    )
+                                }
+                                holder.binding.txtStatus.setTextColor(
+                                    MyApplication.currentActivity.resources.getColor(
+                                        R.color.white
+                                    )
+                                )
+                                holder.binding.txtTime.setTextColor(
+                                    MyApplication.currentActivity.resources.getColor(
+                                        R.color.white
+                                    )
+                                )
+                            }else{
+                                GeneralDialog()
+                                    .message("مشکلی پیش آمده، لطفا مجدد امتحان کنید")
+                                    .firstButton("بستن") { GeneralDialog().dismiss() }
+                                    .cancelable(false)
+                                    .show()
+                            }
+                        }
+                    })
+                }
+                .secondButton("خیر") { }
+                .cancelable(false)
+                .show()
         }
 
         holder.binding.imgStatus.setImageResource(icon)

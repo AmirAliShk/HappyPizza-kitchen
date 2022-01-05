@@ -25,6 +25,7 @@ import ir.food.kitchenAndroid.model.CartModel
 import ir.food.kitchenAndroid.model.ReadyOrdersModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.push.AvaCrashReporter
+import ir.food.kitchenAndroid.webServices.CancelOrder
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -95,6 +96,33 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
             }
         }
 
+        holder.binding.btnCancelOrder.setOnClickListener {
+            GeneralDialog()
+                .message("ایا از لغو سفارش اطمینان دارید؟")
+                .firstButton("بله") {
+                    holder.binding.vfCancelOrder.displayedChild = 1
+                    CancelOrder().callCancelAPI(model.id,object : CancelOrder.CancelOrder{
+                        @SuppressLint("NotifyDataSetChanged")
+                        override fun onSuccess(b: Boolean) {
+                            holder.binding.vfCancelOrder.displayedChild = 0
+                            if (b){
+                                models.removeAt(position)
+                                notifyDataSetChanged()
+                            }else{
+                                GeneralDialog()
+                                    .message("مشکلی پیش آمده، لطفا مجدد امتحان کنید")
+                                    .firstButton("بستن") { GeneralDialog().dismiss() }
+                                    .cancelable(false)
+                                    .show()
+                            }
+                        }
+                    })
+                }
+                .secondButton("خیر") { }
+                .cancelable(false)
+                .show()
+        }
+
         holder.binding.imgStatus.setImageResource(icon)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val header =
@@ -163,6 +191,7 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
                     } catch (e: JSONException) {
                         vfSetReady.displayedChild = 0
                         GeneralDialog()
+                            .message("مشکلی پیش آمده، لطفا مجدد امتحان کنید")
                             .firstButton("بستن") { GeneralDialog().dismiss() }
                             .secondButton("تلاش مجدد") { setPack() }
                             .cancelable(false)
