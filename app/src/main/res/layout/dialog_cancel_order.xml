@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:padding="@dimen/_8sdp"
-                    android:text="علت لغو را وارد کنید : "
+                    android:text="علت لغو سفارش را وارد کنید : "
                     android:textColor="@color/black"
                     android:textSize="17sp"
                     android:textStyle="bold" />

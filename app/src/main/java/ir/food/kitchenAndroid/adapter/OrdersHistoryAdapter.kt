@@ -54,6 +54,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
         holder.binding.txtAddress.text = model.address
         holder.binding.txtDescription.text = model.description
         holder.binding.txtDeliverName.text = model.deliverName
+        holder.binding.txtTotalPrice.text = StringHelper.setComma(model.total) + " تومان"
 
         var icon = R.drawable.ic_close
         var color = R.color.canceled

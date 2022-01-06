@@ -15,5 +15,6 @@ data class OrderHistoryModel(
     val description: String,
     val deliverName: String,
     val deliverMobile: String,
-    val location : LatLng
+    val location : LatLng,
+    val total : String
 )

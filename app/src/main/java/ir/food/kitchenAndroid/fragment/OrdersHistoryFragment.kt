@@ -130,7 +130,8 @@ class OrdersHistoryFragment : Fragment() {
                             orderDetails.getString("description"),
                             deliveryId.getString("family"),
                             deliveryId.getString("mobile"),
-                            LatLng(36.299067, 59.572335)
+                            LatLng(36.299067, 59.572335),
+                            orderDetails.getString("total")
 //                        LatLng(orderDetails.getJSONObject("deliveryLocation").getDouble("lat"), orderDetails.getJSONObject("deliveryLocation").getDouble("lng")) //TODO uncomment this
                         )
                         readyOrdersModels.add(model)
@@ -147,7 +148,8 @@ class OrdersHistoryFragment : Fragment() {
                             orderDetails.getString("description"),
                             "0",
                             "0",
-                            LatLng(0.0, 0.0)
+                            LatLng(0.0, 0.0),
+                            orderDetails.getString("total")
                         )
                         readyOrdersModels.add(model)
                     }
