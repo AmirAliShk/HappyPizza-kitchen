@@ -1,10 +1,12 @@
 package ir.food.kitchenAndroid.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.adapter.CartAdapter
@@ -22,6 +24,7 @@ import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.push.AvaCrashReporter
 import org.json.JSONException
 import org.json.JSONObject
+import java.text.SimpleDateFormat
 import java.util.*
 
 class NotReadyOrdersFragment : Fragment() {
@@ -281,7 +284,7 @@ class NotReadyOrdersFragment : Fragment() {
                     val description = cookOrder.getString("description")
                     val date = cookOrder.getString("createdAt")
 
-                    binding.txtAcceptTime.text = StringHelper.toPersianDigits(DateHelper.parseFormat(cookOrder.getString("chefAccepterOrderDate")))
+                    binding.txtAcceptTime.text = showDiff(cookOrder.getInt("chefAccepterOrderDate"))
                     binding.txtStationName.text = cookOrder.getJSONObject("station").getString("description")
                     binding.customerName.text = customerName
                     binding.registerTime.text = StringHelper.toPersianDigits(DateHelper.parseFormat(date))
@@ -303,6 +306,10 @@ class NotReadyOrdersFragment : Fragment() {
             binding.vfSetReady.displayedChild = 0
             e.printStackTrace()
         }
+    }
+
+    private fun showDiff(sec: Int): String {
+        return String.format(Locale("en_US"), "%02d:%02d", sec / 60, sec % 60)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
