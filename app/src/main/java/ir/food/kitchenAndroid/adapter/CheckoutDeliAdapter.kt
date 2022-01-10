@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ItemCheckoutBinding
-import ir.food.kitchenAndroid.databinding.ItemProductBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
@@ -48,7 +47,7 @@ class CheckoutDeliAdapter(list: ArrayList<CheckoutDeliModel>) :
         holder.binding.btnCheckoutDeli.setOnClickListener {
             deliId = model.deliId
             viewFlipper = holder.binding.vfCheckout
-            pos=position
+            pos = position
             GeneralDialog()
                 .message("آیا از تسویه پیک اطمینان دارید؟")
                 .firstButton("بله") { checkoutDeli() }
@@ -122,5 +121,4 @@ class CheckoutDeliAdapter(list: ArrayList<CheckoutDeliModel>) :
                 super.onFailure(reCall, e)
             }
         }
-
 }

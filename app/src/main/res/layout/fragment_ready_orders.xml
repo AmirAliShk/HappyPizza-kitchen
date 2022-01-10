@@ -51,8 +51,7 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/_18sdp"
-            android:visibility="gone" />
+            android:textSize="@dimen/_18sdp" />
 
         <ImageView
             android:id="@+id/imgBack"

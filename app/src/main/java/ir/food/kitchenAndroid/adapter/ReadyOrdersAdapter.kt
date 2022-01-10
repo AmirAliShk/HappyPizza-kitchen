@@ -3,7 +3,6 @@ package ir.food.kitchenAndroid.adapter
 import android.annotation.SuppressLint
 import android.os.Build
 import android.view.LayoutInflater
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
@@ -26,7 +25,6 @@ import ir.food.kitchenAndroid.model.CartModel
 import ir.food.kitchenAndroid.model.ReadyOrdersModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.push.AvaCrashReporter
-import ir.food.kitchenAndroid.webServices.CancelOrder
 import ir.food.kitchenAndroid.webServices.FinishOrder
 import org.json.JSONException
 import org.json.JSONObject
@@ -71,16 +69,13 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
                 DateHelper.parseFormat(model.createdAt)
             )
         holder.binding.txtAddress.text = model.address
-        holder.binding.txtDescription.text = model.description
-        holder.binding.txtDeliverName.text = model.deliverName
+        holder.binding.txtDescription.text = model.description + "\n" + model.systemDescription
         holder.binding.txtTotalPrice.text = StringHelper.setComma(model.totalPrice) + " تومان"
 
         var icon = R.drawable.ic_coooking
         var color = R.color.cooking
 
         if (model.statusCode == 2) {
-            holder.binding.llDeliverName.visibility = GONE
-            holder.binding.imgCallDriver.visibility = GONE
             icon = R.drawable.ic_coooking
             color = R.color.cooking
         }
@@ -172,7 +167,6 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
         holder.binding.orderList.adapter = adapter
 
         holder.binding.imgCall.setOnClickListener { CallDialog().show(model.customerMobile) }
-        holder.binding.imgCallDriver.setOnClickListener { CallDialog().show(model.deliverMobile) }
     }
 
     override fun getItemCount(): Int {

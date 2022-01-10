@@ -298,8 +298,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="لغو سفارش"
                     android:background="@color/transparent"
+                    android:text="لغو سفارش"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_17sdp" />
 
@@ -311,11 +311,9 @@
 
             </ViewFlipper>
 
-
             <Button
                 android:id="@+id/btnDeliverLocation"
                 android:layout_width="0dp"
-                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_weight="1"
@@ -323,7 +321,8 @@
                 android:text="@string/location_delivery"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_17sdp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
 
         </LinearLayout>
 

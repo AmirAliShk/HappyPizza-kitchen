@@ -21,7 +21,6 @@ import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.OrderHistoryModel
 import ir.food.kitchenAndroid.model.CartModel
-import ir.food.kitchenAndroid.webServices.CancelOrder
 
 class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
     RecyclerView.Adapter<OrdersHistoryAdapter.ViewHolder>() {
@@ -52,7 +51,7 @@ class OrdersHistoryAdapter(list: ArrayList<OrderHistoryModel>) :
                 DateHelper.parseFormat(model.createdAt)
             )
         holder.binding.txtAddress.text = model.address
-        holder.binding.txtDescription.text = model.description
+        holder.binding.txtDescription.text = model.description + "\n" + model.systemDescription
         holder.binding.txtDeliverName.text = model.deliverName
         holder.binding.txtTotalPrice.text = StringHelper.setComma(model.total) + " تومان"
 

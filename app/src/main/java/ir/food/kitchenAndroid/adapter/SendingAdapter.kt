@@ -3,19 +3,15 @@ package ir.food.kitchenAndroid.adapter
 import android.annotation.SuppressLint
 import android.os.Build
 import android.view.LayoutInflater
-import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ViewFlipper
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.maps.model.LatLng
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
-import ir.food.kitchenAndroid.databinding.ItemReadyOrdersBinding
 import ir.food.kitchenAndroid.databinding.ItemSendingBinding
 import ir.food.kitchenAndroid.dialog.CallDialog
 import ir.food.kitchenAndroid.dialog.CancelDialogOrder
@@ -29,7 +25,6 @@ import ir.food.kitchenAndroid.model.CartModel
 import ir.food.kitchenAndroid.model.SendingOrdersModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.push.AvaCrashReporter
-import ir.food.kitchenAndroid.webServices.CancelOrder
 import ir.food.kitchenAndroid.webServices.FinishOrder
 import org.json.JSONException
 import org.json.JSONObject
@@ -70,7 +65,7 @@ class SendingAdapter(list: ArrayList<SendingOrdersModel>) :
                 DateHelper.parseFormat(model.acceptTime)
             )
         holder.binding.txtAddress.text = model.address
-        holder.binding.txtDescription.text = model.description
+        holder.binding.txtDescription.text = model.description + "\n" + model.systemDescription
         holder.binding.txtDeliverName.text = model.deliverName
         holder.binding.txtTotalPrice.text = StringHelper.setComma(model.totalPrice) + " تومان"
 
@@ -131,14 +126,14 @@ class SendingAdapter(list: ArrayList<SendingOrdersModel>) :
                 .message("ایا از اتمام سفارش اطمینان دارید؟")
                 .firstButton("بله") {
                     holder.binding.vfFinishOrder.displayedChild = 1
-                    FinishOrder().callFinishAPI(model.id,object : FinishOrder.FinishOrder{
+                    FinishOrder().callFinishAPI(model.id, object : FinishOrder.FinishOrder {
                         @SuppressLint("NotifyDataSetChanged")
                         override fun onSuccess(b: Boolean) {
                             holder.binding.vfFinishOrder.displayedChild = 0
-                            if (b){
+                            if (b) {
                                 models.removeAt(position)
                                 notifyDataSetChanged()
-                            }else{
+                            } else {
                                 GeneralDialog()
                                     .message("مشکلی پیش آمده، لطفا مجدد امتحان کنید")
                                     .firstButton("بستن") { GeneralDialog().dismiss() }
@@ -152,7 +147,6 @@ class SendingAdapter(list: ArrayList<SendingOrdersModel>) :
                 .cancelable(false)
                 .show()
         }
-
 
         holder.binding.btnCancelOrder.setOnClickListener {
             CancelDialogOrder().show(model.id, object : CancelDialogOrder.CancelOrderDialog {

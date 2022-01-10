@@ -1,7 +1,6 @@
 package ir.food.kitchenAndroid.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +8,9 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.model.LatLng
 import ir.food.kitchenAndroid.R
-import ir.food.kitchenAndroid.adapter.ReadyOrdersAdapter
 import ir.food.kitchenAndroid.adapter.SendingAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
-import ir.food.kitchenAndroid.databinding.FragmentReadyOrdersBinding
 import ir.food.kitchenAndroid.databinding.FragmentSendingBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.TypefaceUtil
@@ -23,7 +20,6 @@ import ir.food.kitchenAndroid.push.AvaCrashReporter
 import org.json.JSONException
 import org.json.JSONObject
 import java.lang.Exception
-import java.util.*
 import kotlin.collections.ArrayList
 
 class SendingFragment : Fragment() {
@@ -46,16 +42,16 @@ class SendingFragment : Fragment() {
 
         callList()
 
-        binding.imgRefresh.setOnClickListener {callList()}
+        binding.imgRefresh.setOnClickListener { callList() }
 
-        binding.llRefresh.setOnClickListener {callList()}
+        binding.llRefresh.setOnClickListener { callList() }
 
-        binding.imgRefreshFail.setOnClickListener {callList()}
+        binding.imgRefreshFail.setOnClickListener { callList() }
 
         return binding.root
     }
 
-    private fun callList(){
+    private fun callList() {
         binding.imgRefreshActionBar.startAnimation(
             AnimationUtils.loadAnimation(
                 MyApplication.context,
@@ -76,7 +72,7 @@ class SendingFragment : Fragment() {
             MyApplication.handler.post {
                 binding.imgRefreshActionBar.clearAnimation()
                 try {
-                    parseDate(args[0].toString())
+                    parseData(args[0].toString())
                 } catch (e: JSONException) {
                     binding.vfOrdersPage.displayedChild = 2
                     GeneralDialog()
@@ -106,7 +102,7 @@ class SendingFragment : Fragment() {
         }
     }
 
-    private fun parseDate(result: String) {
+    private fun parseData(result: String) {
         try {
             readyOrdersModels.clear()
             response = result
@@ -122,8 +118,7 @@ class SendingFragment : Fragment() {
                     val orderDetails: JSONObject = dataObject.getJSONObject(i)
                     val customer = orderDetails.getJSONObject("customer")
                     val status = orderDetails.getJSONObject("status")
-//                binding.txtDeliveryCount?.text = orderDetails.getString("freeDeliver")
-//                if (orderDetails.has("deliveryId")) {
+
                     val deliveryId = orderDetails.getJSONObject("deliveryId")
                     val model = SendingOrdersModel(
                         orderDetails.getJSONArray("products"),
@@ -135,16 +130,16 @@ class SendingFragment : Fragment() {
                         status.getInt("status"),
                         orderDetails.getString("createdAt"),
                         orderDetails.getString("description"),
+                        orderDetails.getString("systemDescription"),
                         deliveryId.getString("family"),
                         deliveryId.getString("mobile"),
                         orderDetails.getBoolean("isPack"),
                         orderDetails.getString("total"),
                         orderDetails.getString("deliveryAcceptedTime"),
-                        LatLng(36.299067,59.572335)
+                        LatLng(36.299067, 59.572335)
 //                        LatLng(orderDetails.getJSONObject("deliveryLocation").getDouble("lat"), orderDetails.getJSONObject("deliveryLocation").getDouble("lng")) //TODO uncomment this BY SHOKO
                     )
                     readyOrdersModels.add(model)
-//                }
                 }
                 if (readyOrdersModels.size == 0) {
                     binding.vfOrdersPage.displayedChild = 1

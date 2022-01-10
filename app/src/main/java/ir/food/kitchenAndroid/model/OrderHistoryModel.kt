@@ -13,6 +13,7 @@ data class OrderHistoryModel(
     val statusCode: Int,
     val createdAt: String,
     val description: String,
+    val systemDescription: String,
     val deliverName: String,
     val deliverMobile: String,
     val location : LatLng,

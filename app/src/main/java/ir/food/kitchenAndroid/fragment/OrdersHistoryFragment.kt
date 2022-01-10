@@ -68,9 +68,9 @@ class OrdersHistoryFragment : Fragment() {
     private val historyCallBack: RequestHelper.Callback = object : RequestHelper.Callback() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
-                binding.imgRefreshActionBar?.clearAnimation()
+                binding.imgRefreshActionBar.clearAnimation()
                 try {
-                    parseDate(args[0].toString())
+                    parseData(args[0].toString())
                 } catch (e: JSONException) {
                     binding.vfHistory.displayedChild = 2
                     GeneralDialog()
@@ -100,7 +100,7 @@ class OrdersHistoryFragment : Fragment() {
         }
     }
 
-    private fun parseDate(result: String) {
+    private fun parseData(result: String) {
         try {
             response = result
             val response = JSONObject(result)
@@ -128,11 +128,12 @@ class OrdersHistoryFragment : Fragment() {
                             status.getInt("status"),
                             orderDetails.getString("createdAt"),
                             orderDetails.getString("description"),
+                            orderDetails.getString("systemDescription"),
                             deliveryId.getString("family"),
                             deliveryId.getString("mobile"),
                             LatLng(36.299067, 59.572335),
-                            orderDetails.getString("total")
 //                        LatLng(orderDetails.getJSONObject("deliveryLocation").getDouble("lat"), orderDetails.getJSONObject("deliveryLocation").getDouble("lng")) //TODO uncomment this
+                            orderDetails.getString("total")
                         )
                         readyOrdersModels.add(model)
                     } else {
@@ -146,6 +147,7 @@ class OrdersHistoryFragment : Fragment() {
                             status.getInt("status"),
                             orderDetails.getString("createdAt"),
                             orderDetails.getString("description"),
+                            orderDetails.getString("systemDescription"),
                             "0",
                             "0",
                             LatLng(0.0, 0.0),
