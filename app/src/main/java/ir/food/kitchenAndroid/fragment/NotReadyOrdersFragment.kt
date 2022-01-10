@@ -278,7 +278,22 @@ class NotReadyOrdersFragment : Fragment() {
                     val customer = cookOrder.getJSONObject("customer")
                     customerNum = customer.getString("mobile")
                     val customerName = customer.getString("family")
-                    val description = cookOrder.getString("description") + "\n" + cookOrder.getString("systemDescription")
+
+                    if (cookOrder.getString("description")
+                            .isNotEmpty() && cookOrder.getString("systemDescription").isNotEmpty()
+                    )
+                        binding.description.text =
+                            cookOrder.getString("description") + "\n" + cookOrder.getString("systemDescription")
+                    else if (cookOrder.getString("description").isNotEmpty() && cookOrder.getString(
+                            "systemDescription"
+                        ).isEmpty()
+                    )
+                        binding.description.text = cookOrder.getString("description")
+                    else if (cookOrder.getString("description")
+                            .isEmpty() && cookOrder.getString("systemDescription").isNotEmpty()
+                    )
+                        binding.description.text = cookOrder.getString("systemDescription")
+
                     val date = cookOrder.getString("createdAt")
 
                     binding.txtAcceptTime.text = showDiff(cookOrder.getInt("chefAccepterOrderDate"))
@@ -287,7 +302,6 @@ class NotReadyOrdersFragment : Fragment() {
                     binding.customerName.text = customerName
                     binding.registerTime.text =
                         StringHelper.toPersianDigits(DateHelper.parseFormat(date))
-                    binding.description.text = StringHelper.toPersianDigits(description)
                     binding.pendingNum.text = dataObject.getString("queueOrderCount")
                     binding.freeDeliver.text = dataObject.getString("freeDeliveryCount")
                 }

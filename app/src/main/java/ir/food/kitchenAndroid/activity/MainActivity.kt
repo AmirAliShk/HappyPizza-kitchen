@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnHistory.setOnClickListener {
             FragmentHelper
-                .toFragment(MyApplication.currentActivity, OrdersHistoryFragment())
+                .toFragment(MyApplication.currentActivity, AllOrdersFragment())
                 .add()
         }
 

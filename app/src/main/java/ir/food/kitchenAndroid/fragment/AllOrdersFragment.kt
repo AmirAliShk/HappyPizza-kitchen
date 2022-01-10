@@ -8,10 +8,10 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.model.LatLng
 import ir.food.kitchenAndroid.R
-import ir.food.kitchenAndroid.adapter.OrdersHistoryAdapter
+import ir.food.kitchenAndroid.adapter.AllOrdersAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
-import ir.food.kitchenAndroid.databinding.FragmentOrdersHistoryBinding
+import ir.food.kitchenAndroid.databinding.FragmentAllOrdersBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.OrderHistoryModel
@@ -21,19 +21,19 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.lang.Exception
 
-class OrdersHistoryFragment : Fragment() {
+class AllOrdersFragment : Fragment() {
 
-    lateinit var binding: FragmentOrdersHistoryBinding
+    lateinit var binding: FragmentAllOrdersBinding
     private lateinit var response: String
     var readyOrdersModels: ArrayList<OrderHistoryModel> = ArrayList()
-    var adapter: OrdersHistoryAdapter = OrdersHistoryAdapter(readyOrdersModels)
+    var adapterAll: AllOrdersAdapter = AllOrdersAdapter(readyOrdersModels)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentOrdersHistoryBinding.inflate(layoutInflater)
+        binding = FragmentAllOrdersBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
         binding.txtTitle.typeface = MyApplication.IraSanSMedume
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
@@ -148,8 +148,8 @@ class OrdersHistoryFragment : Fragment() {
                             orderDetails.getString("createdAt"),
                             orderDetails.getString("description"),
                             orderDetails.getString("systemDescription"),
-                            "0",
-                            "0",
+                            "",
+                            "",
                             LatLng(0.0, 0.0),
                             orderDetails.getString("total")
                         )
@@ -161,7 +161,7 @@ class OrdersHistoryFragment : Fragment() {
                 } else {
                     binding.vfHistory.displayedChild = 0
                 }
-                binding.historyList.adapter = adapter
+                binding.historyList.adapter = adapterAll
             } else {
                 GeneralDialog()
                     .message(message)

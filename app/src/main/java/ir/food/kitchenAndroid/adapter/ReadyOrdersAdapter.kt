@@ -69,7 +69,14 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
                 DateHelper.parseFormat(model.createdAt)
             )
         holder.binding.txtAddress.text = model.address
-        holder.binding.txtDescription.text = model.description + "\n" + model.systemDescription
+
+        if (model.description.isNotEmpty() && model.systemDescription.isNotEmpty())
+            holder.binding.txtDescription.text = model.description + "\n" + model.systemDescription
+        else if (model.description.isNotEmpty() && model.systemDescription.isEmpty())
+            holder.binding.txtDescription.text = model.description
+        else if (model.description.isEmpty() && model.systemDescription.isNotEmpty())
+            holder.binding.txtDescription.text = model.systemDescription
+
         holder.binding.txtTotalPrice.text = StringHelper.setComma(model.totalPrice) + " تومان"
 
         var icon = R.drawable.ic_coooking
