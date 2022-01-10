@@ -19,6 +19,7 @@
         <entry key="app/src/main/res/drawable/ic_call.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_call_answer.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_chef.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_chef_black.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/drawable/ic_chef_happy_pizza.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_close.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_coooking.xml" value="0.209375" />
@@ -39,7 +40,7 @@
         <entry key="app/src/main/res/drawable/ic_waiting_blach.xml" value="0.196875" />
         <entry key="app/src/main/res/drawable/pale_red.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/redd.xml" value="0.35625" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22037037037037038" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3484375" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3484375" />
         <entry key="app/src/main/res/layout/bg_deli_location_btn.xml" value="0.3770833333333333" />
         <entry key="app/src/main/res/layout/cancelable_loder.xml" value="0.19322916666666667" />

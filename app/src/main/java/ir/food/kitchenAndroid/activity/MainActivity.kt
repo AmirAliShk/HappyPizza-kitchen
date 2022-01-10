@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                 ContextCompat.getColor(MyApplication.context, R.color.background)
             window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
-
+        binding.txtAccName?.text = MyApplication.prefManager.userName
         binding.btnNotReady.setOnClickListener {
             FragmentHelper
                 .toFragment(MyApplication.currentActivity, NotReadyOrdersFragment())
@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            AvaCrashReporter.send(e, "MainActivity class, onBackPressed method")
+            AvaCrashReporter.send(e, "$TAG class, onBackPressed method")
         }
     }
 
