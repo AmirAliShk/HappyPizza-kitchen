@@ -2,12 +2,14 @@ package ir.food.kitchenAndroid.adapter
 
 import android.annotation.SuppressLint
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.model.LatLng
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ItemAllOrdersBinding
@@ -29,6 +31,7 @@ class AllOrdersAdapter(list: ArrayList<OrderHistoryModel>) :
 
     lateinit var cartModels: ArrayList<CartModel>
     lateinit var adapter: CartAdapter
+    var pos = -1
 
     class ViewHolder(val binding: ItemAllOrdersBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -217,10 +220,28 @@ class AllOrdersAdapter(list: ArrayList<OrderHistoryModel>) :
         }
 
         holder.binding.btnCancelOrder.setOnClickListener {
+            pos = holder.adapterPosition
+            Log.i("TAG", "onBindViewHolder: $pos")
             CancelDialogOrder().show(model.id, object : CancelDialogOrder.CancelOrderDialog {
                 override fun onSuccess(b: Boolean) {
                     if (b) {
-                        models.removeAt(holder.adapterPosition)
+                        val newModel = OrderHistoryModel(
+                            models[pos].products,
+                            models[pos].id,
+                            models[pos].customerMobile,
+                            models[pos].customerFamily,
+                            models[pos].address,
+                            "لغو شده",
+                            1,
+                            models[pos].createdAt,
+                            models[pos].description,
+                            models[pos].systemDescription,
+                            models[pos].deliverName,
+                            models[pos].deliverMobile,
+                            models[pos].location,
+                            models[pos].total
+                        )
+                        models[pos] = newModel
                         notifyDataSetChanged()
                     } else {
                         GeneralDialog()

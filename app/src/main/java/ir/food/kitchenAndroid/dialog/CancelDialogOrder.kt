@@ -61,8 +61,8 @@ class CancelDialogOrder {
                         @SuppressLint("NotifyDataSetChanged")
                         override fun onSuccess(b: Boolean) {
                             binding.vfCancelOrder.displayedChild = 0
-                            listener.onSuccess(b)
                             dismiss()
+                            listener.onSuccess(b)
                         }
                     })
                 }
