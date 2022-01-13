@@ -69,7 +69,7 @@ class AllOrdersAdapter(list: ArrayList<OrderHistoryModel>) :
         var color = R.color.canceled
         when (model.statusCode) {
             0 -> { // pending
-//                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.vfCancelOrder.visibility = View.VISIBLE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE
@@ -87,7 +87,7 @@ class AllOrdersAdapter(list: ArrayList<OrderHistoryModel>) :
                 )
             }
             1 -> { // cancel
-//                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.vfCancelOrder.visibility = View.GONE
                 icon = R.drawable.ic_close
                 color = R.color.canceled
@@ -103,7 +103,7 @@ class AllOrdersAdapter(list: ArrayList<OrderHistoryModel>) :
                 )
             }
             2 -> { // cooking
-//                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.vfCancelOrder.visibility = View.VISIBLE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE
@@ -121,7 +121,7 @@ class AllOrdersAdapter(list: ArrayList<OrderHistoryModel>) :
                 )
             }
             3 -> { // sending
-//                holder.binding.btnDeliverLocation.visibility = View.VISIBLE
+                holder.binding.btnDeliverLocation.visibility = View.VISIBLE
                 holder.binding.vfCancelOrder.visibility = View.VISIBLE
                 holder.binding.llDeliverName.visibility = View.VISIBLE
                 holder.binding.imgCallDriver.visibility = View.VISIBLE
@@ -139,7 +139,7 @@ class AllOrdersAdapter(list: ArrayList<OrderHistoryModel>) :
                 )
             }
             4 -> { // finish
-//                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.vfCancelOrder.visibility = View.VISIBLE
                 holder.binding.llDeliverName.visibility = View.VISIBLE
                 holder.binding.imgCallDriver.visibility = View.VISIBLE
@@ -157,7 +157,7 @@ class AllOrdersAdapter(list: ArrayList<OrderHistoryModel>) :
                 )
             }
             5 -> { // preparing
-//                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.vfCancelOrder.visibility = View.VISIBLE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE
@@ -175,7 +175,7 @@ class AllOrdersAdapter(list: ArrayList<OrderHistoryModel>) :
                 )
             }
             6 -> { // 6 waiting for pay
-//                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE
                 icon = R.drawable.ic_refresh_white
@@ -192,7 +192,7 @@ class AllOrdersAdapter(list: ArrayList<OrderHistoryModel>) :
                 )
             }
             7 -> { //  7 calculated
-//                holder.binding.btnDeliverLocation.visibility = View.GONE
+                holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.vfCancelOrder.visibility = View.GONE
                 holder.binding.llDeliverName.visibility = View.GONE
                 holder.binding.imgCallDriver.visibility = View.GONE

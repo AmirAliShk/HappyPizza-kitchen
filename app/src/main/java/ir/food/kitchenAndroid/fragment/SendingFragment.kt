@@ -119,6 +119,10 @@ class SendingFragment : Fragment() {
                     val customer = orderDetails.getJSONObject("customer")
                     val status = orderDetails.getJSONObject("status")
 
+                    val latlng =
+                        orderDetails.getJSONObject("deliveryId").getJSONObject("lastLocation")
+                            .getJSONArray("geo")
+
                     val deliveryId = orderDetails.getJSONObject("deliveryId")
                     val model = SendingOrdersModel(
                         orderDetails.getJSONArray("products"),
@@ -136,8 +140,7 @@ class SendingFragment : Fragment() {
                         orderDetails.getBoolean("isPack"),
                         orderDetails.getString("total"),
                         orderDetails.getString("deliveryAcceptedTime"),
-                        LatLng(36.299067, 59.572335)
-//                        LatLng(orderDetails.getJSONObject("deliveryLocation").getDouble("lat"), orderDetails.getJSONObject("deliveryLocation").getDouble("lng")) //TODO uncomment this BY SHOKO
+                        LatLng(latlng.getDouble(1), latlng.getDouble(0))
                     )
                     readyOrdersModels.add(model)
                 }

@@ -321,8 +321,7 @@
                 android:text="@string/location_delivery"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_17sdp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                android:textStyle="bold" />
 
         </LinearLayout>
 

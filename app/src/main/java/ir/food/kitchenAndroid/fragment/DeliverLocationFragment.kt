@@ -137,7 +137,6 @@ class DeliverLocationFragment(location: LatLng) : Fragment(),
         myLocationMarker = myGoogleMap.addMarker(
             MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-//                      .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                 .position(latlng)
         )
     }

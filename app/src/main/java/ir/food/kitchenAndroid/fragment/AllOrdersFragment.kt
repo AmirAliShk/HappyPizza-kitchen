@@ -1,6 +1,7 @@
 package ir.food.kitchenAndroid.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,10 +57,10 @@ class AllOrdersFragment : Fragment() {
                 R.anim.rotate
             )
         )
-        getHistory()
+        getAllOrders()
     }
 
-    private fun getHistory() {
+    private fun getAllOrders() {
         RequestHelper.builder(EndPoints.HISTORY)
             .listener(historyCallBack)
             .get()
@@ -76,7 +77,7 @@ class AllOrdersFragment : Fragment() {
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .firstButton("بستن") { GeneralDialog().dismiss() }
-                        .secondButton("تلاش مجدد") { getHistory() }
+                        .secondButton("تلاش مجدد") { getAllOrders() }
                         .cancelable(false)
                         .show()
                     e.printStackTrace()
@@ -92,7 +93,7 @@ class AllOrdersFragment : Fragment() {
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
                     .firstButton("بستن") { GeneralDialog().dismiss() }
-                    .secondButton("تلاش مجدد") { getHistory() }
+                    .secondButton("تلاش مجدد") { getAllOrders() }
                     .cancelable(false)
                     .show()
             }
@@ -119,6 +120,10 @@ class AllOrdersFragment : Fragment() {
 
                     if (orderDetails.has("deliveryId")) {
                         val deliveryId = orderDetails.getJSONObject("deliveryId")
+
+                        val latlng = deliveryId.getJSONObject("lastLocation")
+                            .getJSONArray("geo")
+
                         val model = OrderHistoryModel(
                             orderDetails.getJSONArray("products"),
                             orderDetails.getString("_id"),
@@ -132,8 +137,7 @@ class AllOrdersFragment : Fragment() {
                             orderDetails.getString("systemDescription"),
                             deliveryId.getString("family"),
                             deliveryId.getString("mobile"),
-                            LatLng(36.299067, 59.572335),
-//                        LatLng(orderDetails.getJSONObject("deliveryLocation").getDouble("lat"), orderDetails.getJSONObject("deliveryLocation").getDouble("lng")) //TODO uncomment this
+                            LatLng(latlng.getDouble(1), latlng.getDouble(0)),
                             orderDetails.getString("total")
                         )
                         readyOrdersModels.add(model)
@@ -167,7 +171,7 @@ class AllOrdersFragment : Fragment() {
                 GeneralDialog()
                     .message(message)
                     .firstButton("بستن") { GeneralDialog().dismiss() }
-                    .secondButton("تلاش مجدد") { getHistory() }
+                    .secondButton("تلاش مجدد") { getAllOrders() }
                     .cancelable(false)
                     .show()
                 binding.vfHistory.displayedChild = 2
