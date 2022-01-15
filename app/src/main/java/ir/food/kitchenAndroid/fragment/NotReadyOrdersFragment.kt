@@ -293,6 +293,10 @@ class NotReadyOrdersFragment : Fragment() {
                             .isEmpty() && cookOrder.getString("systemDescription").isNotEmpty()
                     )
                         binding.description.text = cookOrder.getString("systemDescription")
+                    else if (cookOrder.getString("description")
+                            .isEmpty() && cookOrder.getString("systemDescription").isEmpty()
+                    )
+                        binding.description.text = ""
 
                     val date = cookOrder.getString("createdAt")
 

@@ -76,6 +76,8 @@ class ReadyOrdersAdapter(list: ArrayList<ReadyOrdersModel>) :
             holder.binding.txtDescription.text = model.description
         else if (model.description.isEmpty() && model.systemDescription.isNotEmpty())
             holder.binding.txtDescription.text = model.systemDescription
+        else if (model.description.isEmpty() && model.systemDescription.isEmpty())
+            holder.binding.txtDescription.text = ""
 
         holder.binding.txtTotalPrice.text = StringHelper.setComma(model.totalPrice) + " تومان"
 
