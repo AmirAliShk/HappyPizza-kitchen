@@ -66,7 +66,6 @@
 
         </LinearLayout>
 
-
     </LinearLayout>
 
     <LinearLayout
@@ -83,7 +82,8 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -95,10 +95,10 @@
             <LinearLayout
                 android:id="@+id/btnNotReady"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:background="@drawable/stroke_red"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:padding="@dimen/_10sdp">
 
@@ -125,10 +125,10 @@
             <LinearLayout
                 android:id="@+id/btnReady"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:background="@drawable/stroke_red"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:padding="@dimen/_10sdp">
 
@@ -162,7 +162,8 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <View
@@ -173,7 +174,7 @@
             <LinearLayout
                 android:id="@+id/btnSending"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/stroke_red"
                 android:gravity="center"
@@ -203,7 +204,7 @@
             <LinearLayout
                 android:id="@+id/btnHistory"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/stroke_red"
                 android:gravity="center"
@@ -240,7 +241,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <View
@@ -251,10 +253,10 @@
             <LinearLayout
                 android:id="@+id/btnProductsList"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:background="@drawable/stroke_red"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:padding="@dimen/_10sdp">
 
@@ -267,8 +269,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="موجودی محصول ها"
                     android:gravity="center"
+                    android:text="موجودی محصول ها"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/_12sdp"
                     android:textStyle="bold" />
@@ -283,10 +285,10 @@
             <LinearLayout
                 android:id="@+id/btnCheckoutDeli"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:background="@drawable/stroke_red"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:padding="@dimen/_10sdp">
 
@@ -299,10 +301,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="تسویه حساب با پیک"
                     android:textColor="@color/darkGray"
                     android:textSize="@dimen/_12sdp"
-                    android:gravity="center"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -321,13 +323,20 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
             android:gravity="center"
             android:orientation="horizontal">
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.75" />
+
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:background="@drawable/stroke_red"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -348,6 +357,11 @@
                     android:textStyle="bold" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.75" />
 
         </LinearLayout>
 
