@@ -29,11 +29,43 @@
             android:src="@drawable/ic_menu"
             android:visibility="gone" />
 
-        <ImageView
-            android:layout_width="@dimen/_190sdp"
-            android:layout_height="@dimen/_30sdp"
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/_60sdp"
-            android:src="@drawable/ic_happy_pizza" />
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="left"
+                android:src="@drawable/ic_happy_pizza" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:src="@drawable/ic_chef" />
+
+                <TextView
+                    android:id="@+id/txtAccName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sdp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
@@ -43,29 +75,6 @@
         android:background="@drawable/pichi"
         android:gravity="center"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:orientation="horizontal"
-            android:paddingRight="@dimen/_50sdp">
-
-            <ImageView
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:src="@drawable/ic_chef_black" />
-
-            <TextView
-                android:id="@+id/txtAccName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_20sdp" />
-
-        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -167,6 +176,40 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnStatusOfCouriers"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/_40sdp"
+            android:layout_marginBottom="@dimen/_17sdp"
+            android:layout_weight="1"
+            android:background="@drawable/stroke_red"
+            android:elevation="@dimen/_2sdp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:padding="@dimen/_2sdp"
+                android:src="@drawable/ic_couriers" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|right"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/_10sdp"
+                android:text="وضعیت پیک ها"
+                android:textColor="@color/darkGray"
+                android:textSize="@dimen/_20sdp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/btnHistory"
