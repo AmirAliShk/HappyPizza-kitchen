@@ -42,18 +42,6 @@
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtDeliveryCount"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="match_parent"
-            android:layout_alignLeft="@id/imgBack"
-            android:layout_alignRight="@id/txtTitle"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_18sdp"
-            android:visibility="gone" />
-
         <ImageView
             android:id="@+id/imgBack"
             android:layout_width="@dimen/_50sdp"

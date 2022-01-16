@@ -23,7 +23,7 @@
             android:layout_margin="@dimen/_7sdp"
             android:layout_weight="0.2"
             android:orientation="horizontal"
-            android:visibility="invisible">
+            android:visibility="visible">
 
             <ImageView
                 android:layout_width="@dimen/_20sdp"

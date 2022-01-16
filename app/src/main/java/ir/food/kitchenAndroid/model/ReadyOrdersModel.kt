@@ -12,8 +12,7 @@ data class ReadyOrdersModel(
     val statusCode: Int,
     val createdAt: String,
     val description: String,
-    val deliverName: String,
-    val deliverMobile: String,
+    val systemDescription: String,
     val isPacked: Boolean,
     val totalPrice: String
 )

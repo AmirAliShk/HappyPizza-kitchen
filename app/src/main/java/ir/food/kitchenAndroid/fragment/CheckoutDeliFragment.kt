@@ -30,7 +30,7 @@ class CheckoutDeliFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCheckoutDeliBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
@@ -116,5 +116,4 @@ class CheckoutDeliFragment : Fragment() {
             super.onFailure(reCall, e)
         }
     }
-
 }

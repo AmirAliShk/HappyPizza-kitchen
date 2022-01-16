@@ -1,6 +1,7 @@
 package ir.food.kitchenAndroid.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +9,10 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.model.LatLng
 import ir.food.kitchenAndroid.R
-import ir.food.kitchenAndroid.adapter.OrdersHistoryAdapter
+import ir.food.kitchenAndroid.adapter.AllOrdersAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
-import ir.food.kitchenAndroid.databinding.FragmentOrdersHistoryBinding
+import ir.food.kitchenAndroid.databinding.FragmentAllOrdersBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.OrderHistoryModel
@@ -21,19 +22,19 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.lang.Exception
 
-class OrdersHistoryFragment : Fragment() {
+class AllOrdersFragment : Fragment() {
 
-    lateinit var binding: FragmentOrdersHistoryBinding
+    lateinit var binding: FragmentAllOrdersBinding
     private lateinit var response: String
     var readyOrdersModels: ArrayList<OrderHistoryModel> = ArrayList()
-    var adapter: OrdersHistoryAdapter = OrdersHistoryAdapter(readyOrdersModels)
+    var adapterAll: AllOrdersAdapter = AllOrdersAdapter(readyOrdersModels)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentOrdersHistoryBinding.inflate(layoutInflater)
+        binding = FragmentAllOrdersBinding.inflate(layoutInflater)
         TypefaceUtil.overrideFonts(binding.root)
         binding.txtTitle.typeface = MyApplication.IraSanSMedume
         binding.imgBack.setOnClickListener { MyApplication.currentActivity.onBackPressed() }
@@ -56,10 +57,10 @@ class OrdersHistoryFragment : Fragment() {
                 R.anim.rotate
             )
         )
-        getHistory()
+        getAllOrders()
     }
 
-    private fun getHistory() {
+    private fun getAllOrders() {
         RequestHelper.builder(EndPoints.HISTORY)
             .listener(historyCallBack)
             .get()
@@ -68,15 +69,15 @@ class OrdersHistoryFragment : Fragment() {
     private val historyCallBack: RequestHelper.Callback = object : RequestHelper.Callback() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
-                binding.imgRefreshActionBar?.clearAnimation()
+                binding.imgRefreshActionBar.clearAnimation()
                 try {
-                    parseDate(args[0].toString())
+                    parseData(args[0].toString())
                 } catch (e: JSONException) {
                     binding.vfHistory.displayedChild = 2
                     GeneralDialog()
                         .message("خطایی پیش آمده دوباره امتحان کنید.")
                         .firstButton("بستن") { GeneralDialog().dismiss() }
-                        .secondButton("تلاش مجدد") { getHistory() }
+                        .secondButton("تلاش مجدد") { getAllOrders() }
                         .cancelable(false)
                         .show()
                     e.printStackTrace()
@@ -92,7 +93,7 @@ class OrdersHistoryFragment : Fragment() {
                 GeneralDialog()
                     .message("خطایی پیش آمده دوباره امتحان کنید.")
                     .firstButton("بستن") { GeneralDialog().dismiss() }
-                    .secondButton("تلاش مجدد") { getHistory() }
+                    .secondButton("تلاش مجدد") { getAllOrders() }
                     .cancelable(false)
                     .show()
             }
@@ -100,8 +101,9 @@ class OrdersHistoryFragment : Fragment() {
         }
     }
 
-    private fun parseDate(result: String) {
+    private fun parseData(result: String) {
         try {
+            readyOrdersModels.clear()
             response = result
             val response = JSONObject(result)
 // {"success":true,"message":"سفارشات با موفقیت ارسال شد","data":[{"products":[{"name":"مرغ و قارچ","quantity":1}],"_id":"61092c9e4af8121f58108d97","customer":{"mobile":"09105044033","family":"محمد جواد حیدری"},"address":"راهنمایی 24","status":{"name":"در حال پخت","status":2},"createdAt":"2021-08-03T11:46:38.117Z"},{"products":[{"name":"مرغ و قارچ","quantity":1},{"name":"سس کچاپ","quantity":2}],"_id":"61092c9e4af8121f58108d98","customer":{"mobile":"09105044033","family":"محمد جواد حیدری"},"address":"راهنمایی 24","status":{"name":"در حال پخت","status":2},"createdAt":"2021-08-03T11:46:38.117Z"}]}
@@ -118,6 +120,10 @@ class OrdersHistoryFragment : Fragment() {
 
                     if (orderDetails.has("deliveryId")) {
                         val deliveryId = orderDetails.getJSONObject("deliveryId")
+
+                        val latlng = deliveryId.getJSONObject("lastLocation")
+                            .getJSONArray("geo")
+
                         val model = OrderHistoryModel(
                             orderDetails.getJSONArray("products"),
                             orderDetails.getString("_id"),
@@ -128,11 +134,11 @@ class OrdersHistoryFragment : Fragment() {
                             status.getInt("status"),
                             orderDetails.getString("createdAt"),
                             orderDetails.getString("description"),
+                            orderDetails.getString("systemDescription"),
                             deliveryId.getString("family"),
                             deliveryId.getString("mobile"),
-                            LatLng(36.299067, 59.572335),
+                            LatLng(latlng.getDouble(1), latlng.getDouble(0)),
                             orderDetails.getString("total")
-//                        LatLng(orderDetails.getJSONObject("deliveryLocation").getDouble("lat"), orderDetails.getJSONObject("deliveryLocation").getDouble("lng")) //TODO uncomment this
                         )
                         readyOrdersModels.add(model)
                     } else {
@@ -146,8 +152,9 @@ class OrdersHistoryFragment : Fragment() {
                             status.getInt("status"),
                             orderDetails.getString("createdAt"),
                             orderDetails.getString("description"),
-                            "0",
-                            "0",
+                            orderDetails.getString("systemDescription"),
+                            "",
+                            "",
                             LatLng(0.0, 0.0),
                             orderDetails.getString("total")
                         )
@@ -159,12 +166,12 @@ class OrdersHistoryFragment : Fragment() {
                 } else {
                     binding.vfHistory.displayedChild = 0
                 }
-                binding.historyList.adapter = adapter
+                binding.historyList.adapter = adapterAll
             } else {
                 GeneralDialog()
                     .message(message)
                     .firstButton("بستن") { GeneralDialog().dismiss() }
-                    .secondButton("تلاش مجدد") { getHistory() }
+                    .secondButton("تلاش مجدد") { getAllOrders() }
                     .cancelable(false)
                     .show()
                 binding.vfHistory.displayedChild = 2

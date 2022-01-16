@@ -86,6 +86,7 @@ class GetAppInfo {
                                 MyApplication.prefManager.pushId = data.getInt("pushId")
                                 MyApplication.prefManager.userCode = data.getString("userId")
                                 MyApplication.prefManager.pushToken = data.getString("pushToken")
+                                MyApplication.prefManager.userName = data.getString("family")
                                 val updateAvailable = data.getBoolean("update")
                                 val forceUpdate = data.getBoolean("isForce")
                                 val updateUrl = data.getString("updateUrl")

@@ -1,12 +1,10 @@
 package ir.food.kitchenAndroid.fragment
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.adapter.CartAdapter
@@ -24,7 +22,6 @@ import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.push.AvaCrashReporter
 import org.json.JSONException
 import org.json.JSONObject
-import java.text.SimpleDateFormat
 import java.util.*
 
 class NotReadyOrdersFragment : Fragment() {
@@ -51,7 +48,7 @@ class NotReadyOrdersFragment : Fragment() {
 
         if (savedInstanceState != null) {
             response = savedInstanceState.getString(KEY_ORDER).toString()
-            parseDate(response)
+            parseData(response)
         }
         timer = Timer()
         if (MyApplication.prefManager.activeInQueue) {
@@ -135,7 +132,7 @@ class NotReadyOrdersFragment : Fragment() {
             override fun onResponse(reCall: Runnable?, vararg args: Any?) {
                 MyApplication.handler.post {
                     try {
-                        parseDate(args[0].toString())
+                        parseData(args[0].toString())
                     } catch (e: JSONException) {
                         binding.vfOrders.displayedChild = 4
                         GeneralDialog()
@@ -242,7 +239,7 @@ class NotReadyOrdersFragment : Fragment() {
         }
     }
 
-    private fun parseDate(result: String) {
+    private fun parseData(result: String) {
         try {
             response = result
             val response = JSONObject(result)
@@ -281,16 +278,36 @@ class NotReadyOrdersFragment : Fragment() {
                     val customer = cookOrder.getJSONObject("customer")
                     customerNum = customer.getString("mobile")
                     val customerName = customer.getString("family")
-                    val description = cookOrder.getString("description")
+
+                    if (cookOrder.getString("description")
+                            .isNotEmpty() && cookOrder.getString("systemDescription").isNotEmpty()
+                    )
+                        binding.description.text =
+                            cookOrder.getString("description") + "\n" + cookOrder.getString("systemDescription")
+                    else if (cookOrder.getString("description").isNotEmpty() && cookOrder.getString(
+                            "systemDescription"
+                        ).isEmpty()
+                    )
+                        binding.description.text = cookOrder.getString("description")
+                    else if (cookOrder.getString("description")
+                            .isEmpty() && cookOrder.getString("systemDescription").isNotEmpty()
+                    )
+                        binding.description.text = cookOrder.getString("systemDescription")
+                    else if (cookOrder.getString("description")
+                            .isEmpty() && cookOrder.getString("systemDescription").isEmpty()
+                    )
+                        binding.description.text = ""
+
                     val date = cookOrder.getString("createdAt")
 
                     binding.txtAcceptTime.text = showDiff(cookOrder.getInt("chefAccepterOrderDate"))
-                    binding.txtStationName.text = cookOrder.getJSONObject("station").getString("description")
+                    binding.txtStationName.text =
+                        cookOrder.getJSONObject("station").getString("description")
                     binding.customerName.text = customerName
-                    binding.registerTime.text = StringHelper.toPersianDigits(DateHelper.parseFormat(date))
-                    binding.description.text = StringHelper.toPersianDigits(description)
+                    binding.registerTime.text =
+                        StringHelper.toPersianDigits(DateHelper.parseFormat(date))
                     binding.pendingNum.text = dataObject.getString("queueOrderCount")
-                    binding.freeDeliver.text = dataObject.getString("queueOrderCount")
+                    binding.freeDeliver.text = dataObject.getString("freeDeliveryCount")
                 }
             } else {
                 GeneralDialog()

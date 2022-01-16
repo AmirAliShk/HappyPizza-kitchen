@@ -1,7 +1,6 @@
 package ir.food.kitchenAndroid.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -75,7 +74,7 @@ class ReadyOrdersFragment : Fragment() {
             MyApplication.handler.post {
                 binding.imgRefreshActionBar?.clearAnimation()
                 try {
-                    parseDate(args[0].toString())
+                    parseData(args[0].toString())
                 } catch (e: JSONException) {
                     binding.vfOrdersPage?.displayedChild = 2
                     GeneralDialog()
@@ -105,7 +104,7 @@ class ReadyOrdersFragment : Fragment() {
         }
     }
 
-    private fun parseDate(result: String) {
+    private fun parseData(result: String) {
         try {
             readyOrdersModels.clear()
             response = result
@@ -115,49 +114,29 @@ class ReadyOrdersFragment : Fragment() {
             val message = response.getString("message")
 
             if (success) {
+                binding.txtDeliveryCount?.text = response.getString("freeDeliveryCount")
                 val dataObject = response.getJSONArray("data")
 
                 for (i in 0 until dataObject.length()) {
                     val orderDetails: JSONObject = dataObject.getJSONObject(i)
                     val customer = orderDetails.getJSONObject("customer")
                     val status = orderDetails.getJSONObject("status")
-//                binding.txtDeliveryCount?.text = orderDetails.getString("freeDeliver")
-                    if (orderDetails.has("deliveryId")) {
-                        val deliveryId = orderDetails.getJSONObject("deliveryId")
-                        val model = ReadyOrdersModel(
-                            orderDetails.getJSONArray("products"),
-                            orderDetails.getString("_id"),
-                            customer.getString("mobile"),
-                            customer.getString("family"),
-                            orderDetails.getString("address"),
-                            status.getString("name"),
-                            status.getInt("status"),
-                            orderDetails.getString("createdAt"),
-                            orderDetails.getString("description"),
-                            deliveryId.getString("family"),
-                            deliveryId.getString("mobile"),
-                            orderDetails.getBoolean("isPack"),
-                            orderDetails.getString("total")
-                        )
-                        readyOrdersModels.add(model)
-                    } else {
-                        val model = ReadyOrdersModel(
-                            orderDetails.getJSONArray("products"),
-                            orderDetails.getString("_id"),
-                            customer.getString("mobile"),
-                            customer.getString("family"),
-                            orderDetails.getString("address"),
-                            status.getString("name"),
-                            status.getInt("status"),
-                            orderDetails.getString("createdAt"),
-                            orderDetails.getString("description"),
-                            "0",
-                            "0",
-                            orderDetails.getBoolean("isPack"),
-                            orderDetails.getString("total")
-                        )
-                        readyOrdersModels.add(model)
-                    }
+
+                    val model = ReadyOrdersModel(
+                        orderDetails.getJSONArray("products"),
+                        orderDetails.getString("_id"),
+                        customer.getString("mobile"),
+                        customer.getString("family"),
+                        orderDetails.getString("address"),
+                        status.getString("name"),
+                        status.getInt("status"),
+                        orderDetails.getString("createdAt"),
+                        orderDetails.getString("description"),
+                        orderDetails.getString("systemDescription"),
+                        orderDetails.getBoolean("isPack"),
+                        orderDetails.getString("total")
+                    )
+                    readyOrdersModels.add(model)
                 }
                 if (readyOrdersModels.size == 0) {
                     binding.vfOrdersPage?.displayedChild = 1

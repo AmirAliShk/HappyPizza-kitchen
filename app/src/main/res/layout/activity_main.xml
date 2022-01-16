@@ -44,10 +44,33 @@
         android:gravity="center"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/_50sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:src="@drawable/ic_chef_black" />
+
+            <TextView
+                android:id="@+id/txtAccName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sdp" />
+
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2" />
+            android:layout_weight="1" />
 
         <LinearLayout
             android:id="@+id/btnNotReady"
@@ -225,8 +248,8 @@
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_32sdp"
                 android:layout_gravity="center"
-                android:padding="@dimen/_3sdp"
                 android:layout_marginRight="@dimen/_20sdp"
+                android:padding="@dimen/_3sdp"
                 android:src="@drawable/ic_baseline_fact_check_24" />
 
             <TextView
@@ -246,7 +269,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2" />
+            android:layout_weight="1.5" />
 
     </LinearLayout>
 
