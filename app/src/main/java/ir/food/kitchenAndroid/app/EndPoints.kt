@@ -28,8 +28,9 @@ class EndPoints {
         const val EDIT_PRODUCTS = WEBSERVICE_PATH + "product"
         const val GET_PRODUCTS_TYPE = WEBSERVICE_PATH + "product/type"
         const val DELI_FINANCIAL = DELI_PATH + "financial"
+        const val STATUS_DELI = DELI_PATH + "status"
+        const val LOCATION_DELI = DELI_PATH + "location/"
         const val CHECKOUT_DELI = CHECKOUT + "delivery"
-
 
         /******************************** refresh token Api  *****************************************/
         const val REFRESH_TOKEN = HAWKEYE_PATH + "token"

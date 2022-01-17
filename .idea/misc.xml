@@ -40,7 +40,8 @@
         <entry key="app/src/main/res/drawable/ic_waiting_blach.xml" value="0.196875" />
         <entry key="app/src/main/res/drawable/pale_red.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/redd.xml" value="0.35625" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3484375" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.52265625" />
+        <entry key="app/src/main/res/layout/activity_main1.xml" value="0.50375" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3484375" />
         <entry key="app/src/main/res/layout/bg_deli_location_btn.xml" value="0.3770833333333333" />
         <entry key="app/src/main/res/layout/cancelable_loder.xml" value="0.19322916666666667" />
@@ -51,23 +52,29 @@
         <entry key="app/src/main/res/layout/dialog_products.xml" value="0.3484375" />
         <entry key="app/src/main/res/layout/ffeff.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_checkout_deli.xml" value="0.22037037037037038" />
-        <entry key="app/src/main/res/layout/fragment_deliver_location.xml" value="0.3770833333333333" />
-        <entry key="app/src/main/res/layout/fragment_get_products.xml" value="0.22037037037037038" />
+        <entry key="app/src/main/res/layout/fragment_deliver_location.xml" value="0.52265625" />
+        <entry key="app/src/main/res/layout/fragment_deliver_status.xml" value="0.52265625" />
+        <entry key="app/src/main/res/layout/fragment_get_products.xml" value="0.52265625" />
         <entry key="app/src/main/res/layout/fragment_not_ready_orders.xml" value="0.3484375" />
         <entry key="app/src/main/res/layout/fragment_orders_history.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_ready_orders.xml" value="0.22037037037037038" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.3484375" />
         <entry key="app/src/main/res/layout/fragment_sending.xml" value="0.22006578947368421" />
+        <entry key="app/src/main/res/layout/fragment_status_of_delivery.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_verification.xml" value="0.3484375" />
         <entry key="app/src/main/res/layout/item_all_orders.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/item_checkout.xml" value="0.3712820512820513" />
+        <entry key="app/src/main/res/layout/item_deliver_order.xml" value="0.52265625" />
+        <entry key="app/src/main/res/layout/item_deliver_status.xml" value="0.52265625" />
+        <entry key="app/src/main/res/layout/item_delivery_status.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/item_orders.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/item_orders_history.xml" value="0.22006578947368421" />
-        <entry key="app/src/main/res/layout/item_product.xml" value="0.19322916666666667" />
-        <entry key="app/src/main/res/layout/item_products.xml" value="0.2759259259259259" />
-        <entry key="app/src/main/res/layout/item_ready_orders.xml" value="0.22006578947368421" />
+        <entry key="app/src/main/res/layout/item_product.xml" value="0.52265625" />
+        <entry key="app/src/main/res/layout/item_products.xml" value="0.52265625" />
+        <entry key="app/src/main/res/layout/item_ready_orders.xml" value="0.52265625" />
         <entry key="app/src/main/res/layout/item_reedy_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_sending.xml" value="0.22006578947368421" />
+        <entry key="app/src/main/res/layout/item_status_of_delivery.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/item_toast.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/jhjj.xml" value="0.25" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.209375" />
@@ -75,7 +82,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

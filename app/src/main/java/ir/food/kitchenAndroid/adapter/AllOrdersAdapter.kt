@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.maps.model.LatLng
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ItemAllOrdersBinding
@@ -216,7 +215,7 @@ class AllOrdersAdapter(list: ArrayList<OrderHistoryModel>) :
         holder.binding.btnDeliverLocation.setOnClickListener {
             FragmentHelper.toFragment(
                 MyApplication.currentActivity,
-                DeliverLocationFragment(model.location)
+                DeliverLocationFragment(model.location, "")
             )
                 .add()
         }

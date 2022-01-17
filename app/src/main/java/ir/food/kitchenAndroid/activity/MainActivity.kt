@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
         binding.txtAccName?.text = MyApplication.prefManager.userName
+
         binding.btnNotReady.setOnClickListener {
             FragmentHelper
                 .toFragment(MyApplication.currentActivity, NotReadyOrdersFragment())
@@ -73,6 +74,12 @@ class MainActivity : AppCompatActivity() {
         binding.btnCheckoutDeli?.setOnClickListener {
             FragmentHelper
                 .toFragment(MyApplication.currentActivity, CheckoutDeliFragment())
+                .add()
+        }
+
+        binding.btnDeliverStatus?.setOnClickListener {
+            FragmentHelper
+                .toFragment(MyApplication.currentActivity, DeliversStatusFragment())
                 .add()
         }
 

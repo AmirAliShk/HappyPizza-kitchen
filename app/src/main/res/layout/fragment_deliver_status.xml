@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true"
     android:background="@color/background"
+    android:clickable="true"
+    android:layoutDirection="rtl"
     android:orientation="vertical"
     tools:context=".fragment.CheckoutDeliFragment">
 
@@ -16,7 +17,6 @@
         android:baselineAligned="false">
 
         <TextView
-            android:id="@+id/txtTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
@@ -28,61 +28,52 @@
 
         <ImageView
             android:id="@+id/imgBack"
-            android:layout_width="@dimen/_50sdp"
+            android:layout_width="?android:attr/actionBarSize"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:padding="@dimen/_10sdp"
             android:src="@drawable/ic_back" />
 
-        <ImageView
-            android:id="@+id/imgAdd"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:padding="@dimen/_12sdp"
-            android:src="@drawable/ic_round_add_24"
-            android:visibility="invisible" />
-
     </RelativeLayout>
 
     <ViewFlipper
-        android:id="@+id/vfCheckout"
+        android:id="@+id/vfDeliverStatus"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        <com.wang.avi.AVLoadingIndicatorView-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            app:indicatorColor="@color/black"-->
-<!--            app:indicatorName="BallBeatIndicator" />-->
+        <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            app:indicatorColor="@color/black"
+            app:indicatorName="BallBeatIndicator" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listCheckout"
+            android:id="@+id/listDeliverStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_status_of_delivery" />
+            tools:listitem="@layout/item_deliver_status" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@color/black"
             android:text="موردی برای نمایش وجود ندارد"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@color/black"
             android:padding="@dimen/_10sdp"
             android:text="متاسفانه هنگام دریافت داده از سرور به خطا خوردیم مجدد تلاش کنید"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black" />
 
     </ViewFlipper>
 

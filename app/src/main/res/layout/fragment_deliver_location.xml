@@ -19,7 +19,7 @@
             android:id="@+id/imgBack"
             android:layout_width="?android:attr/actionBarSize"
             android:layout_height="match_parent"
-            android:padding="15dp"
+            android:padding="@dimen/_10sdp"
             android:src="@drawable/ic_back" />
 
         <TextView
@@ -36,12 +36,12 @@
 
         <ImageView
             android:id="@+id/imgRefresh"
-            android:visibility="gone"
             android:layout_width="?android:attr/actionBarSize"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:padding="15dp"
-            android:src="@drawable/ic_refresh" />
+            android:src="@drawable/ic_refresh_white"
+            android:visibility="visible" />
 
     </RelativeLayout>
 
@@ -52,10 +52,10 @@
         android:layout_margin="10dp"
         android:background="@drawable/bg_red"
         android:elevation="5dp"
-        android:visibility="gone"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
