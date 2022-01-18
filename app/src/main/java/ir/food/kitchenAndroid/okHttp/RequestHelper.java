@@ -17,6 +17,8 @@ import java.util.regex.Pattern;
 import ir.food.kitchenAndroid.activity.Splash;
 import ir.food.kitchenAndroid.app.EndPoints;
 import ir.food.kitchenAndroid.app.MyApplication;
+import ir.food.kitchenAndroid.dialog.GeneralDialog;
+import ir.food.kitchenAndroid.helper.NetworkStatus;
 import ir.food.kitchenAndroid.helper.StringHelper;
 import okhttp3.Call;
 import okhttp3.Headers;
@@ -165,12 +167,6 @@ public class RequestHelper implements okhttp3.Callback {
         return url;
     }
 
-    public static RequestHelper loadBalancingBuilder(String path) {
-        instance = new RequestHelper();
-        instance.path = path;
-        return instance;
-    }
-
     public void get() {
         url = getUrl();
         if (url == null) return;
@@ -251,6 +247,14 @@ public class RequestHelper implements okhttp3.Callback {
 
     private void request() {
         try {
+            if (!NetworkStatus.readNetworkStatus()) {
+                // internet problem try again
+                new GeneralDialog()
+                        .message("لطفا ارتباط دستگاه به اینترنت را بررسی نمایید")
+                        .secondButton("بسیار خب", null)
+                        .show();
+                return;
+            }
             log("request url : " + req.url().toString());
             log("params : " + params);
             log("paths : " + path);

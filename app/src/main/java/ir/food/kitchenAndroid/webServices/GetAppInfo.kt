@@ -138,18 +138,6 @@ class GetAppInfo {
                     }
                 }
             }
-
-            override fun onFailure(reCall: Runnable?, e: Exception?) {
-                MyApplication.handler.post {
-                    GeneralDialog()
-                        .message("خطایی پیش آمده دوباره امتحان کنید.")
-                        .firstButton("بستن") { GeneralDialog().dismiss() }
-                        .secondButton("تلاش مجدد") { callAppInfoAPI() }
-                        .cancelable(false)
-                        .show()
-                }
-                super.onFailure(reCall, e)
-            }
         }
 
     private fun updatePart(isForce: Boolean, url: String) {
