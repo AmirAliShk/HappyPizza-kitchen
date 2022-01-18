@@ -1,7 +1,6 @@
 package ir.food.kitchenAndroid.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +8,14 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.model.LatLng
 import ir.food.kitchenAndroid.R
+import ir.food.kitchenAndroid.activity.MainActivity
 import ir.food.kitchenAndroid.adapter.AllOrdersAdapter
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentAllOrdersBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
 import ir.food.kitchenAndroid.helper.TypefaceUtil
-import ir.food.kitchenAndroid.model.OrderHistoryModel
+import ir.food.kitchenAndroid.model.AllOrdersModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.push.AvaCrashReporter
 import org.json.JSONException
@@ -25,8 +25,10 @@ import java.lang.Exception
 class AllOrdersFragment : Fragment() {
 
     lateinit var binding: FragmentAllOrdersBinding
+
+    val TAG: String = AllOrdersFragment::class.java.simpleName
     private lateinit var response: String
-    var readyOrdersModels: ArrayList<OrderHistoryModel> = ArrayList()
+    var readyOrdersModels: ArrayList<AllOrdersModel> = ArrayList()
     var adapterAll: AllOrdersAdapter = AllOrdersAdapter(readyOrdersModels)
 
     override fun onCreateView(
@@ -124,7 +126,7 @@ class AllOrdersFragment : Fragment() {
                         val latlng = deliveryId.getJSONObject("lastLocation")
                             .getJSONArray("geo")
 
-                        val model = OrderHistoryModel(
+                        val model = AllOrdersModel(
                             orderDetails.getJSONArray("products"),
                             orderDetails.getString("_id"),
                             customer.getString("mobile"),
@@ -138,11 +140,12 @@ class AllOrdersFragment : Fragment() {
                             deliveryId.getString("family"),
                             deliveryId.getString("mobile"),
                             LatLng(latlng.getDouble(1), latlng.getDouble(0)),
+                            if (orderDetails.has("deliveryAcceptedTime")) orderDetails.getString("deliveryAcceptedTime") else "",
                             orderDetails.getString("total")
                         )
                         readyOrdersModels.add(model)
                     } else {
-                        val model = OrderHistoryModel(
+                        val model = AllOrdersModel(
                             orderDetails.getJSONArray("products"),
                             orderDetails.getString("_id"),
                             customer.getString("mobile"),
@@ -156,6 +159,7 @@ class AllOrdersFragment : Fragment() {
                             "",
                             "",
                             LatLng(0.0, 0.0),
+                            if (orderDetails.has("deliveryAcceptedTime")) orderDetails.getString("deliveryAcceptedTime") else "",
                             orderDetails.getString("total")
                         )
                         readyOrdersModels.add(model)
@@ -180,6 +184,7 @@ class AllOrdersFragment : Fragment() {
             binding.vfHistory.displayedChild = 2
             binding.imgRefreshActionBar.clearAnimation()
             e.printStackTrace()
+            AvaCrashReporter.send(e, "$TAG class, parseData method")
         }
     }
 }

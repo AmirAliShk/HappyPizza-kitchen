@@ -145,6 +145,35 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llAcceptTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_7sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="top|right"
+                android:layout_weight="2"
+                android:text="زمان قبول سفارش : "
+                android:textColor="@color/color_Titles"
+                android:textSize="@dimen/_17sdp" />
+
+            <TextView
+                android:id="@+id/txtAcceptTime"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical|right"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_17sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_10sdp"

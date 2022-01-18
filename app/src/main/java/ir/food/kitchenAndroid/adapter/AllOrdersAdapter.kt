@@ -20,10 +20,10 @@ import ir.food.kitchenAndroid.helper.DateHelper
 import ir.food.kitchenAndroid.helper.FragmentHelper
 import ir.food.kitchenAndroid.helper.StringHelper
 import ir.food.kitchenAndroid.helper.TypefaceUtil
-import ir.food.kitchenAndroid.model.OrderHistoryModel
+import ir.food.kitchenAndroid.model.AllOrdersModel
 import ir.food.kitchenAndroid.model.CartModel
 
-class AllOrdersAdapter(list: ArrayList<OrderHistoryModel>) :
+class AllOrdersAdapter(list: ArrayList<AllOrdersModel>) :
     RecyclerView.Adapter<AllOrdersAdapter.ViewHolder>() {
 
     private val models = list
@@ -65,6 +65,16 @@ class AllOrdersAdapter(list: ArrayList<OrderHistoryModel>) :
 
         holder.binding.txtDeliverName.text = model.deliverName
         holder.binding.txtTotalPrice.text = StringHelper.setComma(model.total) + " تومان"
+
+        if (model.acceptTime == "") {
+            holder.binding.llAcceptTime.visibility = View.GONE
+        } else {
+            holder.binding.llAcceptTime.visibility = View.VISIBLE
+            holder.binding.txtAcceptTime.text =
+                StringHelper.toPersianDigits(DateHelper.parseFormatToStringNoDay(model.acceptTime)) + "  " + StringHelper.toPersianDigits(
+                    DateHelper.parseFormat(model.acceptTime)
+                )
+        }
 
         var icon = R.drawable.ic_close
         var color = R.color.canceled
@@ -226,7 +236,7 @@ class AllOrdersAdapter(list: ArrayList<OrderHistoryModel>) :
             CancelDialogOrder().show(model.id, object : CancelDialogOrder.CancelOrderDialog {
                 override fun onSuccess(b: Boolean) {
                     if (b) {
-                        val newModel = OrderHistoryModel(
+                        val newModel = AllOrdersModel(
                             models[pos].products,
                             models[pos].id,
                             models[pos].customerMobile,
@@ -240,6 +250,7 @@ class AllOrdersAdapter(list: ArrayList<OrderHistoryModel>) :
                             models[pos].deliverName,
                             models[pos].deliverMobile,
                             models[pos].location,
+                            models[pos].acceptTime,
                             models[pos].total
                         )
                         models[pos] = newModel
