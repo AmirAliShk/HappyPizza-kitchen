@@ -11,49 +11,50 @@ import ir.food.kitchenAndroid.app.MyApplication;
 
 public class SoundHelper {
 
-  public static void ringing(Context context, int ringTown,boolean ringing) {
-    try {
+    public static void ringing(Context context, int ringTown, boolean ringing) {
+        try {
 
-      if (ringing) {
-        return;
-      }
+            if (ringing) {
+                return;
+            }
 //    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-      ringtone = RingtoneManager.getRingtone(context, Uri.parse(MyApplication.Companion.getSOUND() + ringTown));
-      ringtone.play();
+            ringtone = RingtoneManager.getRingtone(context, Uri.parse(MyApplication.Companion.getSOUND() + ringTown));
+            ringtone.play();
 
-    } catch (Exception e) {
-      e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-  }
+    public static Ringtone ringtone;
 
-  public static Ringtone ringtone;
-  public static void ringing(Uri uri) {
-    try {
+    public static void ringing(Uri uri) {
+        try {
 //    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-      ringtone = RingtoneManager.getRingtone(MyApplication.context, uri);
-      ringtone.play();
+            ringtone = RingtoneManager.getRingtone(MyApplication.context, uri);
+            ringtone.play();
 
-    } catch (Exception e) {
-      e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
-  }
-  public static void ringing(@RawRes int ringTown) {
-    try {
+    public static void ringing(@RawRes int ringTown) {
+        try {
 //    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-      ringtone = RingtoneManager.getRingtone(MyApplication.context, Uri.parse(MyApplication.Companion.getSOUND() + ringTown));
-      ringtone.play();
+            ringtone = RingtoneManager.getRingtone(MyApplication.context, Uri.parse(MyApplication.Companion.getSOUND() + ringTown));
+            ringtone.play();
 
-    } catch (Exception e) {
-      e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
-  }
-  public static void stop()
-  {
-    if(ringtone!=null)
-    ringtone.stop();
-  }
+    public static void stop() {
+        if (ringtone != null)
+            ringtone.stop();
+    }
 
 }

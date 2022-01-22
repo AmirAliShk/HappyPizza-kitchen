@@ -13,10 +13,7 @@ import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentNotReadyOrdersBinding
 import ir.food.kitchenAndroid.dialog.CallDialog
 import ir.food.kitchenAndroid.dialog.GeneralDialog
-import ir.food.kitchenAndroid.helper.DateHelper
-import ir.food.kitchenAndroid.helper.SoundHelper
-import ir.food.kitchenAndroid.helper.StringHelper
-import ir.food.kitchenAndroid.helper.TypefaceUtil
+import ir.food.kitchenAndroid.helper.*
 import ir.food.kitchenAndroid.model.CartModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.push.AvaCrashReporter
@@ -114,6 +111,13 @@ class NotReadyOrdersFragment : Fragment() {
     }
 
     private fun getOrders() {
+        if (!NetworkStatus.readNetworkStatus()) {
+            // internet problem try again
+            binding.imgErrorNetwork.visibility = View.VISIBLE
+            SoundHelper.ringing(MyApplication.context, R.raw.error_tune, false)
+            return
+        }
+        binding.imgErrorNetwork.visibility = View.INVISIBLE
         binding.vfOrders.displayedChild = 1
         lastFiveSecond = Calendar.getInstance().timeInMillis + 5000
         RequestHelper.builder(EndPoints.NOT_READY_ORDER)
@@ -122,6 +126,13 @@ class NotReadyOrdersFragment : Fragment() {
     }
 
     private fun refresh() {
+        if (!NetworkStatus.readNetworkStatus()) {
+            // internet problem try again
+            binding.imgErrorNetwork.visibility = View.VISIBLE
+            SoundHelper.ringing(MyApplication.context, R.raw.error_tune, false)
+            return
+        }
+        binding.imgErrorNetwork.visibility = View.INVISIBLE
         RequestHelper.builder(EndPoints.NOT_READY_ORDER)
             .listener(ordersCallBack)
             .get()
