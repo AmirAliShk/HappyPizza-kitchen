@@ -99,8 +99,19 @@ class ProductDialog {
     private fun editProductType(id: String, supply: String) {
         binding.vfSubmit.displayedChild = 1
         pCount = supply
+        var status = 0
+        when (binding.rgStatus.checkedRadioButtonId) {
+            binding.rbActive.id -> {
+                status = 1
+            }
+            binding.rbDeActive.id -> {
+                status = 0
+            }
+        }
+
         RequestHelper.builder(EndPoints.EDIT_PRODUCTS)
             .listener(editProductTypeCallBack)
+            .addParam("status", status)
             .addParam("productId", id)
             .addParam("supply", supply)
             .put()

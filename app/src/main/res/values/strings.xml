@@ -33,5 +33,7 @@
     <string name="kitchen_version">نسخه آشپزخانه</string>
     <string name="deliver_name">نام پیک :</string>
     <string name="location_delivery">موقعیت پیک</string>
+    <string name="de_active">غیرفعال</string>
+    <string name="active">فعال</string>
 
 </resources>

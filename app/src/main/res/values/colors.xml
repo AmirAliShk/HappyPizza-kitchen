@@ -23,5 +23,8 @@
     <color name="canceled">#e53935</color>
     <color name="transparent">#00E53935</color>
     <color name="waiting">#ffeb3b</color>
+    <color name="gray">#9e9e9e</color>
+    <color name="lighter_green">#4caf50</color>
+    <color name="lighter_gray">#403f40</color>
 
 </resources>

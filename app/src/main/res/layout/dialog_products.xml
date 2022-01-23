@@ -21,6 +21,40 @@
             android:orientation="vertical"
             android:padding="@dimen/_10sdp">
 
+            <RadioGroup
+                android:id="@+id/rgStatus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbActive"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/red"
+                    android:checked="true"
+                    android:paddingVertical="@dimen/_7sdp"
+                    android:shadowColor="@color/red"
+                    android:text="@string/active"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16sdp" />
+
+                <RadioButton
+                    android:id="@+id/rbDeActive"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/red"
+                    android:paddingVertical="@dimen/_7sdp"
+                    android:shadowColor="@color/red"
+                    android:text="@string/de_active"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16sdp" />
+
+            </RadioGroup>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
