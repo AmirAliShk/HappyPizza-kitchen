@@ -1,6 +1,8 @@
 package ir.food.kitchenAndroid.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +20,13 @@ import ir.food.kitchenAndroid.push.AvaCrashReporter
 import ir.food.kitchenAndroid.webServices.GetAppInfo
 import org.json.JSONException
 import org.json.JSONObject
+import java.util.*
 
 class VerificationFragment : Fragment() {
 
     lateinit var binding: FragmentVerificationBinding
+
+    private lateinit var countDownTimer: CountDownTimer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -95,6 +100,10 @@ class VerificationFragment : Fragment() {
 
                     if (success) {
                         MyApplication.Toast(message, Toast.LENGTH_LONG)
+                        val repetitionTime: Int = response.getInt("repetitionTime")
+                        MyApplication.prefManager.repetitionTime = repetitionTime
+                        binding.vfTime.visibility = View.VISIBLE
+                        startWaitingTime()
 //                 "success": true, "message": "کد تاییدیه به شماره موبایل داده شده ، با موفقیت فرستاده شد"
                     } else {
                         binding.vfSendCode.displayedChild = 0
@@ -197,4 +206,31 @@ class VerificationFragment : Fragment() {
                 super.onFailure(reCall, e)
             }
         }
+
+    private fun startWaitingTime() {
+        if (MyApplication.prefManager.activationRemainingTime < Calendar.getInstance().timeInMillis) MyApplication.prefManager.activationRemainingTime =
+            Calendar.getInstance().timeInMillis + MyApplication.prefManager.repetitionTime * 1000
+        countDownTimer()
+    }
+
+    private fun countDownTimer() {
+        val remainingTime: Long =
+            MyApplication.prefManager.activationRemainingTime - Calendar.getInstance().timeInMillis
+        countDownTimer =
+            object : CountDownTimer(remainingTime, 1000) {
+                @SuppressLint("SetTextI18n")
+                override fun onTick(millisUntilFinished: Long) {
+                    if (binding.txtResendCode != null) {
+                        if (binding.vfTime != null) binding.vfTime.displayedChild = 0
+                        binding.txtResendCode.text = ((millisUntilFinished / 1000).toString())
+                    }
+                }//todo set on click for send code again
+
+                override fun onFinish() {
+                    if (binding.txtResendCode != null) {
+                        if (binding.vfTime != null) binding.vfTime.displayedChild = 1
+                    }
+                }
+            }.start()
+    }
 }

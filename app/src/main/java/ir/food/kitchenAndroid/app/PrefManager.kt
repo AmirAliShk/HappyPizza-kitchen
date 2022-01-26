@@ -112,13 +112,6 @@ class PrefManager {
             editor.commit()
         }
 
-    fun isLoggedIn(login: Boolean) {
-        editor.putBoolean(KEY_IS_LOGGED_IN, login)
-        editor.commit()
-    }
-
-    val loggedIn: Boolean
-        get() = this.sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)
     var activationRemainingTime: Long
         get() = this.sharedPreferences.getLong(
             KEY_ACTIVATION_REMAINING_TIME,
