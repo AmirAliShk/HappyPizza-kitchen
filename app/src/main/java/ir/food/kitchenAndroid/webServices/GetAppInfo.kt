@@ -110,11 +110,13 @@ class GetAppInfo {
                                         MyApplication.prefManager.cleanPrefManger()
                                         MyApplication.currentActivity.finish()
                                     }
+                                    .cancelable(false)
                                     .show()
                             } else {
                                 GeneralDialog()
                                     .message(statusMessage)
                                     .secondButton("بستن") { MyApplication.currentActivity.finish() }
+                                    .cancelable(false)
                                     .show()
                             }
 

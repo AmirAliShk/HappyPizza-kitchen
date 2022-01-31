@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -96,6 +97,7 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
                 .secondButton("خیر") {}
+                .cancelable(false)
                 .show()
         }
     }
@@ -114,7 +116,7 @@ class MainActivity : AppCompatActivity() {
                         getString(R.string.txt_please_for_exit_reenter_back),
                         Toast.LENGTH_SHORT
                     )
-                    Handler().postDelayed({
+                    Handler(Looper.getMainLooper()).postDelayed({
                         doubleBackToExitPressedOnce = false
                     }, 1500)
                 }

@@ -1,13 +1,11 @@
 package ir.food.kitchenAndroid.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import ir.food.kitchenAndroid.activity.MainActivity
 import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentRegisterBinding
@@ -169,7 +167,7 @@ class RegisterFragment : Fragment() {
                             if (status) {
                                 GeneralDialog().message(message).firstButton("باشه") {
                                     GetAppInfo().callAppInfoAPI()
-                                }.show()
+                                }.cancelable(false).show()
                                 MyApplication.prefManager.idToken = data.getString("idToken")
                                 MyApplication.prefManager.authorization =
                                     data.getString("accessToken")

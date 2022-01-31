@@ -140,7 +140,6 @@ class DeliverStatusAdapter(list: ArrayList<DeliverStatusModel>) :
                 try {
 //                    {"success":true,"message":"پیک مورد نظر فعال شد","data":{"status":true}}
                     val response = JSONObject(args[0].toString())
-
                     val success = response.getBoolean("success")
                     val message = response.getString("message")
 

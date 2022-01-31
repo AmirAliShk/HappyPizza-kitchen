@@ -117,13 +117,13 @@ class ProductDialog {
                         val success = response.getBoolean("success")
                         val message = response.getString("message")
                         if (success) {
-
                             GeneralDialog()
                                 .message(message)
                                 .firstButton("باشه") {
                                     pDialogInterface.dismissListener(true, pCount)
                                     GeneralDialog().dismiss()
                                 }
+                                .cancelable(false)
                                 .show()
                         } else {
                             GeneralDialog()

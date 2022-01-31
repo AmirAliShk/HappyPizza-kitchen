@@ -52,7 +52,6 @@ class CheckoutDeliFragment : Fragment() {
             MyApplication.handler.post {
                 try {
                     val response = JSONObject(args[0].toString())
-
                     val success = response.getBoolean("success")
                     val message = response.getString("message")
 

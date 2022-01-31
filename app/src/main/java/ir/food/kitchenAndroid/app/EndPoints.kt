@@ -4,12 +4,12 @@ class EndPoints {
     companion object {
         /*TODO : check apis and ports before release*/
         const val IP = "http://happypizza.ir:3010"
-        const val HAKWEYE_IP = "http://happypizza.ir:1890"
-        const val WEBSERVICE_PATH = "$IP/api/kitchen/v1/"
-        const val CHECKOUT = "$IP/api/kitchen/v1/checkout/"
-        const val DELI_PATH = "$IP/api/kitchen/v1/delivery/"
-        const val HAWKEYE_PATH = "$HAKWEYE_IP/api/user/v1/"
-        const val HAWKEYE_LOGIN_PATH = "$HAKWEYE_IP/api/user/v1/login/phone/"
+        private const val HAWKEYE_IP = "http://happypizza.ir:1890"
+        private const val WEBSERVICE_PATH = "$IP/api/kitchen/v1/"
+        private const val CHECKOUT = "$IP/api/kitchen/v1/checkout/"
+        private const val DELI_PATH = "$IP/api/kitchen/v1/delivery/"
+        private const val HAWKEYE_PATH = "$HAWKEYE_IP/api/user/v1/"
+        private const val HAWKEYE_LOGIN_PATH = "$HAWKEYE_IP/api/user/v1/login/phone/"
 
         /******************************** Base Api  *****************************************/
         const val APP_INFO = WEBSERVICE_PATH + "app/info"

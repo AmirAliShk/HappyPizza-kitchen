@@ -49,7 +49,6 @@ class DeliversStatusFragment : Fragment() {
                 try {
 //{"success":true,"message":"وضعیت پیک ها با موفقیت ارسال شدند.","data":{"status":true,"deliveriesStatus":[{"id":"61d159f46fe5275b29f2cb97","name":"محمد جواد حیدری","orders":[{"customer":{"family":"محمد جواد حیدری"},"address":"موسوی قوچانی 25 بلوک 6 زنگ 5","status":{"status":1,"name":"لغو شده"},"deliveryAcceptedTime":"2022-01-16T09:22:57.896Z"}],"mobile":"09105044033","approveKitchen":0,"lastLocation":{"geo":[59.572952,36.298774],"saveDate":"2022-01-16T15:34:47.295Z"}}]}}
                     val response = JSONObject(args[0].toString())
-
                     val success = response.getBoolean("success")
                     val message = response.getString("message")
 
