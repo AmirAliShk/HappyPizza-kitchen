@@ -134,7 +134,7 @@ class DeliverStatusAdapter(list: ArrayList<DeliverStatusModel>) :
             .put()
     }
 
-    val statusCallback: RequestHelper.Callback = object : RequestHelper.Callback() {
+    private val statusCallback: RequestHelper.Callback = object : RequestHelper.Callback() {
         override fun onResponse(reCall: Runnable?, vararg args: Any?) {
             MyApplication.handler.post {
                 try {

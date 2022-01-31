@@ -55,7 +55,8 @@
         <ViewFlipper
             android:id="@+id/vfDeliverOrders"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:measureAllChildren="false">
 
             <com.wang.avi.AVLoadingIndicatorView
                 android:layout_width="40dp"
@@ -69,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="2"
+                tools:itemCount="0"
                 tools:listitem="@layout/item_deliver_order" />
 
             <TextView

@@ -52,21 +52,22 @@
         <entry key="app/src/main/res/layout/dialog_general.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/dialog_products.xml" value="0.3484375" />
         <entry key="app/src/main/res/layout/ffeff.xml" value="0.19322916666666667" />
-        <entry key="app/src/main/res/layout/fragment_checkout_deli.xml" value="0.22037037037037038" />
-        <entry key="app/src/main/res/layout/fragment_deliver_location.xml" value="0.52265625" />
-        <entry key="app/src/main/res/layout/fragment_deliver_status.xml" value="0.52265625" />
-        <entry key="app/src/main/res/layout/fragment_get_products.xml" value="0.52265625" />
-        <entry key="app/src/main/res/layout/fragment_not_ready_orders.xml" value="0.52265625" />
+        <entry key="app/src/main/res/layout/fragment_all_orders.xml" value="0.3013513513513513" />
+        <entry key="app/src/main/res/layout/fragment_checkout_deli.xml" value="0.3013513513513513" />
+        <entry key="app/src/main/res/layout/fragment_deliver_location.xml" value="0.3013513513513513" />
+        <entry key="app/src/main/res/layout/fragment_deliver_status.xml" value="0.3013513513513513" />
+        <entry key="app/src/main/res/layout/fragment_get_products.xml" value="0.3013513513513513" />
+        <entry key="app/src/main/res/layout/fragment_not_ready_orders.xml" value="0.3013513513513513" />
         <entry key="app/src/main/res/layout/fragment_orders_history.xml" value="0.22006578947368421" />
-        <entry key="app/src/main/res/layout/fragment_ready_orders.xml" value="0.22037037037037038" />
+        <entry key="app/src/main/res/layout/fragment_ready_orders.xml" value="0.3013513513513513" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.3484375" />
-        <entry key="app/src/main/res/layout/fragment_sending.xml" value="0.22006578947368421" />
+        <entry key="app/src/main/res/layout/fragment_sending.xml" value="0.3013513513513513" />
         <entry key="app/src/main/res/layout/fragment_status_of_delivery.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/fragment_verification.xml" value="0.3484375" />
         <entry key="app/src/main/res/layout/item_all_orders.xml" value="0.52265625" />
         <entry key="app/src/main/res/layout/item_checkout.xml" value="0.3712820512820513" />
-        <entry key="app/src/main/res/layout/item_deliver_order.xml" value="0.52265625" />
-        <entry key="app/src/main/res/layout/item_deliver_status.xml" value="0.52265625" />
+        <entry key="app/src/main/res/layout/item_deliver_order.xml" value="0.3013513513513513" />
+        <entry key="app/src/main/res/layout/item_deliver_status.xml" value="0.3013513513513513" />
         <entry key="app/src/main/res/layout/item_delivery_status.xml" value="0.22006578947368421" />
         <entry key="app/src/main/res/layout/item_orders.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/item_orders_history.xml" value="0.22006578947368421" />
