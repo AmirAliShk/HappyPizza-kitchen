@@ -147,6 +147,7 @@ class DeliverStatusAdapter(list: ArrayList<DeliverStatusModel>) :
                         val dataObject = response.getJSONObject("data")
                         val status = dataObject.getBoolean("status")
                         if (status) {
+                            notifyDataSetChanged()
                             when (statusInt) {
                                 1 -> {
                                     holder.binding.vfActive.displayedChild = 1

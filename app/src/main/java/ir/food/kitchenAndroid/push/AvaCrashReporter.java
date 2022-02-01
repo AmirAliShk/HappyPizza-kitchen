@@ -26,13 +26,13 @@ public class AvaCrashReporter {
 //    }
 
         try {
-            JSONObject customeData = new JSONObject();
-            customeData.put("LineCode", MyApplication.prefManager.getUserCode());
-            customeData.put("projectId", MyApplication.prefManager.getPushId());
-            customeData.put("IS_CATCH", true);
-            customeData.put("CATCH_LINE_NUMBER", 0);
-            customeData.put("CATCH_ID", arg.length > 0 ? arg[0] : 0);
-            customeData.put("CATCH_INPUT_PARAMS", arg.length > 1 ? arg[1] : 0);
+            JSONObject customData = new JSONObject();
+            customData.put("LineCode", MyApplication.prefManager.getUserCode());
+            customData.put("projectId", MyApplication.prefManager.getPushId());
+            customData.put("IS_CATCH", true);
+            customData.put("CATCH_LINE_NUMBER", 0);
+            customData.put("CATCH_ID", arg.length > 0 ? arg[0] : 0);
+            customData.put("CATCH_INPUT_PARAMS", arg.length > 1 ? arg[1] : 0);
             RequestHelper.builder("http://turbotaxi.ir:6061/api/crashReport")
                     .addParam("APP_VERSION_CODE", new AppVersionHelper(MyApplication.context).getVersionCode())
                     .addParam("APP_VERSION_NAME", new AppVersionHelper(MyApplication.context).getVersionName())
@@ -43,7 +43,7 @@ public class AvaCrashReporter {
                     .addParam("TOTAL_MEM_SIZE", "")
                     .addParam("AVAILABLE_MEM_SIZE", "")
                     .addParam("IS_SILENT", "")
-                    .addParam("CUSTOM_DATA", customeData)
+                    .addParam("CUSTOM_DATA", customData)
                     .addParam("STACK_TRACE", Log.getStackTraceString(e))
                     .addParam("INITIAL_CONFIGURATION", "")
                     .addParam("USER_APP_START_DATE", "")
