@@ -282,6 +282,56 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:gravity="top|right"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgIsPaid"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="@dimen/_6sdp"
+                android:text="وضعیت پرداخت"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:gravity="top|right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="@dimen/_6sdp"
+                android:text="نوع پرداخت : "
+                android:textColor="@color/color_Titles"
+                android:textSize="@dimen/_15ssp" />
+
+            <TextView
+                android:id="@+id/txtPaymentType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:paddingRight="@dimen/_6sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/llDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

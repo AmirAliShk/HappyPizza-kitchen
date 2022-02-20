@@ -76,6 +76,17 @@ class AllOrdersAdapter(list: ArrayList<AllOrdersModel>) :
                 )
         }
 
+        if (model.isPaid) {
+            holder.binding.imgIsPaid.setImageResource(R.drawable.ic_done_green)
+        } else {
+            holder.binding.imgIsPaid.setImageResource(R.drawable.ic_close_red)
+        }
+
+        when (model.paymentType) {
+            0 -> holder.binding.txtPaymentType.text = "حضوری"
+            1 -> holder.binding.txtPaymentType.text = "آنلاین"
+        }
+
         var icon = R.drawable.ic_close
         var color = R.color.canceled
         when (model.statusCode) {
@@ -205,7 +216,7 @@ class AllOrdersAdapter(list: ArrayList<AllOrdersModel>) :
             7 -> { //  7 calculated
                 holder.binding.btnDeliverLocation.visibility = View.GONE
                 holder.binding.vfCancelOrder.visibility = View.GONE
-                holder.binding.llDeliverName.visibility = View.GONE
+                holder.binding.llDeliverName.visibility = View.VISIBLE
                 holder.binding.imgCallDriver.visibility = View.GONE
                 icon = R.drawable.ic_payment
                 color = R.color.calculated
@@ -251,7 +262,9 @@ class AllOrdersAdapter(list: ArrayList<AllOrdersModel>) :
                             models[pos].deliverMobile,
                             models[pos].location,
                             models[pos].acceptTime,
-                            models[pos].total
+                            models[pos].total,
+                            models[pos].isPaid,
+                            models[pos].paymentType
                         )
                         models[pos] = newModel
                         notifyDataSetChanged()

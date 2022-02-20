@@ -18,5 +18,7 @@ data class AllOrdersModel(
     val deliverMobile: String,
     val location : LatLng,
     val acceptTime: String,
-    val total : String
+    val total : String,
+    val isPaid : Boolean,
+    val paymentType: Int,
 )

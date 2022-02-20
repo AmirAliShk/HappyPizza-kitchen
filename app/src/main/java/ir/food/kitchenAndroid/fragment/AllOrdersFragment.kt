@@ -141,7 +141,9 @@ class AllOrdersFragment : Fragment() {
                             deliveryId.getString("mobile"),
                             LatLng(latlng.getDouble(1), latlng.getDouble(0)),
                             if (orderDetails.has("deliveryAcceptedTime")) orderDetails.getString("deliveryAcceptedTime") else "",
-                            orderDetails.getString("total")
+                            orderDetails.getString("total"),
+                            orderDetails.getBoolean("paid"),
+                            orderDetails.getInt("paymentType")
                         )
                         readyOrdersModels.add(model)
                     } else {
@@ -160,7 +162,9 @@ class AllOrdersFragment : Fragment() {
                             "",
                             LatLng(0.0, 0.0),
                             if (orderDetails.has("deliveryAcceptedTime")) orderDetails.getString("deliveryAcceptedTime") else "",
-                            orderDetails.getString("total")
+                            orderDetails.getString("total"),
+                            orderDetails.getBoolean("paid"),
+                                    orderDetails.getInt("paymentType")
                         )
                         readyOrdersModels.add(model)
                     }
