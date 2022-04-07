@@ -42,7 +42,7 @@
         <entry key="app/src/main/res/drawable/ic_waiting_blach.xml" value="0.196875" />
         <entry key="app/src/main/res/drawable/pale_red.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/redd.xml" value="0.35625" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3013513513513513" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.27685185185185185" />
         <entry key="app/src/main/res/layout/activity_main1.xml" value="0.50375" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3484375" />
         <entry key="app/src/main/res/layout/bg_deli_location_btn.xml" value="0.3770833333333333" />
@@ -85,7 +85,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

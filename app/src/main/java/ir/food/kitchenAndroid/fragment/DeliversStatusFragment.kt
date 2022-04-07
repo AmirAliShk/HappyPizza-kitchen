@@ -11,6 +11,7 @@ import ir.food.kitchenAndroid.app.EndPoints
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.FragmentDeliverStatusBinding
 import ir.food.kitchenAndroid.dialog.GeneralDialog
+import ir.food.kitchenAndroid.helper.TypefaceUtil
 import ir.food.kitchenAndroid.model.DeliverStatusModel
 import ir.food.kitchenAndroid.okHttp.RequestHelper
 import ir.food.kitchenAndroid.push.AvaCrashReporter
@@ -29,6 +30,7 @@ class DeliversStatusFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDeliverStatusBinding.inflate(inflater)
+        TypefaceUtil.overrideFonts(binding.root)
 
         getDeliversList()
 

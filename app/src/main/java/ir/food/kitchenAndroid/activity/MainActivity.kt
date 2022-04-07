@@ -9,6 +9,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import ir.food.kitchenAndroid.R
 import ir.food.kitchenAndroid.app.MyApplication
 import ir.food.kitchenAndroid.databinding.ActivityMainBinding
@@ -39,6 +40,8 @@ class MainActivity : AppCompatActivity() {
             window?.navigationBarColor =
                 ContextCompat.getColor(MyApplication.context, R.color.background)
             window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            WindowInsetsControllerCompat(window, view).isAppearanceLightStatusBars = false
+            WindowInsetsControllerCompat(window, view).isAppearanceLightNavigationBars = true
         }
         binding.txtAccName?.text = MyApplication.prefManager.userName
 
